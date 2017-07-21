@@ -6,4 +6,5 @@ package ty.youngstudy.com.ui.view.base;
 
 public interface BaseView {
 
+
 }

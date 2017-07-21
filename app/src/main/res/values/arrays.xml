@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="tab_char">
+        <item>@string/weixin</item>
+        <item>@string/find</item>
+        <item>@string/friend</item>
+        <item>@string/me</item>
+    </array>
+
+    <array name="tab_draw">
+        <item name="wx_draw">@drawable/selector_tab_weixin</item>
+        <item name="find_draw">@drawable/selector_tab_find</item>
+        <item name="frd_draw">@drawable/selector_tab_friend</item>
+        <item name="me_draw">@drawable/selector_tab_me</item>
+    </array>
+</resources>

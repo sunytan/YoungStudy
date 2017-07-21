@@ -1,10 +1,13 @@
 package ty.youngstudy.com.ui.activity.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import butterknife.ButterKnife;
 import ty.youngstudy.com.ui.view.base.BaseView;
@@ -16,6 +19,39 @@ import ty.youngstudy.com.ui.view.base.BaseView;
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {
     public BaseActivity() {
         super();
+    }
+
+    public abstract View getLoadingView();
+
+    public abstract boolean getFirstStart();
+
+    public abstract void initViewAndEvents();
+
+
+    protected void readyGo(Class<?> clazz){
+        Intent intent = new Intent(this,clazz);
+        startActivity(intent);
+    }
+
+    protected void readyGoThenKill(Class<?> clazz){
+        Intent intent = new Intent(this,clazz);
+        startActivity(intent);
+        finish();
+    }
+
+    protected void readyGoThenKill(Class<?> clazz,Bundle bundle){
+        Intent intent = new Intent(this,clazz);
+        if (bundle == null) {
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
+        finish();
+    }
+
+    protected void showToast(String msg){
+        if (msg != null) {
+            Snackbar.make(getLoadingView(),msg,Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -32,7 +68,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
         ButterKnife.bind(this);
+        initViewAndEvents();
     }
 
-    public abstract boolean getFirstStart();
+
+
+
+
 }

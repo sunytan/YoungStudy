@@ -55,10 +55,7 @@ public class FirstActivity extends BaseActivity {
 
     @OnClick(R.id.btn_welcome)
     public void onClick(){
-        Intent intent = new Intent(FirstActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
+        readyGoThenKill(MainActivity.class);
     }
 
     private ArrayList<View> viewList = new ArrayList<View>();
@@ -70,11 +67,20 @@ public class FirstActivity extends BaseActivity {
     }
 
     @Override
+    public void initViewAndEvents() {
+
+    }
+
+    @Override
+    public View getLoadingView() {
+        return null;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_first);
-        //ButterKnife.bind(this);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         /* 初始化化 */

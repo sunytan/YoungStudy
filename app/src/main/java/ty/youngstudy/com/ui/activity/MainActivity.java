@@ -4,45 +4,87 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import butterknife.BindArray;
+import butterknife.BindDrawable;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ty.youngstudy.com.R;
 import ty.youngstudy.com.ui.activity.base.BaseActivity;
+import ty.youngstudy.com.ui.adapter.FragmentAdapter;
+import ty.youngstudy.com.ui.fragment.TabFragment;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static long DOUBLE_CLICK_TIME = 0L;
+
+    @BindArray(R.array.tab_char)
+    String[] tabCharList;
+
+    @BindView(R.id.tab_main_id)
+    TabLayout mTabLayout;
+
+    @BindView(R.id.frg_viewPager_id)
+    ViewPager frg_viewPager;
+
+    int[] tabDrawList = new int[]{R.drawable.selector_tab_weixin, R.drawable.selector_tab_find,
+            R.drawable.selector_tab_friend, R.drawable.selector_tab_me};
+
+    private ArrayList<Fragment> mFragmentList;
+    private ArrayList<String> mTitleList;
+    private FragmentAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getFirstStart()) {
-            startFirstActivity();
+            readyGoThenKill(FirstActivity.class);
         }
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        mTitleList = new ArrayList<>();
+        for (int i = 0; i < tabCharList.length; i++) {
+            mTitleList.add(tabCharList[i]);
+        }
+
+        mFragmentList = new ArrayList<>();
+        for (int i = 0; i < mTitleList.size(); i++) {
+            mFragmentList.add(TabFragment.newInstance(i));
+        }
+
+        adapter = new FragmentAdapter(getSupportFragmentManager(),mFragmentList,mTitleList);
+        frg_viewPager.setAdapter(adapter);
+
+        /* 初始化TabView */
+        initTab();
+
+/*        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                Intent slideIntent = new Intent("android.intent.action.slide");
-                slideIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(slideIntent);
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -54,18 +96,36 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    /* 第一次启动应用进入第一个欢迎界面 */
-    private void startFirstActivity(){
-        Intent intent = new Intent("android.intent.action.first");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
+    @Override
+    public View getLoadingView() {
+        return ButterKnife.findById(this,R.id.home_snacker_id);
+    }
+
+    private void initTab() {
+        mTabLayout.setupWithViewPager(frg_viewPager);
+        mTabLayout.setSelectedTabIndicatorHeight(0);
+        for (int i = 0; i < tabCharList.length; i++) {
+            TabLayout.Tab itemTab = mTabLayout.getTabAt(i);
+            if (itemTab != null) {
+                itemTab.setCustomView(R.layout.tab_item_layout);
+                TextView tv_tab = (TextView) itemTab.getCustomView().findViewById(R.id.tv_tab_find_id);
+                tv_tab.setText(tabCharList[i]);
+                ImageView iv_tab = (ImageView) itemTab.getCustomView().findViewById(R.id.iv_tab_find_id);
+                iv_tab.setImageResource(tabDrawList[i]);
+            }
+        }
+        mTabLayout.getTabAt(0).getCustomView().setSelected(true);
     }
 
     @Override
     public boolean getFirstStart() {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        return sp.getBoolean("first_start",true);
+        return sp.getBoolean("first_start", true);
+    }
+
+    @Override
+    public void initViewAndEvents() {
+
     }
 
     @Override
@@ -74,7 +134,12 @@ public class MainActivity extends BaseActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if ((System.currentTimeMillis() - DOUBLE_CLICK_TIME) > 2000) {
+                Snackbar.make(getLoadingView(),"请再次点击返回键",Snackbar.LENGTH_LONG).setAction("Action",null).show();
+                DOUBLE_CLICK_TIME = System.currentTimeMillis();
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 

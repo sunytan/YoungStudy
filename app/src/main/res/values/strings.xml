@@ -8,4 +8,10 @@
     <string name="welcome">welcome</string>
     <string name="welcome_join">welcome joins</string>
     <string name="title_activity_base">BaseActivity</string>
+    <string name="weixin">WeChat</string>
+    <string name="me">Me</string>
+    <string name="friend">Friend</string>
+    <string name="find">Find</string>
+    <string name="title_activity_reader">ReaderActivity</string>
+
 </resources>
