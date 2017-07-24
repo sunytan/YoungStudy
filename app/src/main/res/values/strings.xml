@@ -13,5 +13,10 @@
     <string name="friend">Friend</string>
     <string name="find">Find</string>
     <string name="title_activity_reader">ReaderActivity</string>
+    <string name="login_name">Account</string>
+    <string name="login_name_hint">please input phone count</string>
+    <string name="login_password">Password</string>
+    <string name="new_register">registry new account</string>
+    <string name="forget_pwd">forget password ?</string>
 
 </resources>

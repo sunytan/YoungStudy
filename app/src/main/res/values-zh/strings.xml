@@ -6,4 +6,9 @@
     <string name="me">我</string>
     <string name="friend">朋友</string>
     <string name="find">发现</string>
+    <string name="login_name">账户:</string>
+    <string name="login_name_hint">请输入手机号</string>
+    <string name="login_password">密码</string>
+    <string name="new_register">新用户注册</string>
+    <string name="forget_pwd">忘记密码？</string>
 </resources>

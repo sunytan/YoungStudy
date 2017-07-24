@@ -178,7 +178,7 @@ public class MainActivity extends BaseActivity
             slideIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(slideIntent);
         } else if (id == R.id.nav_slideshow) {
-
+            readyGo(LoginActivity.class);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
