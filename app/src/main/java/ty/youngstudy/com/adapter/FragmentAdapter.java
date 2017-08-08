@@ -1,8 +1,10 @@
-package ty.youngstudy.com.ui.adapter;
+package ty.youngstudy.com.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.View;
 
 import java.util.List;
 
@@ -32,11 +34,10 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
         return fragmentList.get(position);
     }
 
-
-    @Override
-    public int getItemPosition(Object object) {
-        return super.getItemPosition(object);
-    }
+//    @Override
+//    public int getItemPosition(Object object) {
+//        return super.getItemPosition(object);
+//    }
 
     @Override
     public CharSequence getPageTitle(int position) {

@@ -18,5 +18,10 @@
     <string name="login_password">Password</string>
     <string name="new_register">registry new account</string>
     <string name="forget_pwd">forget password ?</string>
+    <string name="detail">detail</string>
+    <string name="download">download</string>
+    <string name="delete">delete</string>
+    <string name="unread_count">%d unread</string>
+    <string name="exit_app">exit</string>
 
 </resources>

@@ -5,7 +5,13 @@
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="tab_margin">50dp</dimen>
+    <dimen name="tab_margin">53dp</dimen>
     <dimen name="login_text">25sp</dimen>
     <dimen name="login_text_hint">15sp</dimen>
+    <dimen name="novel_item_height">100dp</dimen>
+    <dimen name="thumb_width">58dp</dimen>
+    <dimen name="thumb_height">72dp</dimen>
+    <dimen name="unread_text_size">15sp</dimen>
+    <dimen name="novel_name_size">17sp</dimen>
+    <dimen name="novel_item_info_size">12sp</dimen>
 </resources>

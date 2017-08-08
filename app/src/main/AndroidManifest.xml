@@ -19,11 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.activity.MainActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.activity.FirstActivity"/>
         <activity android:name=".ui.activity.LoginActivity"/>
-
+        <activity android:name=".ui.activity.reader.NovelMainActivity"/>
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import butterknife.ButterKnife;
+import ty.youngstudy.com.MyApplication;
 import ty.youngstudy.com.ui.view.base.BaseView;
 
 /**
@@ -62,6 +63,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyApplication.getInstance().addActivity(this);
     }
 
     @Override

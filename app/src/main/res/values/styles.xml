@@ -43,4 +43,22 @@
         <item name="android:layout_gravity">center_vertical|center_horizontal</item>
     </style>
 
+
+    <style name="novelNameStyle">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/novel_name_size</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="novelItemTextStyle">
+        <item name="android:textSize">@dimen/novel_item_info_size</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="toggleButtonStyle" parent="@android:style/Widget.CompoundButton">
+        <item name="android:textOff">@null</item>
+        <item name="android:textOn">@null</item>
+        <item name="android:background">@drawable/novel_toggle_btn</item>
+    </style>
 </resources>

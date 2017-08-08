@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_novel_item_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:stateListAnimator="@animator/touch_anim"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/novel_item_height"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/image_novel_img_id"
+                    android:layout_width="@dimen/thumb_width"
+                    android:layout_height="@dimen/thumb_height"
+                    android:layout_marginLeft="5dp"
+                    android:src="@mipmap/default_cover"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:paddingLeft="10dp">
+
+                        <TextView
+                            android:id="@+id/tv_novel_name_id"
+                            style="@style/novelNameStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:text="超级保镖"/>
+
+                        <TextView
+                            android:id="@+id/tv_novel_unread_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="10人未读"
+                            android:textColor="@color/unread_color"
+                            android:textSize="@dimen/unread_text_size"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            android:id="@+id/tv_novel_chapter"
+                            style="@style/novelItemTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="第1章 救人"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_novel_update_time"
+                            style="@style/novelItemTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_novel_chapter"
+                            android:drawableLeft="@mipmap/last_update_time_icon"
+                            android:layout_marginTop="5dp"
+                            android:text="2017/7/25"
+                            />
+
+
+                        <TextView
+                            android:id="@+id/tv_novel_chapter_count"
+                            style="@style/novelItemTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@id/tv_novel_update_time"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toRightOf="@id/tv_novel_update_time"
+                            android:drawableLeft="@mipmap/read_page_icon"
+                            android:text="1/1000"/>
+
+                        <FrameLayout
+                            android:id="@+id/fl_toggleBtn"
+                            android:layout_width="40.0dip"
+                            android:layout_height="40.0dip"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="-20dp"
+                            android:layout_gravity="center_vertical"
+                            android:clickable="true"
+                            >
+
+                            <ToggleButton
+                                android:id="@+id/btn_toggleBtn"
+                                style="@style/toggleButtonStyle"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:clickable="false"
+                                android:focusable="false"/>
+
+                        </FrameLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+            
+            <LinearLayout
+                android:id="@+id/layout_hide_menu"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <ty.youngstudy.com.ui.widget.DownLoadText
+                    android:id="@+id/tv_download"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@drawable/bootsf_selector_button"
+                    android:text="@string/download"/>
+
+                <TextView
+                    android:id="@+id/tv_detail"
+                    android:background="@drawable/bootsf_selector_button"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/detail"/>
+
+                <TextView
+                    android:id="@+id/tv_delete"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@drawable/bootsf_selector_button"
+                    android:text="@string/delete"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>

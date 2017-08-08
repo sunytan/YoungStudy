@@ -21,29 +21,30 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import butterknife.BindArray;
-import butterknife.BindDrawable;
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import ty.youngstudy.com.R;
 import ty.youngstudy.com.ui.activity.base.BaseActivity;
-import ty.youngstudy.com.ui.adapter.FragmentAdapter;
+import ty.youngstudy.com.adapter.FragmentAdapter;
+import ty.youngstudy.com.ui.activity.reader.NovelMainActivity;
 import ty.youngstudy.com.ui.fragment.TabFragment;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static long DOUBLE_CLICK_TIME = 0L;
+    private TabLayout mTabLayout;
+    private ViewPager frg_viewPager;
 
-    @BindArray(R.array.tab_char)
-    String[] tabCharList;
+//    @BindArray(R.array.tab_char)
+//    String[] tabCharList;
 
-    @BindView(R.id.tab_main_id)
-    TabLayout mTabLayout;
+//    @BindView(R.id.tab_main_id)
+//    TabLayout mTabLayout;
+//
+//    @BindView(R.id.frg_viewPager_id)
+//    ViewPager frg_viewPager;
 
-    @BindView(R.id.frg_viewPager_id)
-    ViewPager frg_viewPager;
-
+    String[] tabCharList = new String[] {"微信","发现","朋友","我的"};
     int[] tabDrawList = new int[]{R.drawable.selector_tab_weixin, R.drawable.selector_tab_find,
             R.drawable.selector_tab_friend, R.drawable.selector_tab_me};
 
@@ -60,20 +61,22 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        mTabLayout = (TabLayout) findViewById(R.id.tab_main1_id);
+        frg_viewPager = (ViewPager) findViewById(R.id.frg_viewPager_id);
         mTitleList = new ArrayList<>();
-        for (int i = 0; i < tabCharList.length; i++) {
+        for (int i = 0; i < 4; i++) {
             mTitleList.add(tabCharList[i]);
         }
 
         mFragmentList = new ArrayList<>();
+
         for (int i = 0; i < mTitleList.size(); i++) {
             mFragmentList.add(TabFragment.newInstance(i));
         }
 
         adapter = new FragmentAdapter(getSupportFragmentManager(),mFragmentList,mTitleList);
         frg_viewPager.setAdapter(adapter);
-
+        frg_viewPager.setCurrentItem(0);
         /* 初始化TabView */
         initTab();
 
@@ -104,12 +107,12 @@ public class MainActivity extends BaseActivity
     private void initTab() {
         mTabLayout.setupWithViewPager(frg_viewPager);
         mTabLayout.setSelectedTabIndicatorHeight(0);
-        for (int i = 0; i < tabCharList.length; i++) {
+        for (int i = 0; i < mTitleList.size(); i++) {
             TabLayout.Tab itemTab = mTabLayout.getTabAt(i);
             if (itemTab != null) {
                 itemTab.setCustomView(R.layout.tab_item_layout);
                 TextView tv_tab = (TextView) itemTab.getCustomView().findViewById(R.id.tv_tab_find_id);
-                tv_tab.setText(tabCharList[i]);
+                tv_tab.setText(mTitleList.get(i));
                 ImageView iv_tab = (ImageView) itemTab.getCustomView().findViewById(R.id.iv_tab_find_id);
                 iv_tab.setImageResource(tabDrawList[i]);
             }
@@ -171,8 +174,9 @@ public class MainActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.nav_novel) {
+            // Handle the novel action
+            readyGo(NovelMainActivity.class);
         } else if (id == R.id.nav_gallery) {
             Intent slideIntent = new Intent("android.intent.action.slide");
             slideIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
