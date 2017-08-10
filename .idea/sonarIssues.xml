@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="issues">
+    <option name="index">
+      <map>
+        <entry key="/Dummy.txt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="/fragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MyTest/javatest/src/main/java/com/example/MJavaTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/chatapp/ChatApp.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/videocommapp/agora/util/AgroaSig.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/dros/core/DrosConfig.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/dros/core/DrosConnection.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/dros/core/RtcConnection.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/dros/mqtt/MqttConnetion.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/interaction/music/MusicListActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/robot/RobotApp.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/robot/RobotVersion.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/service/canservice/CANService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/service/xmppservice/XmppPublishTopics.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/service/xmppservice/XmppRecMsgHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/service/xmppservice/XmppSendMsgHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/service/xmppservice/XmppService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/ui/face/newface/FaceView.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
