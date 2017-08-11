@@ -51,6 +51,13 @@
         <item name="android:singleLine">true</item>
     </style>
 
+    <style name="novelNameKindStyle">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/novel_name_kind_size</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
     <style name="novelItemTextStyle">
         <item name="android:textSize">@dimen/novel_item_info_size</item>
         <item name="android:textColor">@color/gray</item>

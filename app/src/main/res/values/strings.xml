@@ -23,5 +23,21 @@
     <string name="delete">delete</string>
     <string name="unread_count">%d unread</string>
     <string name="exit_app">exit</string>
+    <string name="author">Author:</string>
+
+
+    <!--小说类别名-->
+    <string name="xuanhuan">玄幻奇幻</string>
+    <string name="wuxia">武侠仙侠</string>
+    <string name="yanqin">都市言情</string>
+    <string name="lishi">历史军事</string>
+    <string name="kehuan">科幻灵异</string>
+    <string name="wangyou">网游竞技</string>
+    <string name="nvshen">女生频道</string>
+    <string name="tongren">同人小说</string>
+    <string name="weifenlei">未分类</string>
+    <string name="jingdian">经典名著</string>
+    <string name="luntan">论坛热书</string>
+    <string name="qingxiaoshuo">轻小说</string>
 
 </resources>

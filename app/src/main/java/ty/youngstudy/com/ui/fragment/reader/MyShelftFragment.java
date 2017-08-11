@@ -8,8 +8,8 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import ty.youngstudy.com.bean.Novel;
 import ty.youngstudy.com.adapter.BookItemAdapter;
+import ty.youngstudy.com.bean.Novel;
 import ty.youngstudy.com.ui.fragment.base.BaseListFragment;
 
 /**
@@ -48,4 +48,13 @@ private BookItemAdapter bookItemAdapter;
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
+//    @Override
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onEvent(ViewEventMessage eventMessage) {
+//        if (eventMessage == null) {
+//            return;
+//        }
+//    }
+    
 }

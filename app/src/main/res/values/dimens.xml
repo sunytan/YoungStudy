@@ -8,10 +8,12 @@
     <dimen name="tab_margin">53dp</dimen>
     <dimen name="login_text">25sp</dimen>
     <dimen name="login_text_hint">15sp</dimen>
-    <dimen name="novel_item_height">100dp</dimen>
-    <dimen name="thumb_width">58dp</dimen>
-    <dimen name="thumb_height">72dp</dimen>
+    <dimen name="novel_item_height">115dp</dimen>
+    <dimen name="thumb_width">75dp</dimen>
+    <dimen name="thumb_height">90dp</dimen>
     <dimen name="unread_text_size">15sp</dimen>
     <dimen name="novel_name_size">17sp</dimen>
+    <dimen name="novel_name_kind_size">15sp</dimen>
     <dimen name="novel_item_info_size">12sp</dimen>
+    <dimen name="kind_name_size">19sp</dimen>
 </resources>

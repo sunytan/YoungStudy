@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+        <TextView
+            android:id="@+id/tv_kind_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/red_mark"
+            android:text="玄幻"
+            android:textSize="@dimen/kind_name_size"/>
+
+        <TextView
+            android:id="@+id/tv_one_kine_count"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100本"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/novel_item_height"
+        android:gravity="center"
+        android:layout_marginLeft="5dp"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/img_kind_thumb"
+            android:layout_width="@dimen/thumb_width"
+            android:layout_height="@dimen/thumb_height"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_cover"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="4dp">
+
+                <TextView
+                    android:id="@+id/tv_novel_name_1"
+                    style="@style/novelNameKindStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:visibility="invisible"
+                    android:text="无限恐怖"/>
+
+                <TextView
+                    android:id="@+id/tv_novel_name_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="无限恐怖"
+                    android:paddingRight="5dp"
+                    style="@style/novelNameKindStyle"
+                    android:visibility="invisible"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="4dp">
+
+                <TextView
+                    android:id="@+id/tv_novel_name_3"
+                    style="@style/novelNameKindStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    android:paddingLeft="5dp"
+                    android:text="无限恐怖"/>
+
+                <TextView
+                    android:id="@+id/tv_novel_name_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="无限恐怖"
+                    android:paddingRight="5dp"
+                    android:visibility="invisible"
+                    style="@style/novelNameKindStyle"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="4dp">
+
+                <TextView
+                    android:id="@+id/tv_novel_name_5"
+                    style="@style/novelNameKindStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    android:paddingLeft="5dp"
+                    android:text="无限恐怖"/>
+
+                <TextView
+                    android:id="@+id/tv_novel_name_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="无限恐怖"
+                    android:visibility="invisible"
+                    android:paddingRight="5dp"
+                    style="@style/novelNameKindStyle"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
