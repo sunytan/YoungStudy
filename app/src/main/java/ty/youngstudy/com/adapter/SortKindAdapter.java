@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ty.youngstudy.com.R;
@@ -22,11 +23,11 @@ import ty.youngstudy.com.bean.Novels;
 
 public class SortKindAdapter extends BaseAdapter {
 
-    private List<Novels> novelList;
+    private ArrayList<Novels> novelList;
     private LayoutInflater mInflater;
     private int layoutId;
 
-    public SortKindAdapter(Context context, List<Novels> result) {
+    public SortKindAdapter(Context context, ArrayList<Novels> result) {
         this.novelList = result;
         mInflater = LayoutInflater.from(context);
         layoutId = R.layout.kind_list;
@@ -59,7 +60,7 @@ public class SortKindAdapter extends BaseAdapter {
         } else {
             item = (NovelItem) view.getTag();
         }
-        item.bind(view,(Novels)getItem(i));
+        item.bind((Novels)getItem(i));
         return view;
     }
 
@@ -73,11 +74,6 @@ public class SortKindAdapter extends BaseAdapter {
 
 
         private NovelItem(View view) {
-
-        }
-
-        public synchronized void bind(View view,Novels novels) {
-
             mView = view;
             thumb = (ImageView) view.findViewById(R.id.img_kind_thumb);
             kindName = (TextView) view.findViewById(R.id.tv_kind_name);
@@ -88,6 +84,9 @@ public class SortKindAdapter extends BaseAdapter {
             tv1[4] = (TextView) view.findViewById(R.id.tv_novel_name_5);
             tv1[5] = (TextView) view.findViewById(R.id.tv_novel_name_6);
             novelCount = (TextView) view.findViewById(R.id.tv_one_kine_count);
+        }
+
+        public synchronized void bind(Novels novels) {
             kindName.setText(novels.getKindName());
             if (novels.getNovels().size() == 0) {
                 return;

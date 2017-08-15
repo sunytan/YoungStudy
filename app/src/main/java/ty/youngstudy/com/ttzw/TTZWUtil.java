@@ -35,7 +35,7 @@ public class TTZWUtil {
         Log.i(TAG,"getTTZWSortKindNovels");
         Novels novels = new Novels();
         novels.setCurrentUrl(url);
-        List<Novel> listnovel = new ArrayList<Novel>();
+        ArrayList<Novel> listnovel = new ArrayList<Novel>();
         Parser parser = new Parser(url);
         NodeList nodeList = parser.parse(new TagAttrFilter("div","class","hot_sale"));
         for (int i = 0; i < nodeList.size(); i++) {

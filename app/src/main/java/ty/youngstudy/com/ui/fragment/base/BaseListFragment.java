@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import ty.youngstudy.com.R;
 
 public abstract class BaseListFragment extends ListFragment {
 
+    private View rootView;
     protected SwipeRefreshLayout mSwipeRefresh;
 
     protected boolean isReloadMore;
@@ -42,7 +44,11 @@ public abstract class BaseListFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.list_fragment_layout,null);
+        if (rootView != null) {
+            return rootView;
+        }
+        rootView = inflater.inflate(R.layout.list_fragment_layout,null);
+        return rootView;
     }
 
     @Override
@@ -56,6 +62,7 @@ public abstract class BaseListFragment extends ListFragment {
 
             @Override
             public void onRefresh() {
+                Log.i("tanyang","onRefresh");
                 pullRefreshData();
             }
         });
@@ -64,6 +71,7 @@ public abstract class BaseListFragment extends ListFragment {
 
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
+                Log.i("tanyang","onScrollStateChanged");
 //				if(scrollState == SCROLL_STATE_IDLE) {
                 if(isReloadMore && !isLoading) {
                     isLoading = true;
@@ -74,7 +82,8 @@ public abstract class BaseListFragment extends ListFragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//				Log.v("lw", "firstVisibleItem = " + firstVisibleItem + ",visibleItemCount = " + visibleItemCount + ",totalItemCount = " + totalItemCount);
+                Log.i("tanyang","onScroll");
+//				Log.v("tanyang", "firstVisibleItem = " + firstVisibleItem + ",visibleItemCount = " + visibleItemCount + ",totalItemCount = " + totalItemCount);
 
                 if(isReloadMore)
                     return;
@@ -87,7 +96,7 @@ public abstract class BaseListFragment extends ListFragment {
     }
 
     protected void pullRefreshData() {
-        mSwipeRefresh.setRefreshing(false);
+        mSwipeRefresh.setRefreshing(true);
     }
 
     protected void reloadMore() {

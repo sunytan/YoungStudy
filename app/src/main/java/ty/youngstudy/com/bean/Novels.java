@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Novels implements Parcelable {
 
-	private List<Novel> novels;
+	private ArrayList<Novel> novels;
 
 	private String kindName;
 	private boolean isok;
@@ -43,15 +43,15 @@ public class Novels implements Parcelable {
 		return kindName;
 	}
 
-	public Novels(List<Novel> novels) {
+	public Novels(ArrayList<Novel> novels) {
 		this.novels = novels;
 	}
 
-	public List<Novel> getNovels() {
+	public ArrayList<Novel> getNovels() {
 		return novels;
 	}
 
-	public void setNovels(List<Novel> novels) {
+	public void setNovels(ArrayList<Novel> novels) {
 		this.novels = novels;
 	}
 

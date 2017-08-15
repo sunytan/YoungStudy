@@ -21,6 +21,7 @@ public class ReaderModel extends BaseModel {
     public void startModel() {
         super.startModel();
         mModelHandler = new Handler(this.getLooper(),new ReaderModelCallBack());
+        start();
     }
 
     @Override
