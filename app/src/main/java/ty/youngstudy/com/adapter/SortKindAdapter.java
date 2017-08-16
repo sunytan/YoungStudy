@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -59,25 +60,20 @@ public class SortKindAdapter extends BaseAdapter {
         } else {
             item = (NovelItem) view.getTag();
         }
-        item.bind(view,(Novels)getItem(i));
+        item.bind((Novels)getItem(i));
         return view;
     }
 
     private class NovelItem{
 
         private View mView;
-        private TextView novelCount;
+        private ImageButton openRight;
         private ImageView thumb;
         private TextView kindName;
         private TextView[] tv1 = new TextView[6];
 
 
         private NovelItem(View view) {
-
-        }
-
-        public synchronized void bind(View view,Novels novels) {
-
             mView = view;
             thumb = (ImageView) view.findViewById(R.id.img_kind_thumb);
             kindName = (TextView) view.findViewById(R.id.tv_kind_name);
@@ -87,7 +83,10 @@ public class SortKindAdapter extends BaseAdapter {
             tv1[3] = (TextView) view.findViewById(R.id.tv_novel_name_4);
             tv1[4] = (TextView) view.findViewById(R.id.tv_novel_name_5);
             tv1[5] = (TextView) view.findViewById(R.id.tv_novel_name_6);
-            novelCount = (TextView) view.findViewById(R.id.tv_one_kine_count);
+            openRight = (ImageButton) view.findViewById(R.id.img_openright);
+        }
+
+        public synchronized void bind(Novels novels) {
             kindName.setText(novels.getKindName());
             if (novels.getNovels().size() == 0) {
                 return;
@@ -113,7 +112,6 @@ public class SortKindAdapter extends BaseAdapter {
                     tv1[i].setVisibility(View.VISIBLE);
                 }
             }
-            novelCount.setText("");
             //显示第一本书的图标
             Glide.with(mView.getContext()).load(novels.getNovels().get(0).getThumb()).into(thumb);
 //            Glide.with(mView.getContext()).load(novel.getThumb()).placeholder(R.drawable.default_cover).centerCrop()

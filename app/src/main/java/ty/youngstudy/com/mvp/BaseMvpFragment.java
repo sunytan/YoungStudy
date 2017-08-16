@@ -2,7 +2,7 @@ package ty.youngstudy.com.mvp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +15,7 @@ import ty.youngstudy.com.R;
  * Created by edz on 2017/8/8.
  */
 
-public abstract class BaseMvpListFragment<PresenterType extends Presenter> extends ListFragment {
+public abstract class BaseMvpFragment<PresenterType extends Presenter> extends Fragment {
 
     private PresenterType mPresenter;
 
