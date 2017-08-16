@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ty.youngstudy.com.R;
@@ -23,11 +24,11 @@ import ty.youngstudy.com.bean.Novels;
 
 public class SortKindAdapter extends BaseAdapter {
 
-    private List<Novels> novelList;
+    private ArrayList<Novels> novelList;
     private LayoutInflater mInflater;
     private int layoutId;
 
-    public SortKindAdapter(Context context, List<Novels> result) {
+    public SortKindAdapter(Context context, ArrayList<Novels> result) {
         this.novelList = result;
         mInflater = LayoutInflater.from(context);
         layoutId = R.layout.kind_list;

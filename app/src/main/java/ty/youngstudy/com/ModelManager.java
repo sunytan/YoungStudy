@@ -1,8 +1,12 @@
 package ty.youngstudy.com;
 
+import android.util.Log;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
+import ty.youngstudy.com.reader.ReaderModel;
 
 /**
  * Created by edz on 2017/8/8.
@@ -11,7 +15,7 @@ import java.util.Set;
 public class ModelManager {
 
     private final static String TAG = "ModelManager";
-    private Set<BaseModel> allModel = new HashSet<BaseModel>();
+    private static Set<BaseModel> allModel = new HashSet<BaseModel>();
 
     public ModelManager(){
 
@@ -34,10 +38,11 @@ public class ModelManager {
     public BaseModel getModel(String name){
         for (Iterator<BaseModel> it = allModel.iterator();it.hasNext();) {
             BaseModel model = it.next();
+            Log.i("tanyang",model.getName());
             if (model.getName().equals(name)){
                 return model;
             }
         }
-        return null;
+        return new ReaderModel("NovelDetailActivity");
     }
 }

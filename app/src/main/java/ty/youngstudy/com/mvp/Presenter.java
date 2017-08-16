@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -23,9 +24,12 @@ public abstract class Presenter<ViewType,ModelType> {
 
     public void onCreate(@NonNull ViewType view, Bundle saveInstance){
         this.view = view;
+        Log.i("tannyang","view = "+view);
         this.name = ((BaseMvpActivity)view).getModelName();
+        Log.i("tanyang","name = "+this.name);
         handler = new ModelMsgHandler(((BaseMvpActivity) view).getMainLooper());
         modelType = (ModelType)ModelManager.getInstance().getModel(name);
+        Log.i("tanyang","modeltype = "+modelType);
         ((BaseModel)modelType).setModelHandler(handler);
         EventBus.getDefault().register(this);
     }

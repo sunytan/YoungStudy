@@ -1,6 +1,7 @@
 package ty.youngstudy.com.ui.fragment.reader;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +20,8 @@ import ty.youngstudy.com.R;
 import ty.youngstudy.com.adapter.SortKindAdapter;
 import ty.youngstudy.com.bean.Novels;
 import ty.youngstudy.com.reader.DataQueryManager;
+import ty.youngstudy.com.ui.activity.reader.NovelDetailActivity;
+import ty.youngstudy.com.ui.activity.reader.NovelMainActivity;
 import ty.youngstudy.com.ui.fragment.base.BaseListFragment;
 
 
@@ -32,19 +35,10 @@ public class SortKindFragment extends BaseListFragment {
     private Activity mActivity;
     private SortKindAdapter novelListAdapter;
 
-    private List<Novels> mData;
+    private ArrayList<Novels> mData = new ArrayList<Novels>();
 
     private static ListView myView;
-
-    //private String mNextUrl;
-
-    public static SortKindFragment newInstance(String title) {
-        SortKindFragment fragment = new SortKindFragment();
-        Bundle bundle = new Bundle();
-        //bundle.putString("title", title);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
+    String[] url = new String[12];
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,8 +50,17 @@ public class SortKindFragment extends BaseListFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mActivity = activity;
+//        Bundle bundle = new Bundle();
+//        bundle.putParcelableArrayList("data",mData);
+//        setArguments(bundle);
+
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("data",mData);
+    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -65,55 +68,58 @@ public class SortKindFragment extends BaseListFragment {
     }
 
     @Override
-    public ListView getListView() {
-        myView = super.getListView();
-        return myView;
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (myView != null) {
-            ViewGroup viewGroup = (ViewGroup) myView.getParent();
-            if (viewGroup != null) viewGroup.removeView(myView);
-            return myView;
-        }
-
+        Log.i("tanyang","onViewCreated");
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        Log.i("tanyang","onActivityCreated");
         super.onActivityCreated(savedInstanceState);
-        Bundle bundle = getArguments();
-        mData = new ArrayList<Novels>();
+        Log.i("tanyang","bundle = "+savedInstanceState);
+        ArrayList<Novels> result = null;
+        url = getResources().getStringArray(R.array.sort_urls);
+        if (savedInstanceState != null) {
+            result = savedInstanceState.getParcelableArrayList("data");
+        }
+        if (result != null && result.size() > 0) {
+            mData = result;
+        } else {
+            mSwipeRefresh.post(new Runnable() {
+
+                @Override
+                public void run() {
+                    // TODO Auto-generated method stub
+                    mSwipeRefresh.setRefreshing(true);
+                }
+            });
+            //加载页面数据
+            loadLastUpdataData(url);
+        }
         novelListAdapter = new SortKindAdapter(mActivity,mData);
         setListAdapter(novelListAdapter);
+    }
 
-        if(bundle != null) {
-            List<Novels> result = bundle.getParcelableArrayList("data");
-            if(result != null && result.size() > 0) {
-                mData.addAll(result);
-                System.out.println("use bundle");
-                return;
-            }
-        }
-        mSwipeRefresh.post(new Runnable() {
-
-            @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                mSwipeRefresh.setRefreshing(true);
-            }
-        });
-
-        String[] url = getResources().getStringArray(R.array.sort_urls);//bundle.getString("url");
-        //加载页面数据
-        loadLastUpdataData(url);
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        Intent intent = new Intent(getActivity(),NovelDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("novel",mData.get(position).getNovels());
+        bundle.putString("url",mData.get(position).getCurrentUrl());
+        intent.putExtra("data",bundle);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void pullRefreshData() {
+        super.pullRefreshData();
 
     }
 
@@ -128,10 +134,10 @@ public class SortKindFragment extends BaseListFragment {
 //            mSwipeRefresh.setRefreshing(false);
 //        }
 
-        new AsyncTask<Void,Void,List<Novels>>(){
+        new AsyncTask<Void,Void,ArrayList<Novels>>(){
             @Override
-            protected List<Novels> doInBackground(Void... voids) {
-                List<Novels> data = new ArrayList<Novels>();
+            protected ArrayList<Novels> doInBackground(Void... voids) {
+                ArrayList<Novels> data = new ArrayList<Novels>();
                 int i = 0;
                 while (i < 3) {
                     try {
@@ -160,7 +166,7 @@ public class SortKindFragment extends BaseListFragment {
             }
 
             @Override
-            protected void onPostExecute(List<Novels> novels) {
+            protected void onPostExecute(ArrayList<Novels> novels) {
                 if(isDetached()){
                     return;
                 }
