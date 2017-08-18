@@ -12,26 +12,24 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
-import ty.youngstudy.com.BaseModel;
-import ty.youngstudy.com.ModelManager;
 import ty.youngstudy.com.R;
 import ty.youngstudy.com.adapter.NovelListAdapter;
 import ty.youngstudy.com.bean.Novel;
+import ty.youngstudy.com.mvp.BaseMvpActivity;
+import ty.youngstudy.com.mvp.RequirePresenter;
 import ty.youngstudy.com.mvp.ViewEventMessage;
-
-import ty.youngstudy.com.reader.ReaderModel;
-import ty.youngstudy.com.ui.activity.base.BaseActivity;
+import ty.youngstudy.com.reader.ReaderPresenter;
 
 /**
  * Created by Administrator on 2017/8/12.
  */
+@RequirePresenter(ReaderPresenter.class)
+public class OneKindNovelActivity extends BaseMvpActivity<ReaderPresenter> {
 
-public class NovelDetailActivity extends BaseActivity {
-
-    private final static String TAG = "NovelDetailActivity";
+    private final static String TAG = "OneKindNovelActivity";
+    private final static String NAME = "ReaderModel";
     private ArrayList<Novel> listNovel = new ArrayList<Novel>();
     private ListView listView;
     private NovelListAdapter novelListAdapter;
@@ -75,6 +73,17 @@ public class NovelDetailActivity extends BaseActivity {
 //        readerModel = new ReaderModel(TAG);
 //        ModelManager.getInstance().add(readerModel);
 //        readerModel.startModel();
+    }
+
+    @Override
+    public String getModelName() {
+        return NAME;
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(ViewEventMessage eventMessage) {
+
     }
 
     @Override

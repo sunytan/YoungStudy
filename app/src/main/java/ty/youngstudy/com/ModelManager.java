@@ -6,8 +6,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import ty.youngstudy.com.reader.ReaderModel;
-
 /**
  * Created by edz on 2017/8/8.
  */
@@ -31,11 +29,15 @@ public class ModelManager {
 
     public void add(BaseModel model){
         if (allModel.add(model)){
-
+            model.start();
+            model.waitModelReady();
+            model.startModel();
         }
     }
 
     public BaseModel getModel(String name){
+        if (name == null)
+            return null;
         for (Iterator<BaseModel> it = allModel.iterator();it.hasNext();) {
             BaseModel model = it.next();
             Log.i("tanyang",model.getName());
@@ -43,6 +45,6 @@ public class ModelManager {
                 return model;
             }
         }
-        return new ReaderModel("NovelDetailActivity");
+        return null;
     }
 }

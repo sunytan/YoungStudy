@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -16,22 +15,17 @@ import ty.youngstudy.com.ModelManager;
  * Created by edz on 2017/8/8.
  */
 
-public abstract class Presenter<ViewType,ModelType> {
+public abstract class PresenterFragment<ViewType,ModelType> {
     private ViewType view;
     private String name;
     private ModelType modelType;
     private ModelMsgHandler handler;
-    //此handler用于回传消息给Model
-    private Handler mModelHandler;
 
     public void onCreate(@NonNull ViewType view, Bundle saveInstance){
         this.view = view;
-        Log.i("tannyang","view = "+view);
-        this.name = ((BaseMvpActivity)view).getModelName();
-        Log.i("tanyang","name = "+this.name);
-        handler = new ModelMsgHandler(((BaseMvpActivity) view).getMainLooper());
+        this.name = ((BaseMvpFragment)view).getModelName();
+        handler = new ModelMsgHandler(((BaseMvpFragment) view).getActivity().getMainLooper());
         modelType = (ModelType)ModelManager.getInstance().getModel(name);
-        Log.i("tanyang","modeltype = "+modelType);
         ((BaseModel)modelType).setModelHandler(handler);
         EventBus.getDefault().register(this);
     }

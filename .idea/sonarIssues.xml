@@ -28,7 +28,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/assets/litepal.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/chatapp/ChatApp.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/chatapp/ChatApp2.java">
           <value>
             <set />
           </value>
@@ -43,7 +53,62 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/chatapp/nlp/Wenwen/WenwenResultBean.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/chatapp/tts/TTSService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/chatapp/utils/AutoFillRobotBean.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/chatapp/wakeup/robot2/Robot2WakeupModel.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/chatapp/wakeup/robot2/RobotAudioRecorder.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/musicapp/MusicApp.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/sysupdateapp/CheckUpdateHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/sysupdateapp/SystemUpdateApp.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/sysupdateapp/constants/UpdateSayTips.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/sysupdateapp/db/UpdateTipCountDB.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/sysupdateapp/db/UpdateTipCountDb.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/sysupdateapp/utils/SayTipCountUtil.java">
           <value>
             <set />
           </value>
@@ -83,12 +148,37 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/robot/RobotAppManager.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/robot/RobotVersion.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/service/canservice/CANService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/service/robotconfigservice/RobotConfigHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/service/smartdevservice/SmartDevService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/service/smartdevservice/smartdevices/SensorStatus.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/service/smartdevservice/zigbeeservice/ZigbeeService.java">
           <value>
             <set />
           </value>
@@ -118,6 +208,21 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/util/datarecovery/DataRecoveryUtils.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/res/layout/activity_music.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/res/layout/update_tip.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/build.gradle">
           <value>
             <set />
@@ -139,6 +244,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/MyApplication.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/NetStateListener.java">
           <value>
             <set />
           </value>
@@ -183,6 +293,26 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/mvp/PresenterBuilder.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/mvp/PresenterEventMessage.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/mvp/PresenterFragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/mvp/RequirePresenter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/mvp/ViewEventMessage.java">
           <value>
             <set />
@@ -203,6 +333,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/reader/NovelTotleInfo.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/reader/ReaderModel.java">
           <value>
             <set />
@@ -214,6 +349,21 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/reader/ShelftPresenter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/reader/message/Message.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/reader/message/ReaderMessage.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/receiver/NetChangeReceiver.java">
           <value>
             <set />
           </value>
@@ -253,6 +403,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/ui/activity/reader/OneKindNovelActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/ui/fragment/base/BaseListFragment.java">
           <value>
             <set />
@@ -278,12 +433,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/util/NetUtils.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_novel_main.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/kind_list.xml">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/list_fragment_layout.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/net_notconnect_layout.xml">
           <value>
             <set />
           </value>

@@ -19,16 +19,15 @@
             android:text="玄幻"
             android:textSize="@dimen/kind_name_size"/>
 
-        <TextView
-            android:id="@+id/tv_one_kine_count"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="100本"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
+        <ImageView
+            android:id="@+id/img_openright"
+            android:gravity="center_vertical"
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/openright"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"/>
+            android:layout_alignBottom="@+id/tv_kind_name"/>
     </RelativeLayout>
 
     <LinearLayout

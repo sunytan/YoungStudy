@@ -13,8 +13,15 @@ import android.util.Log;
 
 public class BaseModel extends HandlerThread {
     private final static String TAG = "BaseModel";
-    private Handler mModelHandler;
 
+    //消息回传给Presenter
+    private Handler mModelMsgHandler;
+
+    private final byte[] bytelock = new byte[0];
+    private boolean loopHasRun = false;
+
+    //用于消息发回给Model
+    private Handler handler;
     public BaseModel(String name) {
         super(name);
     }
@@ -35,15 +42,31 @@ public class BaseModel extends HandlerThread {
     @Override
     protected void onLooperPrepared() {
         super.onLooperPrepared();
+        synchronized (bytelock){
+            bytelock.notify();
+            loopHasRun = true;
+        }
     }
 
-    public final void setModelHandler(Handler mModelHandler){
-        this.mModelHandler = mModelHandler;
+    protected void waitModelReady(){
+        synchronized (bytelock){
+            if (loopHasRun)
+                return;
+            try {
+                bytelock.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public final void setModelHandler(Handler mModelMsgHandler){
+        this.mModelMsgHandler = mModelMsgHandler;
     }
 
     public final void postModelMsgToPresenter(Message msg){
-        if (this.mModelHandler != null) {
-            this.mModelHandler.sendMessage(msg);
+        if (this.mModelMsgHandler != null) {
+            this.mModelMsgHandler.sendMessage(msg);
         } else {
             Log.i(TAG,"ModelHandler is null");
         }

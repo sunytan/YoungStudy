@@ -3,7 +3,6 @@ package ty.youngstudy.com.ui.fragment.reader;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
@@ -13,7 +12,7 @@ import java.util.List;
 
 import ty.youngstudy.com.adapter.BookItemAdapter;
 import ty.youngstudy.com.bean.Novel;
-import ty.youngstudy.com.ui.activity.reader.NovelDetailActivity;
+import ty.youngstudy.com.ui.activity.reader.OneKindNovelActivity;
 import ty.youngstudy.com.ui.fragment.base.BaseListFragment;
 
 /**
@@ -56,7 +55,7 @@ private BookItemAdapter bookItemAdapter;
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        startActivity(new Intent(getActivity(), NovelDetailActivity.class));
+        startActivity(new Intent(getActivity(), OneKindNovelActivity.class));
     }
 
     //    @Override

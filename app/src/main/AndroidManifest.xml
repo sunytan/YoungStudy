@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name=".MyApplication"
@@ -34,7 +34,14 @@
         <activity android:name=".ui.activity.FirstActivity"/>
         <activity android:name=".ui.activity.LoginActivity"/>
         <activity android:name=".ui.activity.reader.NovelMainActivity"/>
-        <activity android:name=".ui.activity.reader.NovelDetailActivity"/>
+        <activity android:name=".ui.activity.reader.OneKindNovelActivity"/>
+
+        <receiver android:name=".receiver.NetChangeReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+
+        </receiver>
     </application>
 
 </manifest>

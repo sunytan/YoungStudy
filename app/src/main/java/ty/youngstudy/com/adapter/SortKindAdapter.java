@@ -6,14 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ty.youngstudy.com.R;
 import ty.youngstudy.com.bean.Novels;
@@ -68,7 +66,7 @@ public class SortKindAdapter extends BaseAdapter {
     private class NovelItem{
 
         private View mView;
-        private ImageButton openRight;
+        private ImageView openRight;
         private ImageView thumb;
         private TextView kindName;
         private TextView[] tv1 = new TextView[6];
@@ -84,7 +82,7 @@ public class SortKindAdapter extends BaseAdapter {
             tv1[3] = (TextView) view.findViewById(R.id.tv_novel_name_4);
             tv1[4] = (TextView) view.findViewById(R.id.tv_novel_name_5);
             tv1[5] = (TextView) view.findViewById(R.id.tv_novel_name_6);
-            openRight = (ImageButton) view.findViewById(R.id.img_openright);
+            openRight = (ImageView) view.findViewById(R.id.img_openright);
         }
 
         public synchronized void bind(Novels novels) {
