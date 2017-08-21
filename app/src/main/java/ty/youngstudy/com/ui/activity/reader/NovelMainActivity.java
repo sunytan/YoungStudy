@@ -22,6 +22,7 @@ import ty.youngstudy.com.MyApplication;
 import ty.youngstudy.com.NetStateListener;
 import ty.youngstudy.com.R;
 import ty.youngstudy.com.adapter.FragmentAdapter;
+import ty.youngstudy.com.reader.NovelInfoModel;
 import ty.youngstudy.com.reader.ReaderModel;
 import ty.youngstudy.com.ui.activity.base.BaseActivity;
 import ty.youngstudy.com.ui.fragment.reader.LastUpdateFragment;
@@ -116,8 +117,10 @@ public class NovelMainActivity extends BaseActivity implements NetStateListener.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novel_main);
-        ReaderModel model = new ReaderModel(ReaderModel.NAME,MyApplication.getInstance().getContext());
-        ModelManager.getInstance().add(model);
+        ReaderModel readerModel = new ReaderModel(ReaderModel.NAME,MyApplication.getInstance().getContext());
+        NovelInfoModel infoModel = new NovelInfoModel(NovelInfoModel.NAME,MyApplication.getInstance().getContext());
+        ModelManager.getInstance().add(infoModel);
+        ModelManager.getInstance().add(readerModel);
         MyApplication.getInstance().getNetStateListener().subscribe(this);
     }
 

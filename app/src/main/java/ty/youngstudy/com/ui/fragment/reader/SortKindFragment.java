@@ -121,8 +121,10 @@ public class SortKindFragment extends BaseListFragment {
         super.onListItemClick(l, v, position, id);
         Intent intent = new Intent(getActivity(), OneKindNovelActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("novel", mData.get(position).getNovels());
-        bundle.putString("url", mData.get(position).getCurrentUrl());
+        bundle.putParcelable("novels",mData.get(position));
+        //bundle.putParcelableArrayList("novel", mData.get(position));
+        bundle.putString("currentUrl", mData.get(position).getCurrentUrl());
+        bundle.putString("nextUrl", mData.get(position).getNextUrl());
         intent.putExtra("data", bundle);
         startActivity(intent);
     }

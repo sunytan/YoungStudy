@@ -40,4 +40,7 @@
     <string name="luntan">论坛热书</string>
     <string name="qingxiaoshuo">轻小说</string>
 
+    <string name="removeshelft">remove shelft</string>
+    <string name="addshelft">add shelft</string>
+
 </resources>

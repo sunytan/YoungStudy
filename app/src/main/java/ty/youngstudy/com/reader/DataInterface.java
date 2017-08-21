@@ -13,4 +13,6 @@ public interface DataInterface {
     public Novels getSortKindNovels(String url) throws ParserException;
 
     public DataInterface select(String url);
+
+    public NovelDetail getNovelDetail(String url) throws ParserException;
 }

@@ -1,5 +1,6 @@
 package ty.youngstudy.com.mvp;
 
+import ty.youngstudy.com.bean.Novel;
 import ty.youngstudy.com.reader.DownLoadMessage;
 
 /**
@@ -10,25 +11,23 @@ public class ViewEventMessage {
     private String eventType;
     DownLoadMessage downLoadMessage;
 
+    public Novel novel;
 
 
+    public void setNovel(Novel novel) {
+        this.novel = novel;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public Novel getNovel() {
+        return novel;
+    }
 
     public void setDownLoadMessage(DownLoadMessage downLoadMessage){
         this.downLoadMessage = downLoadMessage;
+    }
+
+    public DownLoadMessage getDownLoadMessage() {
+        return downLoadMessage;
     }
 
     public String getEventType(){

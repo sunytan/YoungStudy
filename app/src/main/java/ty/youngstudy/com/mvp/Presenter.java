@@ -20,7 +20,7 @@ public abstract class Presenter<ViewType,ModelType> {
     private ViewType view;
     private String name;
     private ModelType modelType;
-    private ModelMsgHandler handler;
+    public ModelMsgHandler handler;
     //此handler用于回传消息给Model
     private Handler mModelHandler;
 

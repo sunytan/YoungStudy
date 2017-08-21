@@ -8,6 +8,7 @@ import org.htmlparser.util.ParserException;
 import java.util.ArrayList;
 
 import io.reactivex.subjects.PublishSubject;
+import ty.youngstudy.com.bean.Novel;
 import ty.youngstudy.com.bean.Novels;
 import ty.youngstudy.com.ttzw.SourceSelector;
 
@@ -18,6 +19,13 @@ import ty.youngstudy.com.ttzw.SourceSelector;
 public class DataQueryManager implements DataInterface{
 
     public DataQueryManager(){}
+
+    public NovelDetail getNovelDetail(String url) throws ParserException{
+        DataInterface df = SourceSelector.selectDateSource(url);
+        if (df != null)
+            return df.getNovelDetail(url);
+        return null;
+    }
 
     @Override
     public Novels getSortKindNovels(String url) throws ParserException {
@@ -78,6 +86,21 @@ public class DataQueryManager implements DataInterface{
                     }
                 }
                 return data;
+            }
+        }.execute();
+    }
+
+    public void loadDataFromUrl(final PublishSubject subject,final String url){
+
+        new AsyncTask<Void,Void,Novel>(){
+            @Override
+            protected Novel doInBackground(Void... voids) {
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Novel novel) {
+                super.onPostExecute(novel);
             }
         }.execute();
     }

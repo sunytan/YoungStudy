@@ -68,6 +68,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/chatapp/wakeup/ChatApp2.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/chatapp/wakeup/robot2/Robot2WakeupModel.java">
           <value>
             <set />
@@ -183,6 +188,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/service/xmppservice/TransferCode.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/service/xmppservice/XmppPublishTopics.java">
           <value>
             <set />
@@ -199,6 +209,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/service/xmppservice/XmppService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/ui/MainActivity.java">
           <value>
             <set />
           </value>
@@ -318,6 +333,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/reader/Chapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/reader/ChapterUrl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/reader/DataInterface.java">
           <value>
             <set />
@@ -333,7 +358,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/reader/NovelDetail.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/reader/NovelInfoModel.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/reader/NovelManager.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/reader/NovelTotleInfo.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/reader/ReaderMessage.java">
           <value>
             <set />
           </value>
@@ -354,6 +399,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/reader/message/Message.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/reader/message/NovelInfoPresenter.java">
           <value>
             <set />
           </value>
@@ -398,6 +448,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/ui/activity/reader/NovelDetailActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/ui/activity/reader/NovelMainActivity.java">
           <value>
             <set />
@@ -438,6 +493,26 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/widget/LoadingView.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ty/youngstudy/com/widget/ShapeLoadingView.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/color/loading_color.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_novel_detail.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_novel_main.xml">
           <value>
             <set />
@@ -473,6 +548,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/values/attrs.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
           <value>
             <set />
@@ -488,6 +573,11 @@
             <set />
           </value>
         </entry>
+        <entry key="F:/NovelReader2/app/src/main/java/com/lw/adapter/BookItemAdpater.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="F:/NovelReader2/app/src/main/java/com/lw/datainterfaceimpl/TTZWImpl.java">
           <value>
             <set />
@@ -499,6 +589,31 @@
           </value>
         </entry>
         <entry key="F:/NovelReader2/app/src/main/java/com/lw/ttzw/DataInterface.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="F:/NovelReader2/app/src/main/java/com/lw/ttzw/NovelManager.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="F:/NovelReader2/app/src/main/java/com/lw/ui/fragment/SortNovelListFragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="F:/NovelReader2/app/src/main/res/layout/novel_detail.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="F:/NovelReader2/app/src/main/res/values/attr.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="F:/NovelReader2/app/src/main/res/values/loading_arrt.xml">
           <value>
             <set />
           </value>

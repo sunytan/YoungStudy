@@ -31,6 +31,7 @@
     <string name="luntan">论坛热书</string>
     <string name="qingxiaoshuo">轻小说</string>
 
-
+    <string name="removeshelft">移出书架</string>
+    <string name="addshelft">加入书架</string>
 
 </resources>
