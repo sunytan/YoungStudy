@@ -1,29 +1,21 @@
 
 package ty.youngstudy.com.ui.activity;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.media.MediaPlayer;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.AppCompatButton;
-import android.view.View;
-
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.VideoView;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import butterknife.BindView;
+import org.litepal.LitePal;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.view.WindowManager;
+
 import butterknife.OnClick;
 import ty.youngstudy.com.R;
 import ty.youngstudy.com.ui.activity.base.BaseActivity;

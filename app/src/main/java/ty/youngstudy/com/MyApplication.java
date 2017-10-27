@@ -5,6 +5,8 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import org.litepal.LitePal;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,6 +35,8 @@ public class MyApplication extends Application {
         netStateListener.startListener();
         Log.i(TAG,"onCreate3");
         Log.i(TAG,"mContext = "+mContext);
+        LitePal.initialize(mContext);
+        LitePal.getDatabase();
     }
 
     public Context getContext() {
