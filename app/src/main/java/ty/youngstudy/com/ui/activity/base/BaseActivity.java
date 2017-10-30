@@ -73,8 +73,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         initViewAndEvents();
     }
 
-
-
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyApplication.getInstance().removeActivity(this);
+    }
 }

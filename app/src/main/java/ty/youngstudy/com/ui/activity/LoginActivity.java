@@ -31,6 +31,10 @@ public class LoginActivity extends BaseActivity
     public void login(){
         readyGoThenKill(MainActivity.class);
     }
+    @OnClick(R.id.tv_registry_id)
+    public void register(){
+        readyGo(RegisterActivity.class);
+    }
 
     @OnClick(R.id.tv_forgetpwd_id)
     public void forget(){
