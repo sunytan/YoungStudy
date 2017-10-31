@@ -8,6 +8,7 @@ import android.support.annotation.StyleRes;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import ty.youngstudy.com.MyApplication;
@@ -42,16 +43,22 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     protected void readyGoThenKill(Class<?> clazz,Bundle bundle){
         Intent intent = new Intent(this,clazz);
-        if (bundle == null) {
+        if (bundle != null) {
             intent.putExtras(bundle);
         }
         startActivity(intent);
         finish();
     }
 
-    protected void showToast(String msg){
+    protected void showSnackToast(String msg){
         if (msg != null) {
             Snackbar.make(getLoadingView(),msg,Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
+    protected void showToast(String msg){
+        if (msg != null) {
+            Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
         }
     }
 

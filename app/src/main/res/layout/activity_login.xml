@@ -15,6 +15,12 @@
         android:focusableInTouchMode="false"
         android:focusable="false"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1DADADAD"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,16 +36,27 @@
             android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/loginName_id"
+            android:id="@+id/edt_login_name"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:hint="手机/邮箱"
+            android:inputType="phone|textEmailAddress"
             android:textColor="#fff"
             android:textColorHint="#fff"
             android:background="@null"
             android:textSize="20sp"
             android:layout_weight="1"/>
 
+            <ImageView
+                android:id="@+id/img_name_delete"
+                android:layout_width="14dp"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:layout_marginRight="10dp"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                android:src="@mipmap/pg_delete"/>
+            
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="match_parent"
@@ -55,16 +72,35 @@
             android:src="@mipmap/fls"
             android:scaleType="fitXY"/>
 
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:hint="密码"
-            android:textColorHint="#fff"
-            android:textColor="#fff"
-            android:background="@null"
-            android:textSize="20sp" />
+            android:orientation="horizontal">
 
+            <EditText
+                android:id="@+id/edt_login_pwd"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:hint="密码"
+                android:inputType="textPassword"
+                android:textColorHint="#fff"
+                android:textColor="#fff"
+                android:background="@null"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/img_pwd_delete"
+                android:visibility="gone"
+                android:layout_width="14dp"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:layout_marginRight="10dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/pg_delete"/>
+
+        </LinearLayout>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

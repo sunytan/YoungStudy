@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.luck.picture.lib.PictureSelector;
@@ -65,7 +66,7 @@ public class MainActivity extends BaseActivity
             R.drawable.selector_tab_friend, R.drawable.selector_tab_me};
 
     private RoundImageView roundImageView;
-
+    private RelativeLayout person_info_layout;
     private ArrayList<Fragment> mFragmentList;
     private ArrayList<String> mTitleList;
     private FragmentAdapter adapter;
@@ -122,10 +123,6 @@ public class MainActivity extends BaseActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        roundImageView = (RoundImageView) navigationView.getHeaderView(0).findViewById(R.id.headerImgView);
         roundImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,7 +203,16 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void initViewAndEvents() {
-
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        roundImageView = (RoundImageView) navigationView.getHeaderView(0).findViewById(R.id.headerImgView);
+        person_info_layout = (RelativeLayout) navigationView.getHeaderView(0).findViewById(R.id.nav_person_info_layout);
+        person_info_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                readyGo(UserInfoActivity.class);
+            }
+        });
     }
 
     @Override

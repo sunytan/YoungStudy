@@ -12,27 +12,45 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <ty.youngstudy.com.widget.RoundImageView
-        android:id="@+id/headerImgView"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/app_bg"
-        round:boder_color="@color/black"
-        round:boder_width="2dp"
-        round:shape="round"/>
+    <RelativeLayout
+        android:id="@+id/nav_person_info_layout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
 
+        <ty.youngstudy.com.widget.RoundImageView
+            android:id="@+id/headerImgView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/app_bg"
+            round:boder_color="@color/black"
+            round:boder_width="2dp"
+            round:shape="round"/>
+        
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/openright"
+            />
+        
+    </RelativeLayout>
+    
     <TextView
+        android:id="@+id/tv_nav_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Android Studio"
+        android:text="User name"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_nav_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="android.studio@android.com" />
+        android:text="Email addr"/>
 
 </LinearLayout>
