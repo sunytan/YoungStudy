@@ -252,7 +252,9 @@ public class RoundImageView extends ImageView {
         boderPaint.setAntiAlias(true);
         boderPaint.setStyle(Paint.Style.STROKE);
         boderPaint.setStrokeWidth(border_width);
-        boderPaint.setColor(color.getColorForState(getDrawableState(),0));
+        if (color != null) {
+            boderPaint.setColor(color.getColorForState(getDrawableState(), 0));
+        }
 
         boderRect.set(0,0,getWidth(),getHeight());
         mBorderRadius = Math.min((boderRect.height() - border_width) / 2, (boderRect.width() - border_width) / 2);

@@ -1,17 +1,13 @@
 
 package ty.youngstudy.com.ui.activity;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -22,13 +18,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.LogInListener;
 import ty.youngstudy.com.R;
-import ty.youngstudy.com.Bmob.Person;
+import ty.youngstudy.com.manager.UserManager;
 import ty.youngstudy.com.ui.activity.base.BaseActivity;
 import ty.youngstudy.com.ui.view.layout.BalloonRelativeLayout;
 import ty.youngstudy.com.ui.view.layout.CustomVideoView;
@@ -68,7 +64,8 @@ public class LoginActivity extends BaseActivity
 
     @Override
     public boolean getFirstStart() {
-        return false;
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return sp.getBoolean("first_start", true);
     }
 
     @Override
@@ -186,15 +183,16 @@ public class LoginActivity extends BaseActivity
     private void loginAccount(){
         String name = edt_login_name.getText().toString();
         String pwd = edt_login_pwd.getText().toString();
-        BmobUser.loginByAccount(name, pwd, new LogInListener<Person>() {
+        UserManager.login(name, pwd, new UserManager.UserListener() {
             @Override
-            public void done(Person person, BmobException e) {
-                if (e == null) {
-                    showToast("登录成功");
-                    readyGoThenKill(MainActivity.class);
-                } else {
-                    showToast(e.toString());
-                }
+            public void onSuccess() {
+                showToast("登录成功");
+                readyGoThenKill(MainActivity.class);
+            }
+
+            @Override
+            public void onFailed(BmobException e) {
+                showToast(e.toString());
             }
         });
     }
@@ -205,10 +203,12 @@ public class LoginActivity extends BaseActivity
 
         if (getFirstStart()){
             readyGoThenKill(FirstActivity.class);
+            return;
         }
 
-        if (getLoginInfo()){
+        if (UserManager.init()){
             readyGoThenKill(MainActivity.class);
+            return;
         }
         //取消title
         if (getSupportActionBar() != null) {
@@ -249,14 +249,6 @@ public class LoginActivity extends BaseActivity
     @Override
     public void onCompletion(MediaPlayer mp) {//开始播放
         mVideoView.start();
-    }
-
-    private boolean getLoginInfo(){
-        Person bmobuser = BmobUser.getCurrentUser(Person.class);
-        if (bmobuser != null) {
-            return true;
-        }
-        return false;
     }
 
     class LoginInfo{

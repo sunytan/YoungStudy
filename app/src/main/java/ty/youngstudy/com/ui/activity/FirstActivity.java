@@ -50,7 +50,7 @@ public class FirstActivity extends BaseActivity {
 
     @OnClick(R.id.btn_welcome)
     public void onClick(){
-        readyGoThenKill(MainActivity.class);
+        readyGoThenKill(LoginActivity.class);
     }
 
     private ArrayList<View> viewList = new ArrayList<View>();
