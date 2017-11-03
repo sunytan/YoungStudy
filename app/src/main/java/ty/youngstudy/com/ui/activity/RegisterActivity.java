@@ -8,8 +8,10 @@ import android.widget.Toast;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 import ty.youngstudy.com.Bmob.Person;
 import ty.youngstudy.com.R;
+import ty.youngstudy.com.manager.UserManager;
 import ty.youngstudy.com.ui.activity.base.BaseActivity;
 
 public class RegisterActivity extends BaseActivity {
@@ -46,19 +48,34 @@ public class RegisterActivity extends BaseActivity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = edt_user_name.getText().toString();
+                final String name = edt_user_name.getText().toString();
                 String pwd = edt_user_pwd.getText().toString();
-                String nick = edt_user_nick.getText().toString();
+                final String nick = edt_user_nick.getText().toString();
                 Person person = new Person();
                 person.setUsername(name);
                 person.setPassword(pwd);
                 person.setUser_nick(nick);
                 person.signUp(new SaveListener<Person>() {
                     @Override
-                    public void done(Person person, BmobException e) {
+                    public void done(final Person person, BmobException e) {
                         if (e == null) {
-                            Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
-                            finish();
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    UserManager.Yunxin yunxin = UserManager.getInstance().createYX(name,nick);
+                                    if (yunxin.account != null && yunxin.token != null) {
+                                        person.setYx_account(yunxin.account);
+                                        person.setYx_token(yunxin.token);
+                                        person.update(new UpdateListener() {
+                                            @Override
+                                            public void done(BmobException e) {
+                                                Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                                                (RegisterActivity.this).finish();
+                                            }
+                                        });
+                                    }
+                                }
+                            });
                         }else {
                             Toast.makeText(RegisterActivity.this,e.toString(),Toast.LENGTH_SHORT).show();
                         }

@@ -14,6 +14,8 @@ public class Person extends BmobUser {
     private String user_sex;
     private String user_addr;
     private BmobFile user_headicon;
+    private String yx_account;
+    private String yx_token;
 
     public void setUser_age(Integer user_age) {
         this.user_age = user_age;
@@ -53,5 +55,21 @@ public class Person extends BmobUser {
 
     public BmobFile getUser_headicon() {
         return user_headicon;
+    }
+
+    public void setYx_account(String yx_account) {
+        this.yx_account = yx_account;
+    }
+
+    public String getYx_account() {
+        return yx_account;
+    }
+
+    public void setYx_token(String yx_token) {
+        this.yx_token = yx_token;
+    }
+
+    public String getYx_token() {
+        return yx_token;
     }
 }

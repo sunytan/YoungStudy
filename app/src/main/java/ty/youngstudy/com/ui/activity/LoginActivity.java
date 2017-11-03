@@ -18,11 +18,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.netease.nim.uikit.session.activity.P2PMessageActivity;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bmob.v3.exception.BmobException;
+import ty.youngstudy.com.MyApplication;
 import ty.youngstudy.com.R;
 import ty.youngstudy.com.manager.UserManager;
 import ty.youngstudy.com.ui.activity.base.BaseActivity;
@@ -183,7 +186,7 @@ public class LoginActivity extends BaseActivity
     private void loginAccount(){
         String name = edt_login_name.getText().toString();
         String pwd = edt_login_pwd.getText().toString();
-        UserManager.login(name, pwd, new UserManager.UserListener() {
+        UserManager.getInstance().login(name, pwd, new UserManager.UserListener() {
             @Override
             public void onSuccess() {
                 showToast("登录成功");

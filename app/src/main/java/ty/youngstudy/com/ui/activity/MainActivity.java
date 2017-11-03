@@ -88,6 +88,7 @@ public class MainActivity extends BaseActivity
             mTitleList.add(tabCharList[i]);
         }
 
+
         mFragmentList = new ArrayList<>();
 
         for (int i = 0; i < mTitleList.size(); i++) {
