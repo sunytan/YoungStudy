@@ -1,22 +1,19 @@
 package ty.youngstudy.com.manager;
 
+import android.content.Context;
 import android.util.Log;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.netease.nim.uikit.NimUIKit;
+import com.netease.nim.uikit.common.http.NimHttpClient;
+import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
+import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.auth.LoginInfo;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+import java.net.URLEncoder;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import cn.bmob.v3.BmobUser;
@@ -24,6 +21,7 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.UploadFileListener;
 import okhttp3.OkHttpClient;
 import ty.youngstudy.com.Bmob.Person;
 import ty.youngstudy.com.MyApplication;
@@ -36,8 +34,7 @@ import ty.youngstudy.com.util.string.CheckSumBuilder;
 public class UserManager {
 
     private static final String TAG = "UserManager";
-    private static UserManager instance = new UserManager();
-
+    private static UserManager instance = null;
 
     private static String user_name;
     private static String user_pwd;
@@ -56,28 +53,25 @@ public class UserManager {
     private static final String YX_APP_KEY = "2e77d83708cbeae80b19a6505de83400";
     private static final String YX_APP_SECRET = "797a2d85a3e9";
     private static final String CONTENT_TYPE = "application/x-www-form-urlencoded;charset=utf-8";
-    private static final String url = "https://api.netease.im/nimserver/user/create.action";
+    private static final String yx_create_url = "https://api.netease.im/nimserver/user/create.action";
+    private static final String yx_update_url = "https://api.netease.im/nimserver/user/updateUinfo.action";
 
     private static OkHttpClient okHttpClient = new OkHttpClient();
+
+
+    private UserManager(){
+        NimHttpClient.getInstance().init(MyApplication.getInstance().getContext());
+    }
+
+
     // 登录借口封装
     public void login(String name,String pwd,final UserListener listener){
         BmobUser.loginByAccount(name, pwd, new LogInListener<Person>() {
             @Override
             public void done(final Person person, BmobException e) {
                 if (e == null){
-                    if (listener != null) {
-                        listener.onSuccess();
-                    }
-                    person.setYx_account("18251821329");
-                    person.setYx_token("a2363f050829e056a952230c42c5c66e");
-                    person.update(new UpdateListener() {
-                        @Override
-                        public void done(BmobException e) {
-                            if (e!=null) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
+                    init();
+                    loginYX(person.getYx_account(),person.getYx_token(),listener);
                 } else {
                     release();
                     if (listener != null) {
@@ -88,15 +82,98 @@ public class UserManager {
         });
     }
 
+    public void loginYX(String accid,String token,final UserListener listener){
+        NimUIKit.login(new LoginInfo(accid, token), new RequestCallback<LoginInfo>() {
+            @Override
+            public void onSuccess(LoginInfo loginInfo) {
+
+                if (listener != null) {
+                    listener.onSuccess();
+                }
+            }
+
+            @Override
+            public void onFailed(int i) {
+                Log.e(TAG,"登录云信失败 , code = "+i);
+                logOut();
+            }
+
+            @Override
+            public void onException(Throwable throwable) {
+                Log.e(TAG,"登录云信异常 , throwable = "+throwable);
+                logOut();
+            }
+        });
+    }
+
     // 退出登录当前账号封装
-    public static void logOut(){
+    public void logOut(){
         BmobUser.logOut();
+        NimUIKit.logout();
         release();
         MyApplication.getInstance().exit();
     }
 
     // 更新用户信息封装
-    public static void update(){
+    public void update(final UserListener listener){
+        myPerson.setYx_token(yx_token);
+        myPerson.setYx_account(yx_account);
+        myPerson.setUser_addr(user_addr);
+        myPerson.setUser_nick(user_nick);
+        myPerson.setPassword(user_pwd);
+        myPerson.setEmail(user_email);
+        myPerson.update(new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    if (listener != null) {
+                        listener.onSuccess();
+                    }
+                } else {
+                    if (listener != null){
+                        listener.onFailed(e);
+                    }
+                }
+            }
+        });
+    }
+
+    public void upload(final Context context, final BmobFile file, final UserListener listener){
+        DialogMaker.showProgressDialog(context,"上传图片中：",true);
+        file.uploadblock(new UploadFileListener() {
+            @Override
+            public void done(BmobException e) {
+                DialogMaker.dismissProgressDialog();
+                if (e == null) {
+                    myPerson.setUser_headicon(file);
+                    myPerson.update();
+                    if (listener != null) {
+                        listener.onSuccess();
+                    }
+                } else {
+                    if (listener != null) {
+                        listener.onFailed(e);
+                    }
+                }
+            }
+
+            @Override
+            public void onProgress(Integer value) {
+                super.onProgress(value);
+                if (DialogMaker.isShowing()) {
+                    DialogMaker.updateLoadingMessage("上传图片中："+value);
+
+                }
+            }
+
+            @Override
+            public void doneError(int code, String msg) {
+                super.doneError(code, msg);
+            }
+        });
+    }
+
+    public void download(){
 
     }
 
@@ -107,8 +184,8 @@ public class UserManager {
     }
 
 
-    //创建网易云信账号和 token
-    public Yunxin createYX(String name,String nick){
+
+/*    public Yunxin createYX(String name,String nick){
         Log.d(TAG,"name = "+name);
         Yunxin yunxin = new Yunxin();
         String nonce = String.valueOf(new Random(99999).nextInt());
@@ -154,10 +231,58 @@ public class UserManager {
         Log.d(TAG,"result = 11111"+result);
 
         return yunxin;
+    }*/
+
+    //创建网易云信账号和 token
+    public void createYX(String name,String nickname, NimHttpClient.NimHttpCallback callback){
+        String nonce = String.valueOf(new Random(99999).nextInt());
+        String currentTime = String.valueOf((new Date()).getTime() / 1000L);
+        String checkSum = CheckSumBuilder.getCheckSum(YX_APP_SECRET,nonce,currentTime);
+
+        try {
+            nickname = URLEncoder.encode(nickname,"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        Map<String,String> header = new HashMap<>(1);
+        header.put("Content-Type",CONTENT_TYPE);
+        header.put("AppKey",YX_APP_KEY);
+        header.put("Nonce",nonce);
+        header.put("CurTime",currentTime);
+        header.put("CheckSum",checkSum);
+
+        StringBuilder body = new StringBuilder();
+        body.append("accid").append("=").append(name.toLowerCase()).append("&")
+                .append("name").append("=").append(nickname);
+        String bodyString = body.toString();
+        Log.d(TAG,"createYx = "+bodyString);
+        NimHttpClient.getInstance().execute(yx_create_url,header,bodyString,true,callback);
     }
 
+    // 更新云信名片信息
+    public void updateYX(String accid, String nick, NimHttpClient.NimHttpCallback callback){
+        String nonce = String.valueOf(new Random(99999).nextInt());
+        String currentTime = String.valueOf((new Date()).getTime() / 1000L);
+        String checkSum = CheckSumBuilder.getCheckSum(YX_APP_SECRET,nonce,currentTime);
 
+        try {
+            nick = URLEncoder.encode(nick,"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        Map<String,String> header = new HashMap<>(1);
+        header.put("Content-Type",CONTENT_TYPE);
+        header.put("AppKey",YX_APP_KEY);
+        header.put("Nonce",nonce);
+        header.put("CurTime",currentTime);
+        header.put("CheckSum",checkSum);
 
+        StringBuilder body = new StringBuilder();
+        body.append("accid").append("=").append(accid.toLowerCase()).append("&")
+                .append("name").append("=").append(nick);
+        String bodyString = body.toString();
+        NimHttpClient.getInstance().execute(yx_update_url,header,bodyString,true,callback);
+    }
 
 
 
@@ -168,7 +293,7 @@ public class UserManager {
 
 
 
-    public static boolean init(){
+    public boolean init(){
         myPerson = BmobUser.getCurrentUser(Person.class);
         if (myPerson == null) {
             return false;
@@ -178,10 +303,12 @@ public class UserManager {
         user_email = myPerson.getEmail();
         user_head = myPerson.getUser_headicon();
         user_nick = myPerson.getUser_nick();
+        yx_account = myPerson.getYx_account();
+        yx_token = myPerson.getYx_token();
         return true;
     }
 
-    public static void release(){
+    public void release(){
         myPerson = null;
         user_name = null;
         user_nick = null;
@@ -189,9 +316,14 @@ public class UserManager {
         user_email = null;
         user_addr = null;
         user_pwd = null;
+        yx_account = null;
+        yx_token = null;
     }
 
     public static UserManager getInstance() {
+        if (instance == null) {
+            instance = new UserManager();
+        }
         return instance;
     }
 

@@ -58,7 +58,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     protected void showToast(String msg){
         if (msg != null) {
-            Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
         }
     }
 

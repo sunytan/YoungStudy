@@ -1,6 +1,12 @@
 
 package ty.youngstudy.com.ui.activity;
 
+import java.util.ArrayList;
+
+import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
+import com.netease.nimlib.sdk.AbortableFuture;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -18,14 +24,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.netease.nim.uikit.session.activity.P2PMessageActivity;
-
-import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bmob.v3.exception.BmobException;
-import ty.youngstudy.com.MyApplication;
 import ty.youngstudy.com.R;
 import ty.youngstudy.com.manager.UserManager;
 import ty.youngstudy.com.ui.activity.base.BaseActivity;
@@ -36,6 +37,8 @@ public class LoginActivity extends BaseActivity
         implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
 
     private ArrayList<LoginInfo> loginAccount = new ArrayList<LoginInfo>();
+    private AbortableFuture<LoginInfo> loginRequest;
+
 
     private EditText edt_login_name;
     private TextView edt_login_pwd;
@@ -184,35 +187,61 @@ public class LoginActivity extends BaseActivity
 
 
     private void loginAccount(){
+        DialogMaker.showProgressDialog(this, null, "登录中", true, new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                if (loginRequest != null) {
+                    loginRequest.abort();
+                    onLoginDone();
+                }
+            }
+        }).setCanceledOnTouchOutside(false);
         String name = edt_login_name.getText().toString();
         String pwd = edt_login_pwd.getText().toString();
         UserManager.getInstance().login(name, pwd, new UserManager.UserListener() {
             @Override
             public void onSuccess() {
                 showToast("登录成功");
+                onLoginDone();
                 readyGoThenKill(MainActivity.class);
             }
 
             @Override
             public void onFailed(BmobException e) {
+                onLoginDone();
                 showToast(e.toString());
             }
         });
+    }
+
+    private void onLoginDone() {
+        loginRequest = null;
+        DialogMaker.dismissProgressDialog();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getFirstStart()){
+/*        if (getFirstStart()){
             readyGoThenKill(FirstActivity.class);
             return;
-        }
+        }*/
 
-        if (UserManager.init()){
-            readyGoThenKill(MainActivity.class);
+/*        if (UserManager.init()){
+            UserManager.getInstance().loginYX(UserManager.getYx_account(), UserManager.getYx_token(), new UserManager.UserListener() {
+                @Override
+                public void onSuccess() {
+                    readyGoThenKill(MainActivity.class);
+                }
+
+                @Override
+                public void onFailed(BmobException e) {
+
+                }
+            });
             return;
-        }
+        }*/
         //取消title
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();

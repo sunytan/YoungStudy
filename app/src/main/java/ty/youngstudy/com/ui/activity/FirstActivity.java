@@ -50,11 +50,17 @@ public class FirstActivity extends BaseActivity {
 
     @OnClick(R.id.btn_welcome)
     public void onClick(){
-        readyGoThenKill(LoginActivity.class);
+        if (loginSuccess) {
+            readyGoThenKill(MainActivity.class);
+        } else {
+            readyGoThenKill(LoginActivity.class);
+        }
     }
 
     private ArrayList<View> viewList = new ArrayList<View>();
     private ArrayList<String> pagetitle = new ArrayList<String>();
+
+    private boolean loginSuccess = false;
 
     @Override
     public boolean getFirstStart() {
@@ -78,6 +84,8 @@ public class FirstActivity extends BaseActivity {
         setContentView(R.layout.activity_first);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        loginSuccess = getIntent().getExtras().getBoolean("loginSuccess",false);
+
         /* 初始化化 */
         /*initView();*/
         initEvent();
@@ -109,6 +117,8 @@ public class FirstActivity extends BaseActivity {
     /* 初始化事件 */
     private void initEvent() {
         viewpagerFirst.setOnPageChangeListener(new MyOnPageChangeListener());
+
+
         /*btn_welcome.setOnClickListener(this);*/
     }
 

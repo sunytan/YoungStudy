@@ -17,7 +17,7 @@ public class UserInfoActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putString("userName",name);
         readyGoThenKill(LoginActivity.class,bundle);
-        UserManager.logOut();
+        UserManager.getInstance().logOut();
     }
 
     @Override

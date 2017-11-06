@@ -25,17 +25,21 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.netease.nim.uikit.NimUIKit;
 
 import org.litepal.crud.DataSupport;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import ty.youngstudy.com.DataHelper;
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
 import ty.youngstudy.com.R;
 import ty.youngstudy.com.adapter.FragmentAdapter;
 import ty.youngstudy.com.database.UserInfo;
+import ty.youngstudy.com.manager.UserManager;
 import ty.youngstudy.com.ui.activity.base.BaseActivity;
 import ty.youngstudy.com.ui.activity.reader.NovelMainActivity;
 import ty.youngstudy.com.ui.fragment.TabFragment;
@@ -64,6 +68,8 @@ public class MainActivity extends BaseActivity
             R.drawable.selector_tab_friend, R.drawable.selector_tab_me};
 
     private RoundImageView roundImageView;
+    private TextView tv_nav_Name;
+    private TextView tv_nav_Email;
     private RelativeLayout person_info_layout;
     private ArrayList<Fragment> mFragmentList;
     private ArrayList<String> mTitleList;
@@ -87,7 +93,6 @@ public class MainActivity extends BaseActivity
         for (int i = 0; i < 4; i++) {
             mTitleList.add(tabCharList[i]);
         }
-
 
         mFragmentList = new ArrayList<>();
 
@@ -162,6 +167,7 @@ public class MainActivity extends BaseActivity
                         .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
             }
         });
+        BmobFile head_file = UserManager.getUser_head();
         if (userInfo != null){
             byte[] head = userInfo.getUserHead();
             Bitmap bitmap = BitmapFactory.decodeByteArray(head,0,head.length,options);
@@ -202,6 +208,8 @@ public class MainActivity extends BaseActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         roundImageView = (RoundImageView) navigationView.getHeaderView(0).findViewById(R.id.headerImgView);
+        tv_nav_Name = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_nav_name);
+        tv_nav_Name.setText(UserManager.getUser_nick());
         person_info_layout = (RelativeLayout) navigationView.getHeaderView(0).findViewById(R.id.nav_person_info_layout);
         person_info_layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,6 +217,7 @@ public class MainActivity extends BaseActivity
                 readyGo(UserInfoActivity.class);
             }
         });
+
     }
 
     @Override
@@ -316,6 +325,13 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 退出云信
+        NimUIKit.logout();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
@@ -325,11 +341,28 @@ public class MainActivity extends BaseActivity
                     selectList = PictureSelector.obtainMultipleResult(data);
                     if (selectList != null && selectList.size() > 0) {
                         LocalMedia media = selectList.get(0);
-                        String cutPath = media.getCompressPath();
+                        final String cutPath = media.getCompressPath();
                         Log.i("tanyang", "path :" + cutPath);
-                        Bitmap bmp = BitmapFactory.decodeFile(cutPath,options);
-                        roundImageView.setImageBitmap(bmp);
-                        DataHelper.updateUserHead("tanyang",bmp);
+                        File file =new File(cutPath);
+                        final BmobFile bmobFile = new BmobFile(file);
+                        bmobFile.obtain(file.getName(),null,null);
+
+                        UserManager.setUser_head(bmobFile);
+                        UserManager.getInstance().upload(MainActivity.this, bmobFile, new UserManager.UserListener() {
+                            @Override
+                            public void onSuccess() {
+                                String url = bmobFile.getFileUrl();
+                                showToast("上传成功：Fileurl = "+url+",name = "+bmobFile.getFilename()+",local file = "+bmobFile.getLocalFile()
+                                +",url = "+bmobFile.getUrl());
+
+                            }
+
+                            @Override
+                            public void onFailed(BmobException e) {
+
+                            }
+                        });
+                        //DataHelper.updateUserHead("tanyang",bmp);
                     }
                     // 例如 LocalMedia 里面返回三种 path
                     // 1.media.getPath(); 为原图 path
