@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,7 @@ import static com.netease.nim.uikit.common.ui.dialog.CustomAlertDialog.onSeparat
  */
 public class RecentContactsFragment extends TFragment {
 
+    private static final String TAG = "RecentContactsFragment";
     // 置顶功能可直接使用，也可作为思路，供开发者充分利用RecentContact的tag字段
     public static final long RECENT_TAG_STICKY = 1; // 联系人置顶tag
 
@@ -86,7 +88,7 @@ public class RecentContactsFragment extends TFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        Log.d(TAG,"onActivityCreated");
         findViews();
         initMessageList();
         requestMessages(true);
@@ -97,6 +99,7 @@ public class RecentContactsFragment extends TFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG,"onCreateView");
         return inflater.inflate(R.layout.nim_recent_contacts, container, false);
     }
 
@@ -110,6 +113,8 @@ public class RecentContactsFragment extends TFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.d(TAG,"onDestroy");
+        msgLoaded = false;
         registerObservers(false);
         registerDropCompletedListener(false);
         registerOnlineStateChangeListener(false);
@@ -140,6 +145,18 @@ public class RecentContactsFragment extends TFragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addOnItemTouchListener(touchListener);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if ()
+            }
+        });
 
         // ios style
         OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
@@ -316,6 +333,7 @@ public class RecentContactsFragment extends TFragment {
     private List<RecentContact> loadedRecents;
 
     private void requestMessages(boolean delay) {
+        Log.d(TAG,"requestMessages  ， msgLoaded = "+msgLoaded);
         if (msgLoaded) {
             return;
         }

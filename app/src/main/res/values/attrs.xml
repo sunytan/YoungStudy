@@ -41,14 +41,4 @@
         </attr>
     </declare-styleable>
 
-    <declare-styleable name="CircleImageView">
-        <attr name="border_color" format="color"/>
-        <attr name="border_width" format="dimension"/>
-        <attr name="img_shape" format="enum">
-            <enum name="square" value="0"/>
-            <enum name="round" value="1"/>
-            <enum name="oval" value="2"/>
-        </attr>
-    </declare-styleable>
-
 </resources>

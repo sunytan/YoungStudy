@@ -25,6 +25,10 @@
     <string name="exit_app">exit</string>
     <string name="author">Author:</string>
 
+    <!--添加-->
+    <string name="find_people">Find people</string>
+
+
 
     <!--小说类别名-->
     <string name="xuanhuan">玄幻奇幻</string>

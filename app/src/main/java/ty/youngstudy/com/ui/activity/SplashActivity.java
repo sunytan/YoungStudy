@@ -1,8 +1,7 @@
 package ty.youngstudy.com.ui.activity;
 
-import java.io.IOException;
+import java.io.File;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 
@@ -10,12 +9,10 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
@@ -25,15 +22,10 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.QueryListener;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import ty.youngstudy.com.Bmob.Person;
 import ty.youngstudy.com.R;
 import ty.youngstudy.com.Bmob.ArticleBean;
 import ty.youngstudy.com.manager.UserManager;
@@ -47,8 +39,10 @@ public class SplashActivity extends BaseActivity {
 
     private final static String IMG_URL = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1505297314037&di=b11bfe2f90541a63175a89f8a941d67a&imgtype=0&src=http%3A%2F%2Fwww.5djpg.com%2Fuploads%2Fallimg%2F140609%2F1-1406091P426.jpg";
     private ImageView imageView;
-
+    private String headName = "";
     private boolean loginSuccess = false;
+
+    private static final String BMOB_CACHE_PATH = Environment.getDownloadCacheDirectory()+"/bmob/";
 
     @Override
     public View getLoadingView() {
@@ -74,57 +68,53 @@ public class SplashActivity extends BaseActivity {
         }
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
-        /*BmobQuery query = new BmobQuery("_Article");
-        query.addWhereEqualTo("title","splash3");
+
+        final SharedPreferences sp1 = getSharedPreferences("UserInfo_sp", Context.MODE_PRIVATE);
+        String headpath = sp1.getString("headfile","");
+        File file = new File(headpath);
+        if (file.exists()) {
+            headName =file.getName();
+            Glide.with(SplashActivity.this).asDrawable().load(file).into(imageView);
+        }
+
+        BmobQuery query = new BmobQuery("_Article");
+        query.addWhereEqualTo("title","splash");
         query.findObjectsByTable(new QueryListener<JSONArray>() {
             @Override
             public void done(JSONArray jsonArray, BmobException e) {
+                if (jsonArray == null)
+                    return;
                 Log.d("splash = ",jsonArray.toString());
                 List<ArticleBean> been = new Gson().fromJson(jsonArray.toString(),new TypeToken<List<ArticleBean>>() {}.getType());
-                String content = been.get(0).getContent();
-                String[] s = content.split(" ");
-                String url = "";
-                for (int i = 0; i < s.length; i++) {
-                    if (s[i].contains("src=")){
-                        url = s[i].substring(4);
-                        break;
-                    }
-                }
-                Log.d("splash url = ",url);
-                *//*OkHttpClient client = new OkHttpClient.Builder().readTimeout(30, TimeUnit.SECONDS).build();
-                Request request = new Request.Builder().url(url).build();
-                client.newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        Log.d("tanyang","connect fail");
-                    }
+                final String fileName = been.get(0).getSplash().getFilename();
+                String url = been.get(0).getSplash().getUrl();
 
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        if (response.isSuccessful()){
-                            final byte[] img = response.body().bytes();
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d("tanyang","set background");
-                                    BitmapFactory.Options options = new BitmapFactory.Options();
-                                    options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-                                    options.inPurgeable = true;
-                                    options.inInputShareable =true;
-                                    Bitmap bitmap = BitmapFactory.decodeByteArray(img,0,img.length,options);
-                                    Drawable drawable = new BitmapDrawable(bitmap);
-                                    Glide.with(SplashActivity.this).load(drawable).into(imageView);
-                                    //imageView.setImageBitmap(bitmap);
-                                    //viewGroup.setBackground();
-                                }
-                            });
+                if (fileName.equals(headName)) {
+                    Log.d("splash","相同的splash，不重新下载");
+                } else {
+                    Glide.with(SplashActivity.this).asDrawable().load(url).into(imageView);
+                    BmobFile bmobFile = new BmobFile(fileName, null, url);
+                    bmobFile.download(new DownloadFileListener() {
+                        @Override
+                        public void done(String s, BmobException e) {
+                            if (e == null) {
+                                showToast("下载成功 s = " + s);
+                                SharedPreferences.Editor editor = sp1.edit();
+                                editor.putString("headfile", s);
+                                editor.commit();
+                            }
                         }
-                    }
-                });*//*
+
+                        @Override
+                        public void onProgress(Integer integer, long l) {
+
+                        }
+                    });
+                }
             }
-        });*/
-        Glide.with(SplashActivity.this).load(IMG_URL).into(imageView);
+        });
     }
+
 
     private Handler mHandler = new Handler(){
         @Override
@@ -171,21 +161,6 @@ public class SplashActivity extends BaseActivity {
                        loginSuccess = false;
                   }
              });
-            /*UserManager.getUser_head().download(new DownloadFileListener() {
-                @Override
-                public void done(String s, BmobException e) {
-                    if (e == null) {
-                        Log.d("splash", "downpath = " + s);
-                    } else {
-                        showToast("下载失败："+e.toString());
-                    }
-                }
-
-                @Override
-                public void onProgress(Integer integer, long l) {
-
-                }
-            });*/
         } else {
             loginSuccess = false;
         }

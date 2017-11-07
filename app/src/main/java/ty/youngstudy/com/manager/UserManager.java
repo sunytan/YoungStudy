@@ -138,15 +138,26 @@ public class UserManager {
         });
     }
 
-    public void upload(final Context context, final BmobFile file, final UserListener listener){
+    public void upload(final Context context, final UserListener listener){
         DialogMaker.showProgressDialog(context,"上传图片中：",true);
-        file.uploadblock(new UploadFileListener() {
+        user_head.uploadblock(new UploadFileListener() {
             @Override
             public void done(BmobException e) {
                 DialogMaker.dismissProgressDialog();
                 if (e == null) {
-                    myPerson.setUser_headicon(file);
-                    myPerson.update();
+                    Log.d(TAG,"上传成功：Fileurl = "+user_head.getUrl()+",name = "+user_head.getFilename()+",local file = "+user_head.getLocalFile());
+                    myPerson.setUser_headicon(user_head);
+                    myPerson.update(myPerson.getObjectId(), new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if (e == null) {
+                                Log.d(TAG,"上穿成功2");
+                            }
+                            else {
+                                Log.d(TAG,"上传失败 = "+e.toString());
+                            }
+                        }
+                    });
                     if (listener != null) {
                         listener.onSuccess();
                     }

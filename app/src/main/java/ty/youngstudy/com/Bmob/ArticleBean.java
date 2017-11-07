@@ -6,6 +6,7 @@ package ty.youngstudy.com.Bmob;
 
 public class ArticleBean {
 
+
     /**
      * content : <!DOCTYPE html>
      <html lang="en">
@@ -13,19 +14,21 @@ public class ArticleBean {
      <meta charset="UTF-8" />
      <title>素材预览</title>
      </head>
-     <body><p><img src="http://bmob-cdn-14937.b0.upaiyun.com/2017/11/06/f8d09c3c400998c980fd95fd2edabc79.jpg" data-filename="image name" style="width: 778px;"><br></p>
+     <body><p><img src="http://bmob-cdn-14937.b0.upaiyun.com/2017/11/06/b9c108ed40f48284803f31371d1f1599.jpg" data-filename="image name" style="width: 778px;"><br></p>
      </body>
      </html>
-     * createdAt : 2017-11-06 14:29:03
-     * objectId : kFlqSSSU
-     * title : splash1
-     * updatedAt : 2017-11-06 14:29:03
-     * url : http://bmob-cdn-14937.b0.upaiyun.com/2017/11/06/0c41875e402eff5780ea05071ab27ea0.html
+     * createdAt : 2017-11-06 15:21:53
+     * objectId : opClDDDH
+     * splash : {"__type":"File","cdn":"upyun","filename":"splash3.jpg","url":"http://bmob-cdn-14937.b0.upaiyun.com/2017/11/06/92836080401cdb1a80eb1ad1b727b4e2.jpg"}
+     * title : splash3
+     * updatedAt : 2017-11-06 17:38:48
+     * url : http://bmob-cdn-14937.b0.upaiyun.com/2017/11/06/c649692e4069ac6480b68a4526506006.html
      */
 
     private String content;
     private String createdAt;
     private String objectId;
+    private SplashBean splash;
     private String title;
     private String updatedAt;
     private String url;
@@ -54,6 +57,14 @@ public class ArticleBean {
         this.objectId = objectId;
     }
 
+    public SplashBean getSplash() {
+        return splash;
+    }
+
+    public void setSplash(SplashBean splash) {
+        this.splash = splash;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -76,5 +87,51 @@ public class ArticleBean {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public static class SplashBean {
+        /**
+         * __type : File
+         * cdn : upyun
+         * filename : splash3.jpg
+         * url : http://bmob-cdn-14937.b0.upaiyun.com/2017/11/06/92836080401cdb1a80eb1ad1b727b4e2.jpg
+         */
+
+        private String __type;
+        private String cdn;
+        private String filename;
+        private String url;
+
+        public String get__type() {
+            return __type;
+        }
+
+        public void set__type(String __type) {
+            this.__type = __type;
+        }
+
+        public String getCdn() {
+            return cdn;
+        }
+
+        public void setCdn(String cdn) {
+            this.cdn = cdn;
+        }
+
+        public String getFilename() {
+            return filename;
+        }
+
+        public void setFilename(String filename) {
+            this.filename = filename;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
     }
 }

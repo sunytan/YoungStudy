@@ -38,10 +38,11 @@ public class LoginActivity extends BaseActivity
 
     private ArrayList<LoginInfo> loginAccount = new ArrayList<LoginInfo>();
     private AbortableFuture<LoginInfo> loginRequest;
-
-
+    private SharedPreferences sp = null;
+    SharedPreferences.Editor editor = null;
     private EditText edt_login_name;
     private TextView edt_login_pwd;
+
 
     @BindView(R.id.img_name_delete)
     ImageView img_name_delete;
@@ -196,13 +197,17 @@ public class LoginActivity extends BaseActivity
                 }
             }
         }).setCanceledOnTouchOutside(false);
-        String name = edt_login_name.getText().toString();
+        final String name = edt_login_name.getText().toString();
         String pwd = edt_login_pwd.getText().toString();
         UserManager.getInstance().login(name, pwd, new UserManager.UserListener() {
             @Override
             public void onSuccess() {
                 showToast("登录成功");
                 onLoginDone();
+                if (editor != null){
+                    editor.putString("account",name);
+                    editor.commit();
+                }
                 readyGoThenKill(MainActivity.class);
             }
 
@@ -223,25 +228,9 @@ public class LoginActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-/*        if (getFirstStart()){
-            readyGoThenKill(FirstActivity.class);
-            return;
-        }*/
-
-/*        if (UserManager.init()){
-            UserManager.getInstance().loginYX(UserManager.getYx_account(), UserManager.getYx_token(), new UserManager.UserListener() {
-                @Override
-                public void onSuccess() {
-                    readyGoThenKill(MainActivity.class);
-                }
-
-                @Override
-                public void onFailed(BmobException e) {
-
-                }
-            });
-            return;
-        }*/
+        sp = getSharedPreferences("UserInfo_sp",MODE_PRIVATE);
+        editor = sp.edit();
+        String account = sp.getString("account","");
         //取消title
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -253,14 +242,7 @@ public class LoginActivity extends BaseActivity
         mVideoView = (CustomVideoView) findViewById(R.id.loginVideoView_id);
         mBalloonRelativeLayout = (BalloonRelativeLayout) findViewById(R.id.balloonRelativeLayout_id);
         initVideoView();
-        Intent intent = getIntent();
-        Log.d("intentName = ",intent+"");
-        if (intent != null) {
-            Bundle bd = intent.getExtras();
-            if (bd != null){
-                edt_login_name.setText(bd.getString("userName",""));
-            }
-        }
+        edt_login_name.setText(account);
     }
 
 

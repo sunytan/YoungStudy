@@ -21,13 +21,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.netease.nim.uikit.NimUIKit;
-
-import org.litepal.crud.DataSupport;
+import com.netease.nim.uikit.common.ui.imageview.CircleImageView;
+import com.netease.nim.uikit.contact.ContactsFragment;
+import com.netease.nim.uikit.recent.RecentContactsFragment;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -43,10 +45,12 @@ import ty.youngstudy.com.manager.UserManager;
 import ty.youngstudy.com.ui.activity.base.BaseActivity;
 import ty.youngstudy.com.ui.activity.reader.NovelMainActivity;
 import ty.youngstudy.com.ui.fragment.TabFragment;
-import ty.youngstudy.com.widget.RoundImageView;
+
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String TAG = "MainActivity";
 
     private static long DOUBLE_CLICK_TIME = 0L;
     private TabLayout mTabLayout;
@@ -54,20 +58,11 @@ public class MainActivity extends BaseActivity
     private List<UserInfo> userInfos;
     private UserInfo userInfo;
 
-//    @BindArray(R.array.tab_char)
-//    String[] tabCharList;
-
-//    @BindView(R.id.tab_main_id)
-//    TabLayout mTabLayout;
-//
-//    @BindView(R.id.frg_viewPager_id)
-//    ViewPager frg_viewPager;
-
-    String[] tabCharList = new String[] {"微信","发现","朋友","我的"};
+    String[] tabCharList = new String[] {"聊天","发现","朋友","我的"};
     int[] tabDrawList = new int[]{R.drawable.selector_tab_weixin, R.drawable.selector_tab_find,
             R.drawable.selector_tab_friend, R.drawable.selector_tab_me};
 
-    private RoundImageView roundImageView;
+    private CircleImageView circleImageView;
     private TextView tv_nav_Name;
     private TextView tv_nav_Email;
     private RelativeLayout person_info_layout;
@@ -95,29 +90,24 @@ public class MainActivity extends BaseActivity
         }
 
         mFragmentList = new ArrayList<>();
-
-        for (int i = 0; i < mTitleList.size(); i++) {
+        mFragmentList.clear();
+        /*for (int i = 0; i < mTitleList.size(); i++) {
             mFragmentList.add(TabFragment.newInstance(i));
-        }
+        }*/
+        mFragmentList.add(new RecentContactsFragment());
+        mFragmentList.add(TabFragment.newInstance(1));
+        mFragmentList.add(new ContactsFragment());
+        mFragmentList.add(TabFragment.newInstance(3));
 
         adapter = new FragmentAdapter(getSupportFragmentManager(),mFragmentList,mTitleList);
         frg_viewPager.setAdapter(adapter);
         frg_viewPager.setCurrentItem(0);
         /* 初始化TabView */
         initTab();
-        userInfos = DataSupport.where("userName = ?","tanyang").find(UserInfo.class);
+        /*userInfos = DataSupport.where("userName = ?","tanyang").find(UserInfo.class);
         if (userInfos != null && userInfos.size()!=0){
             userInfo = userInfos.get(0);
-        }
-
-/*        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -125,7 +115,7 @@ public class MainActivity extends BaseActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        roundImageView.setOnClickListener(new View.OnClickListener() {
+        circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PictureSelector.create(MainActivity.this)
@@ -154,7 +144,7 @@ public class MainActivity extends BaseActivity
                         .openClickSound(false)// 是否开启点击声音 true or false
                         //.selectionMedia()// 是否传入已选图片 List<LocalMedia> list
                         .previewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中) true or false
-                        .cropCompressQuality(90)// 裁剪压缩质量 默认90 int
+                        .cropCompressQuality(100)// 裁剪压缩质量 默认90 int
                         //.compressMaxKB(Luban.CUSTOM_GEAR)//压缩最大值kb compressGrade()为Luban.CUSTOM_GEAR有效 int
                         //.compressWH() // 压缩宽高比 compressGrade()为Luban.CUSTOM_GEAR有效  int
                         //.cropWH(80,80)// 裁剪宽高比，设置如果大于图片本身宽高则无效 int
@@ -167,12 +157,6 @@ public class MainActivity extends BaseActivity
                         .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
             }
         });
-        BmobFile head_file = UserManager.getUser_head();
-        if (userInfo != null){
-            byte[] head = userInfo.getUserHead();
-            Bitmap bitmap = BitmapFactory.decodeByteArray(head,0,head.length,options);
-            roundImageView.setImageBitmap(bitmap);
-        }
     }
 
 
@@ -207,7 +191,7 @@ public class MainActivity extends BaseActivity
     public void initViewAndEvents() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        roundImageView = (RoundImageView) navigationView.getHeaderView(0).findViewById(R.id.headerImgView);
+        circleImageView = (CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.headerImgView);
         tv_nav_Name = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_nav_name);
         tv_nav_Name.setText(UserManager.getUser_nick());
         person_info_layout = (RelativeLayout) navigationView.getHeaderView(0).findViewById(R.id.nav_person_info_layout);
@@ -217,7 +201,16 @@ public class MainActivity extends BaseActivity
                 readyGo(UserInfoActivity.class);
             }
         });
-
+        BmobFile head = UserManager.getUser_head();
+        if (head != null) {
+            String url = UserManager.getUser_head().getUrl();
+            Log.d(TAG, "url = " + url);
+            try {
+                Glide.with(MainActivity.this).load(url).into(circleImageView);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -250,7 +243,8 @@ public class MainActivity extends BaseActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_find_people) {
+            NimUIKit.startP2PSession(MainActivity.this,"18251821329");
             return true;
         }
 
@@ -343,12 +337,12 @@ public class MainActivity extends BaseActivity
                         LocalMedia media = selectList.get(0);
                         final String cutPath = media.getCompressPath();
                         Log.i("tanyang", "path :" + cutPath);
+                        Bitmap bmp = BitmapFactory.decodeFile(cutPath,options);
+                        circleImageView.setImageBitmap(bmp);
                         File file =new File(cutPath);
                         final BmobFile bmobFile = new BmobFile(file);
-                        bmobFile.obtain(file.getName(),null,null);
-
                         UserManager.setUser_head(bmobFile);
-                        UserManager.getInstance().upload(MainActivity.this, bmobFile, new UserManager.UserListener() {
+                        UserManager.getInstance().upload(MainActivity.this, new UserManager.UserListener() {
                             @Override
                             public void onSuccess() {
                                 String url = bmobFile.getFileUrl();
@@ -356,13 +350,11 @@ public class MainActivity extends BaseActivity
                                 +",url = "+bmobFile.getUrl());
 
                             }
-
                             @Override
                             public void onFailed(BmobException e) {
 
                             }
                         });
-                        //DataHelper.updateUserHead("tanyang",bmp);
                     }
                     // 例如 LocalMedia 里面返回三种 path
                     // 1.media.getPath(); 为原图 path

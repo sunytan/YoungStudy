@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.netease.nim.uikit.recent.RecentContactsFragment;
-
 import ty.youngstudy.com.R;
 import ty.youngstudy.com.ui.fragment.base.BaseFragment;
 
@@ -33,7 +31,7 @@ public class TabFragment extends BaseFragment {
     public static Fragment newInstance(int index){
         Bundle extra = new Bundle();
         extra.putInt("index",'A' + index);
-        Fragment tabFragment = new RecentContactsFragment();
+        Fragment tabFragment = new TabFragment();
         tabFragment.setArguments(extra);
         return tabFragment;
     }

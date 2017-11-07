@@ -13,10 +13,7 @@ public class UserInfoActivity extends BaseActivity {
 
     @OnClick(R.id.btn_exit_current)
     protected void exitCurrentAccount(){
-        String name = UserManager.getUser_name();
-        Bundle bundle = new Bundle();
-        bundle.putString("userName",name);
-        readyGoThenKill(LoginActivity.class,bundle);
+        readyGoThenKill(LoginActivity.class);
         UserManager.getInstance().logOut();
     }
 
