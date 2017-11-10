@@ -78,6 +78,7 @@ public class NovelMainActivity extends BaseActivity implements NetStateListener.
         fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(),fragmentList,titleList);
         mViewPager.setAdapter(fragmentAdapter);
         mViewPager.setCurrentItem(0);
+        mViewPager.setOffscreenPageLimit(3);
         initTabView();
 
     }

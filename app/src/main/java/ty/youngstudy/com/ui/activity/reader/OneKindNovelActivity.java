@@ -169,7 +169,7 @@ public class OneKindNovelActivity extends BaseMvpActivity<ReaderPresenter> {
             listNovel.addAll(result.getNovels());
             currentUrl = bundle.getString("currentUrl","");
             nextUrl = bundle.getString("nextUrl","");
-            Log.i("tanyang","bundle = "+listNovel.get(0).getName());
+            //Log.i("tanyang","bundle = "+listNovel.get(0).getName());
             //listNovel = bundle.getParcelableArrayList("data");
         }
 //        readerModel = new ReaderModel(TAG);

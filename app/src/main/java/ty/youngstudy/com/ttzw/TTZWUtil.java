@@ -140,7 +140,6 @@ public class TTZWUtil {
         NodeList nodeList = parser.parse(new TagAttrFilter("div","class","hot_sale"));
         for (int i = 0; i < nodeList.size(); i++) {
             Node novelNode = nodeList.elementAt(i);
-            //Log.i(TAG,novelNode+"");
             Novel novel1 = parseNovelNode(TTZW_BASE_URL,novelNode);
             listnovel.add(novel1);
         }
@@ -151,6 +150,7 @@ public class TTZWUtil {
             novels.setNextUrl(TTZW_BASE_URL + tagNode.getAttribute("href"));
         }
         novels.setNovels(listnovel);
+        Log.i(TAG,"novels size= "+novels.getNovels().size() + "novel = "+novels.getNovels().toString());
         return novels;
     }
 
@@ -164,6 +164,7 @@ public class TTZWUtil {
 //    }
 
     private static Novel parseNovelNode(String baseUrl,Node node) {
+        Log.i(TAG,"parseNovelNode");
         NodeList nl = HtmlUtil.getAllTagNodeChildren(node);
         Novel novel = new Novel();
         for(int i=0;i<nl.size();i++) {
@@ -188,6 +189,7 @@ public class TTZWUtil {
                 }
             }
         }
+        Log.i(TAG,"novel = "+novel.toString());
         return novel;
     }
 

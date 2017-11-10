@@ -102,6 +102,7 @@ public class MainActivity extends BaseActivity
         adapter = new FragmentAdapter(getSupportFragmentManager(),mFragmentList,mTitleList);
         frg_viewPager.setAdapter(adapter);
         frg_viewPager.setCurrentItem(0);
+        frg_viewPager.setOffscreenPageLimit(3);
         /* 初始化TabView */
         initTab();
         /*userInfos = DataSupport.where("userName = ?","tanyang").find(UserInfo.class);

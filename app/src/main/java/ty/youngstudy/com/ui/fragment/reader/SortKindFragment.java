@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -121,6 +122,11 @@ public class SortKindFragment extends BaseListFragment {
         super.onListItemClick(l, v, position, id);
         Intent intent = new Intent(getActivity(), OneKindNovelActivity.class);
         Bundle bundle = new Bundle();
+        Novels data = mData.get(position);
+        if (data.getNovels() == null || data.getNovels().size() <= 0) {
+            Toast.makeText(getActivity(),"此类小说暂无资源",Toast.LENGTH_LONG).show();
+            return;
+        }
         bundle.putParcelable("novels",mData.get(position));
         //bundle.putParcelableArrayList("novel", mData.get(position));
         bundle.putString("currentUrl", mData.get(position).getCurrentUrl());

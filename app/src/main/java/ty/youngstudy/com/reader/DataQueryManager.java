@@ -72,6 +72,8 @@ public class DataQueryManager implements DataInterface{
                         for (int j = 0; j < url.length; j++) {
                             Novels novels = new Novels();
                             novels = getSortKindNovels(url[j]);
+                            // 分类无小说时，不显示分类
+                            if (novels.getNovels() == null || novels.getNovels().size() <= 0) continue;
                             novels.setCurrentUrl(url[j]);
                             novels.setKindName(kind[j]);
                             subject.onNext(novels);

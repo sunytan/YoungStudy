@@ -3,6 +3,14 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/tv_no_resource"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="此分类小说暂无资源"
+        android:visibility="gone"
+        />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/fresh_onekind_id"
         android:layout_width="match_parent"

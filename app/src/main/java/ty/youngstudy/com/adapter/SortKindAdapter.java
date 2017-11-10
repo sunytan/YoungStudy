@@ -22,6 +22,7 @@ import ty.youngstudy.com.bean.Novels;
 
 public class SortKindAdapter extends BaseAdapter {
 
+    private final static String TAG = "SortKindAdapter";
     private ArrayList<Novels> novelList;
     private LayoutInflater mInflater;
     private int layoutId;
@@ -40,6 +41,7 @@ public class SortKindAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
+        Log.d(TAG," i = "+i+",,,,novels string = "+novelList.get(i).getNovels().toString());
         return novelList.get(i);
     }
 
@@ -50,7 +52,7 @@ public class SortKindAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        Log.i("tanyang","getView");
+        Log.i("tanyang","getView i = "+ i);
         NovelItem item = null;
         if(view == null) {
             view = mInflater.inflate(layoutId, null);
@@ -86,8 +88,10 @@ public class SortKindAdapter extends BaseAdapter {
         }
 
         public synchronized void bind(Novels novels) {
+            Log.d(TAG,"bind novels = "+novels.getNovels().toString());
             kindName.setText(novels.getKindName());
             if (novels.getNovels().size() == 0) {
+
                 return;
             }
             if (novels.getNovels() == null){
