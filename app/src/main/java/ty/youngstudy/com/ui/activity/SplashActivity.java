@@ -1,17 +1,5 @@
 package ty.youngstudy.com.ui.activity;
 
-import java.io.File;
-import java.util.List;
-
-import org.json.JSONArray;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.GlideBuilder;
-import com.bumptech.glide.load.Transformation;
-import com.bumptech.glide.request.RequestOptions;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -24,13 +12,22 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+
+import java.io.File;
+import java.util.List;
+
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.QueryListener;
-import ty.youngstudy.com.R;
 import ty.youngstudy.com.Bmob.ArticleBean;
+import ty.youngstudy.com.R;
 import ty.youngstudy.com.manager.UserManager;
 import ty.youngstudy.com.ui.activity.base.BaseActivity;
 
@@ -71,9 +68,6 @@ public class SplashActivity extends BaseActivity {
         }
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
-        RequestOptions options = new RequestOptions();
-        options.
-
         final SharedPreferences sp1 = getSharedPreferences("UserInfo_sp", Context.MODE_PRIVATE);
         String headpath = sp1.getString("headfile","");
         File file = new File(headpath);
@@ -98,7 +92,7 @@ public class SplashActivity extends BaseActivity {
                     Log.d("splash","相同的splash，不重新下载");
                 } else {
 
-                    Glide.with(SplashActivity.this).asDrawable().load(url).transition()into(imageView);
+                    Glide.with(SplashActivity.this).asDrawable().load(url).into(imageView);
                     BmobFile bmobFile = new BmobFile(fileName, null, url);
                     bmobFile.download(new DownloadFileListener() {
                         @Override

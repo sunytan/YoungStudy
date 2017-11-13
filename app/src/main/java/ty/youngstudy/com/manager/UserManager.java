@@ -152,6 +152,7 @@ public class UserManager {
                         public void done(BmobException e) {
                             if (e == null) {
                                 Log.d(TAG,"上穿成功2");
+
                             }
                             else {
                                 Log.d(TAG,"上传失败 = "+e.toString());
@@ -182,10 +183,6 @@ public class UserManager {
                 super.doneError(code, msg);
             }
         });
-    }
-
-    public void download(){
-
     }
 
 

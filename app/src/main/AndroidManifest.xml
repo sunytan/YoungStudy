@@ -59,6 +59,7 @@
         <activity android:name=".ui.activity.LoginActivity"/>
         <activity android:name=".ui.activity.reader.NovelMainActivity"/>
         <activity android:name=".ui.activity.reader.OneKindNovelActivity"/>
+        <activity android:name=".ui.activity.reader.NovelDetailActivity"/>
 
         <receiver android:name=".receiver.NetChangeReceiver">
             <intent-filter>

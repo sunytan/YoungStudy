@@ -82,7 +82,9 @@ public class OneKindNovelActivity extends BaseMvpActivity<ReaderPresenter> {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("novel",listNovel.get(i));
+                readyGo(NovelDetailActivity.class,bundle);
             }
         });
         setScrollChangeListener(listView);
@@ -136,7 +138,6 @@ public class OneKindNovelActivity extends BaseMvpActivity<ReaderPresenter> {
                 if (isReloadMore && !reLoading){
                     reLoading = true;
                     reloadMore();
-
                 }
             }
 
@@ -191,12 +192,6 @@ public class OneKindNovelActivity extends BaseMvpActivity<ReaderPresenter> {
     @Override
     protected void onResume() {
         super.onResume();
-//        Novel novel = new Novel();
-//        novel.setName("11111");
-//        novel.setAuthor("2222");
-//        novel.setBrief("333333");
-//        listNovel.add(novel);
-        //novelListAdapter.notifyDataSetChanged();
     }
 
 }

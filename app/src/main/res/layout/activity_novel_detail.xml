@@ -3,7 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 
-    <com.mingle.widget.LoadingView
+    <ty.youngstudy.com.widget.LoadingView
         android:id="@+id/loadView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -73,8 +73,8 @@
                         android:layout_weight="1"
 
                         android:text="立即阅读"
-                        android:textSize="15sp" />
-                        <!--android:background="@drawable/bookinfo_redbutton_selector"-->
+                        android:textSize="15sp"/>
+                    <!--android:background="@drawable/bookinfo_redbutton_selector"-->
                     <Button
                         android:id="@+id/addtoshelft"
                         android:layout_width="0dp"

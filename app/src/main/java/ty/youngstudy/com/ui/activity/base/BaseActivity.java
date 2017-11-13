@@ -35,6 +35,14 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         startActivity(intent);
     }
 
+    protected void readyGo(Class<?> clazz,Bundle bundle){
+        Intent intent = new Intent(this,clazz);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
+    }
+
     protected void readyGoThenKill(Class<?> clazz){
         Intent intent = new Intent(this,clazz);
         startActivity(intent);

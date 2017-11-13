@@ -19,6 +19,7 @@ import ty.youngstudy.com.bean.Novel;
 import ty.youngstudy.com.mvp.BaseMvpActivity;
 import ty.youngstudy.com.mvp.RequirePresenter;
 import ty.youngstudy.com.mvp.ViewEventMessage;
+import ty.youngstudy.com.reader.NovelInfoModel;
 import ty.youngstudy.com.reader.message.NovelInfoPresenter;
 import ty.youngstudy.com.widget.LoadingView;
 
@@ -86,6 +87,7 @@ public class NovelDetailActivity extends BaseMvpActivity<NovelInfoPresenter> imp
         eventMessage.setNovel(novel);
         eventMessage.setEventType("get_detail_info");
         postViewMsgToPresenter(eventMessage);
+        showNovelInfo(novel);
     }
 
 
@@ -110,7 +112,7 @@ public class NovelDetailActivity extends BaseMvpActivity<NovelInfoPresenter> imp
 
     @Override
     public String getModelName() {
-        return null;
+        return NovelInfoModel.NAME;
     }
 
     @Override
