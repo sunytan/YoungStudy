@@ -2,7 +2,6 @@ package ty.youngstudy.com.mvp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import org.greenrobot.eventbus.EventBus;
@@ -51,7 +50,7 @@ public abstract class BaseMvpActivity<PresenterType extends Presenter> extends B
 
     public abstract String getModelName();
 
-    public abstract void onEvent(ViewEventMessage eventMessage);
+    public abstract void onEvent(PresenterEventMessage presenterEventMessage);
 
     public final void postViewMsgToPresenter(ViewEventMessage eventMessage){
         EventBus.getDefault().post(eventMessage);

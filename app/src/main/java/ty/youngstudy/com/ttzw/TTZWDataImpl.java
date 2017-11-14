@@ -4,6 +4,8 @@ import android.util.Log;
 
 import org.htmlparser.util.ParserException;
 
+import java.net.URI;
+
 import ty.youngstudy.com.bean.Novels;
 import ty.youngstudy.com.reader.DataInterface;
 import ty.youngstudy.com.reader.NovelDetail;
@@ -23,7 +25,19 @@ public class TTZWDataImpl implements DataInterface{
 
     public NovelDetail getNovelDetail(String url) throws ParserException {
         Log.i(TAG,"getNovelDetail");
-        return TTZWUtil.getTTZWNovelDetail(url);
+
+        URI uri = URI.create(url);
+        String host = uri.getHost();
+        NovelDetail detail = null;
+        if(host.startsWith("m")) {
+            detail =  TTZWUtil.getTTZWNovelDetail(url);
+            if(detail.getChapters() == null) {
+                detail.setChapters(TTZWUtil.getNovelChapers(url,detail.getChapterUrl(),TAG));
+            }
+        } else {
+            //detail = TTZWManager.getNovelDetailByMeta(url,getTag());
+        }
+        return detail;
     }
     @Override
     public DataInterface select(String url) {

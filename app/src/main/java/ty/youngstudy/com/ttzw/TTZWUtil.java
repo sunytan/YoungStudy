@@ -5,6 +5,7 @@ import android.util.Log;
 
 import org.htmlparser.Node;
 import org.htmlparser.Parser;
+import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.nodes.TagNode;
 import org.htmlparser.tags.Html;
 import org.htmlparser.tags.ImageTag;
@@ -14,9 +15,11 @@ import org.htmlparser.util.NodeList;
 import org.htmlparser.util.ParserException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ty.youngstudy.com.bean.Novel;
 import ty.youngstudy.com.bean.Novels;
+import ty.youngstudy.com.reader.Chapter;
 import ty.youngstudy.com.reader.NovelDetail;
 import ty.youngstudy.com.util.HtmlUtil;
 
@@ -36,6 +39,30 @@ public class TTZWUtil {
     private static final String STATUS = "状态：";
     private static final String KIND = "类别：";
     private static final String AUTHOR = "作者：";
+
+
+    public static List<Chapter> getNovelChapers(String baseUrl, String source, String tag) throws ParserException {
+        List<Chapter> chapters = new ArrayList<Chapter>();
+        Parser parser = new Parser(source);
+        NodeList nodeList = parser
+                .parse(new TagAttrFilter("DIV", "id", "chapterlist"));
+        nodeList = nodeList.extractAllNodesThatMatch(new TagNameFilter("p"),
+                true);
+        int size = nodeList.size();
+        for (int i = 0; i < size; i++) {
+            TagNode p = (TagNode) nodeList.elementAt(i);
+            String link = HtmlUtil.getFirstNodeAttr(p, "a", "href");
+            if(link.startsWith("#"))
+                continue;
+            Chapter chapter = new Chapter();
+            chapter.setUrl(baseUrl  + link);
+            chapter.setTitle(p.toPlainTextString().trim());
+            chapter.setSource(tag);
+            chapters.add(chapter);
+//			System.out.println(chapter);
+        }
+        return chapters;
+    }
 
 
     public static NovelDetail getTTZWNovelDetail(String url) throws ParserException {

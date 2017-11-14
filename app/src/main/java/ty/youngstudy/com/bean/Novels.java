@@ -4,7 +4,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.List;
+
+/**
+ * 小说种类
+ */
+
 
 public class Novels implements Parcelable {
 

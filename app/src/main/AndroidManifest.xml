@@ -41,7 +41,7 @@
         android:icon="@mipmap/app_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppStartLoadTransluent">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".ui.activity.SplashActivity"
             android:label="@string/app_name"
@@ -57,9 +57,12 @@
             android:theme="@style/MainActivityStyle"/>
         <activity android:name=".ui.activity.FirstActivity"/>
         <activity android:name=".ui.activity.LoginActivity"/>
-        <activity android:name=".ui.activity.reader.NovelMainActivity"/>
-        <activity android:name=".ui.activity.reader.OneKindNovelActivity"/>
-        <activity android:name=".ui.activity.reader.NovelDetailActivity"/>
+        <activity android:name=".ui.activity.reader.NovelMainActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.activity.reader.OneKindNovelActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.activity.reader.NovelDetailActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
 
         <receiver android:name=".receiver.NetChangeReceiver">
             <intent-filter>
@@ -69,7 +72,8 @@
 
         <activity android:name=".ui.activity.RegisterActivity">
         </activity>
-        <activity android:name=".ui.activity.UserInfoActivity">
+        <activity android:name=".ui.activity.UserInfoActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
 

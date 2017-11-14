@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
+ * 每一类小说中每一本小说
  * Created by edz on 2017/7/26.
  */
 

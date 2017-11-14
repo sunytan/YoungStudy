@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,8 +19,10 @@ import org.greenrobot.eventbus.ThreadMode;
 import ty.youngstudy.com.R;
 import ty.youngstudy.com.bean.Novel;
 import ty.youngstudy.com.mvp.BaseMvpActivity;
+import ty.youngstudy.com.mvp.PresenterEventMessage;
 import ty.youngstudy.com.mvp.RequirePresenter;
 import ty.youngstudy.com.mvp.ViewEventMessage;
+import ty.youngstudy.com.reader.NovelDetail;
 import ty.youngstudy.com.reader.NovelInfoModel;
 import ty.youngstudy.com.reader.message.NovelInfoPresenter;
 import ty.youngstudy.com.widget.LoadingView;
@@ -30,12 +34,15 @@ import ty.youngstudy.com.widget.LoadingView;
 @RequirePresenter(NovelInfoPresenter.class)
 public class NovelDetailActivity extends BaseMvpActivity<NovelInfoPresenter> implements View.OnClickListener {
 
+    private static final String TAG = "NovelDetailActivity";
+
     private TextView mNovelName;
     private TextView mNovelDetail;
     private TextView mAuthor;
     private ImageView mThumb;
     private TextView mUpdateTime;
     private TextView mChapter;
+    private Toolbar toolbar;
 
     private Button mStartRead;
     private Button mAddBookShelt;
@@ -48,6 +55,8 @@ public class NovelDetailActivity extends BaseMvpActivity<NovelInfoPresenter> imp
 
     private int downloadStatus;
 
+    private NovelDetail novelDetail;
+
     private Activity mActivity;
 
     private final int RETRY_COUNT = 3;
@@ -56,6 +65,14 @@ public class NovelDetailActivity extends BaseMvpActivity<NovelInfoPresenter> imp
     @Override
     public void initViewAndEvents() {
         super.initViewAndEvents();
+        toolbar = (Toolbar) findViewById(R.id.novel_bar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         mNovelDetail = (TextView) findViewById(R.id.detail);
         mNovelName = (TextView) findViewById(R.id.name);
         mAuthor = (TextView) findViewById(R.id.author);
@@ -82,16 +99,18 @@ public class NovelDetailActivity extends BaseMvpActivity<NovelInfoPresenter> imp
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novel_detail);
+        mContentView.setVisibility(View.GONE);
+        mLoadView.setVisibility(View.VISIBLE);
         Novel novel = getIntent().getParcelableExtra("novel");
         ViewEventMessage eventMessage = new ViewEventMessage();
         eventMessage.setNovel(novel);
         eventMessage.setEventType("get_detail_info");
         postViewMsgToPresenter(eventMessage);
-        showNovelInfo(novel);
     }
 
 
     public void showNovelInfo(@NonNull Novel novel){
+        Log.d(TAG,"novel = "+novel.toString());
         mNovelName.setText(novel.getName());
         mAuthor.setText(novel.getAuthor());
         mChapter.setText(novel.getLastUpdateChapter());
@@ -117,8 +136,17 @@ public class NovelDetailActivity extends BaseMvpActivity<NovelInfoPresenter> imp
 
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(ViewEventMessage eventMessage) {
+    public void onEvent(PresenterEventMessage presenterEventMessage) {
+        if (presenterEventMessage != null) {
+            novelDetail = presenterEventMessage.getNovelDetail();
+            if (novelDetail != null) {
+                Novel novel = novelDetail.getNovel();
+                mLoadView.setVisibility(View.GONE);
+                mContentView.setVisibility(View.VISIBLE);
+                showNovelInfo(novel);
+            }
 
+        }
     }
 
     @Override

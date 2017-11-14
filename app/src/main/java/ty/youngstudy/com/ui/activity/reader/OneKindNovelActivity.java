@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
@@ -27,8 +28,8 @@ import ty.youngstudy.com.adapter.NovelListAdapter;
 import ty.youngstudy.com.bean.Novel;
 import ty.youngstudy.com.bean.Novels;
 import ty.youngstudy.com.mvp.BaseMvpActivity;
+import ty.youngstudy.com.mvp.PresenterEventMessage;
 import ty.youngstudy.com.mvp.RequirePresenter;
-import ty.youngstudy.com.mvp.ViewEventMessage;
 import ty.youngstudy.com.reader.DataQueryManager;
 import ty.youngstudy.com.reader.ReaderPresenter;
 
@@ -42,6 +43,7 @@ public class OneKindNovelActivity extends BaseMvpActivity<ReaderPresenter> {
     private final static String NAME = "ReaderModel";
     private ArrayList<Novel> listNovel = new ArrayList<Novel>();
     private ListView listView;
+    private Toolbar toolbar;
     private String nextUrl;
     private String currentUrl;
     private SwipeRefreshLayout fresh;
@@ -65,6 +67,14 @@ public class OneKindNovelActivity extends BaseMvpActivity<ReaderPresenter> {
 
     @Override
     public void initViewAndEvents() {
+        toolbar = (Toolbar) findViewById(R.id.novel_bar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         listView = (ListView) findViewById(R.id.list_onekind);
         fresh = (SwipeRefreshLayout) findViewById(R.id.fresh_onekind_id);
         fresh.setSize(SwipeRefreshLayout.DEFAULT);
@@ -185,7 +195,7 @@ public class OneKindNovelActivity extends BaseMvpActivity<ReaderPresenter> {
 
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(ViewEventMessage eventMessage) {
+    public void onEvent(PresenterEventMessage presenterEventMessage) {
 
     }
 

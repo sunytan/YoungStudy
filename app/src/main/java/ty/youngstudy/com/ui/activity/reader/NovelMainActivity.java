@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,12 +33,14 @@ import ty.youngstudy.com.ui.fragment.reader.SortKindFragment;
 
 public class NovelMainActivity extends BaseActivity implements NetStateListener.NetStateCallBack{
 
+    private static final String TAG = "NovelMainActivity";
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private Fragment myShelftFragment;
     private Fragment sortKindFragment;
     private Fragment lastUpdateFragment;
     private Fragment onlineNovelFragment;
+    private Toolbar toolbar;
     private String[] tabCharList = new String[] {"我的书架","分类小说","最近更新","在线小说"};
     private List<String> titleList = new ArrayList<>();
     private List<Fragment> fragmentList;
@@ -60,6 +63,16 @@ public class NovelMainActivity extends BaseActivity implements NetStateListener.
 
     @Override
     public void initViewAndEvents() {
+        toolbar = (Toolbar) findViewById(R.id.novel_bar);
+        toolbar.inflateMenu(R.menu.novel_menu);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         mTabLayout = (TabLayout) findViewById(R.id.tab_main1_id);
         mViewPager = (ViewPager) findViewById(R.id.vp_novel_id);
         linearLayout = (LinearLayout) findViewById(R.id.net_not_connect);
@@ -107,9 +120,8 @@ public class NovelMainActivity extends BaseActivity implements NetStateListener.
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_novel_exit){
-            Toast.makeText(getApplicationContext(),"退出应用",Toast.LENGTH_SHORT).show();
-            MyApplication.getInstance().exit();
+        if (item.getItemId() == R.id.novel_search){
+            Toast.makeText(getApplicationContext(),"搜索",Toast.LENGTH_SHORT).show();
         }
         return true;
     }

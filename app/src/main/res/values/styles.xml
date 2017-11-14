@@ -10,7 +10,8 @@
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
-        <item name="android:windowIsTranslucent">true</item>
+<!--        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowAnimationStyle">@style/Animation_Activity</item>-->
         <item name="windowNoTitle">true</item>
     </style>
 
@@ -76,4 +77,14 @@
         <item name="android:textOn">@null</item>
         <item name="android:background">@drawable/novel_toggle_btn</item>
     </style>
+
+    <!--动画跳转-->
+    <style name="Animation_Activity"
+           parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/right_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/left_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/left_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/right_out</item>
+    </style>
+
 </resources>
