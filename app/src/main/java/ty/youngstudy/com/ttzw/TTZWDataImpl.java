@@ -10,6 +10,8 @@ import ty.youngstudy.com.bean.Novels;
 import ty.youngstudy.com.reader.DataInterface;
 import ty.youngstudy.com.reader.NovelDetail;
 
+import static ty.youngstudy.com.ttzw.TTZWUtil.TTZW_BASE_URL;
+
 /**
  * Created by edz on 2017/8/11.
  */
@@ -32,13 +34,16 @@ public class TTZWDataImpl implements DataInterface{
         if(host.startsWith("m")) {
             detail =  TTZWUtil.getTTZWNovelDetail(url);
             if(detail.getChapters() == null) {
-                detail.setChapters(TTZWUtil.getNovelChapers(url,detail.getChapterUrl(),TAG));
+                detail.setChapters(TTZWUtil.getNovelChapers(TTZW_BASE_URL,detail.getChapterUrl(),TAG));
             }
         } else {
             //detail = TTZWManager.getNovelDetailByMeta(url,getTag());
         }
+        Log.d(TAG,"detail = "+"novel = "+detail.getNovel().toString()+",,,chapterurl = "+detail.getChapterUrl()
+                +",,,chaptersize = "+detail.getChapters().size()+",,,chapter = "+detail.getChapters().get(detail.getChapters().size()-1));
         return detail;
     }
+
     @Override
     public DataInterface select(String url) {
         if (url.contains(TAG)) {

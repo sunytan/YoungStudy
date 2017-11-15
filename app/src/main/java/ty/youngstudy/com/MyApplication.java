@@ -30,6 +30,8 @@ import java.util.List;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobConfig;
 import ty.youngstudy.com.ttzw.SourceSelector;
+import ty.youngstudy.com.util.NovelFileUtils;
+import ty.youngstudy.com.util.SharedPreferencesUtil;
 import ty.youngstudy.com.util.SystemUtil;
 
 /**
@@ -42,7 +44,7 @@ public class MyApplication extends Application {
     final long totalMemory = Runtime.getRuntime().totalMemory();
     final long freeMemory = Runtime.getRuntime().freeMemory();
 
-    private static MyApplication instance = new MyApplication();
+    private final static MyApplication instance = new MyApplication();
     private List<Activity> activityList = new LinkedList<>();
     private static final String TAG = "tanyang";
     private static Context mContext = null;
@@ -83,6 +85,10 @@ public class MyApplication extends Application {
         int size = am.getMemoryClass();
         int largeSize = am.getLargeMemoryClass();
         Log.d("tanyang memory","size = "+size+",,,largeSize = "+largeSize);
+
+        //初始化小说文件管理
+        NovelFileUtils.init();
+        SharedPreferencesUtil.init(mContext,"novel_sp",Context.MODE_PRIVATE);
         //初始化Bmob后端云
         initBmob();
         //初始化IAT语音识别

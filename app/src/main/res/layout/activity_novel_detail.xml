@@ -110,29 +110,29 @@
                 android:id="@+id/chapters"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp" >
+                android:layout_margin="15dp">
 
                 <TextView
                     android:id="@+id/id1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="目录 最近更新" />
+                    android:text="目录 最近更新"/>
 
                 <TextView
                     android:id="@+id/update_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true" />
+                    android:layout_alignParentRight="true"/>
 
                 <TextView
                     android:id="@+id/last_chapter"
                     style="@style/novelItemTextStyle"
-                    android:layout_width="15dp"
-                    android:layout_height="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
                     android:layout_below="@id/update_time"
                     android:layout_marginTop="10dp"
-                    android:drawableRight="@drawable/openright"
-                    android:text="第1张 很恶化" />
+                    android:drawableRight="@mipmap/game_right_arrow"
+                    android:text="第1张 很恶化"/>
             </RelativeLayout>
 
 

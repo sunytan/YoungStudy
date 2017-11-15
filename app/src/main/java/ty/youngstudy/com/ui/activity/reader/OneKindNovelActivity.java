@@ -15,8 +15,6 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.htmlparser.util.ParserException;
 
 import java.util.ArrayList;
@@ -27,20 +25,16 @@ import ty.youngstudy.com.R;
 import ty.youngstudy.com.adapter.NovelListAdapter;
 import ty.youngstudy.com.bean.Novel;
 import ty.youngstudy.com.bean.Novels;
-import ty.youngstudy.com.mvp.BaseMvpActivity;
-import ty.youngstudy.com.mvp.PresenterEventMessage;
-import ty.youngstudy.com.mvp.RequirePresenter;
-import ty.youngstudy.com.reader.DataQueryManager;
-import ty.youngstudy.com.reader.ReaderPresenter;
+import ty.youngstudy.com.reader.manager.DataQueryManager;
+import ty.youngstudy.com.ui.activity.base.BaseActivity;
 
 /**
  * Created by Administrator on 2017/8/12.
  */
-@RequirePresenter(ReaderPresenter.class)
-public class OneKindNovelActivity extends BaseMvpActivity<ReaderPresenter> {
+
+public class OneKindNovelActivity extends BaseActivity {
 
     private final static String TAG = "OneKindNovelActivity";
-    private final static String NAME = "ReaderModel";
     private ArrayList<Novel> listNovel = new ArrayList<Novel>();
     private ListView listView;
     private Toolbar toolbar;
@@ -180,24 +174,9 @@ public class OneKindNovelActivity extends BaseMvpActivity<ReaderPresenter> {
             listNovel.addAll(result.getNovels());
             currentUrl = bundle.getString("currentUrl","");
             nextUrl = bundle.getString("nextUrl","");
-            //Log.i("tanyang","bundle = "+listNovel.get(0).getName());
-            //listNovel = bundle.getParcelableArrayList("data");
         }
-//        readerModel = new ReaderModel(TAG);
-//        ModelManager.getInstance().add(readerModel);
-//        readerModel.startModel();
     }
 
-    @Override
-    public String getModelName() {
-        return NAME;
-    }
-
-    @Override
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(PresenterEventMessage presenterEventMessage) {
-
-    }
 
     @Override
     protected void onResume() {

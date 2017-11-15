@@ -1,6 +1,7 @@
-package ty.youngstudy.com.reader;
+package ty.youngstudy.com.reader.manager;
 
 import android.os.AsyncTask;
+import android.support.v4.util.LruCache;
 import android.util.Log;
 
 import org.htmlparser.util.ParserException;
@@ -10,20 +11,34 @@ import java.util.ArrayList;
 import io.reactivex.subjects.PublishSubject;
 import ty.youngstudy.com.bean.Novel;
 import ty.youngstudy.com.bean.Novels;
+import ty.youngstudy.com.reader.DataInterface;
+import ty.youngstudy.com.reader.NovelDetail;
+import ty.youngstudy.com.reader.NovelTotleInfo;
 import ty.youngstudy.com.ttzw.SourceSelector;
 
 /**
  * Created by edz on 2017/8/10.
  */
 
-public class DataQueryManager implements DataInterface{
+public class DataQueryManager implements DataInterface {
+
+
+    private static LruCache<String,NovelDetail> detailCache = new LruCache<>(20);
 
     public DataQueryManager(){}
 
     public NovelDetail getNovelDetail(String url) throws ParserException{
+        NovelDetail detail = detailCache.get(url);
+        if (detail != null) {
+            Log.d("DataQueryManager","use cache data");
+            return detail;
+        }
         DataInterface df = SourceSelector.selectDateSource(url);
-        if (df != null)
-            return df.getNovelDetail(url);
+        if (df != null) {
+            detail = df.getNovelDetail(url);
+            detailCache.put(url,detail);
+            return detail;
+        }
         return null;
     }
 

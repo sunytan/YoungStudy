@@ -123,6 +123,7 @@ public class TTZWUtil {
                                 novel.setLastUpdateTime(planText.replace(RE_NEW, "").trim());
                             } else if (planText.contains(LASTEST)) {
                                 TagNode a = HtmlUtil.getFirstTagNode(tag, "a");
+                                Log.i(TAG,"最新 = "+a.toPlainTextString());
                                 novel.setLastUpdateChapter(a.toPlainTextString().trim());
                                 novel.setLastUpdateChapterUrl(TTZW_BASE_URL + a.getAttribute("href"));
                             }

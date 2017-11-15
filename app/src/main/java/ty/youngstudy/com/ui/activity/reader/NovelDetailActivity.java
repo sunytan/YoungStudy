@@ -24,6 +24,7 @@ import ty.youngstudy.com.mvp.RequirePresenter;
 import ty.youngstudy.com.mvp.ViewEventMessage;
 import ty.youngstudy.com.reader.NovelDetail;
 import ty.youngstudy.com.reader.NovelInfoModel;
+import ty.youngstudy.com.reader.manager.NovelManager;
 import ty.youngstudy.com.reader.message.NovelInfoPresenter;
 import ty.youngstudy.com.widget.LoadingView;
 
@@ -144,6 +145,9 @@ public class NovelDetailActivity extends BaseMvpActivity<NovelInfoPresenter> imp
                 mLoadView.setVisibility(View.GONE);
                 mContentView.setVisibility(View.VISIBLE);
                 showNovelInfo(novel);
+                NovelManager.getInstance().setCurrentNovel(novel);
+                NovelManager.getInstance().setChapterList(novelDetail.getChapters());
+                showNovelInfo(novel);
             }
 
         }
@@ -151,6 +155,8 @@ public class NovelDetailActivity extends BaseMvpActivity<NovelInfoPresenter> imp
 
     @Override
     public void onClick(View view) {
-
+        if (view == mViewChapters) {
+            readyGo(NovelChapterActivity.class);
+        }
     }
 }

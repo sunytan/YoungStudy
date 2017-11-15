@@ -8,6 +8,7 @@ import org.htmlparser.util.ParserException;
 
 import ty.youngstudy.com.BaseModel;
 import ty.youngstudy.com.bean.Novel;
+import ty.youngstudy.com.reader.manager.DataQueryManager;
 
 /**
  * Created by edz on 2017/8/21.

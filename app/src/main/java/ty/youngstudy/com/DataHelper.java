@@ -5,9 +5,12 @@ import android.graphics.Bitmap;
 import org.litepal.crud.DataSupport;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
+import ty.youngstudy.com.database.ChapterDB;
 import ty.youngstudy.com.database.UserInfo;
+import ty.youngstudy.com.reader.Chapter;
 
 /**
  * Created by edz on 2017/10/27.
@@ -31,5 +34,14 @@ public class DataHelper {
             userInfo.setUserHead(bytes);
             userInfo.save();
         }
+    }
+
+    public List<Chapter> queryNovelChapterList(int bookid) {
+        List<Chapter> chapters = new ArrayList<>();
+        List<ChapterDB> chapterDBs = DataSupport.where("book_id = ?",String.valueOf(bookid)).find(ChapterDB.class);
+        for (ChapterDB chapterDB : chapterDBs) {
+            
+        }
+
     }
 }

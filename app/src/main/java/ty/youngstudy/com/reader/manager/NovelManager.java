@@ -1,4 +1,4 @@
-package ty.youngstudy.com.reader;
+package ty.youngstudy.com.reader.manager;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,6 +6,7 @@ import android.util.Log;
 import java.util.List;
 
 import ty.youngstudy.com.bean.Novel;
+import ty.youngstudy.com.reader.Chapter;
 
 /**
  * Created by edz on 2017/8/21.
@@ -30,7 +31,7 @@ public class NovelManager {
     }
 
     public void setCurrentNovel(Novel currentNovel) {
-        if (currentNovel != null && this.currentNovel.getId() == currentNovel.getId()) {
+        if (currentNovel != null && this.currentNovel != null && this.currentNovel.getId() == currentNovel.getId()) {
             Log.i("tanyang","setCurrentNovel return");
             return;
         }
@@ -57,6 +58,21 @@ public class NovelManager {
 
     public List<Chapter> getChapterList() {
         return chapterList;
+    }
+
+    public int getChapterSize() {
+        if(chapterList == null) {
+            return 0;
+        }
+        return chapterList.size();
+    }
+
+    public Chapter getChapter() {
+        return chapterList.get(chapterId - 1);
+    }
+
+    public Chapter getChapter(int chapter) {
+        return chapterList.get(chapter - 1);
     }
 
 }

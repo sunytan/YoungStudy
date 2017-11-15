@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.util.LruCache;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,7 @@ import io.reactivex.subjects.PublishSubject;
 import ty.youngstudy.com.R;
 import ty.youngstudy.com.adapter.SortKindAdapter;
 import ty.youngstudy.com.bean.Novels;
-import ty.youngstudy.com.reader.DataQueryManager;
+import ty.youngstudy.com.reader.manager.DataQueryManager;
 import ty.youngstudy.com.reader.NovelTotleInfo;
 import ty.youngstudy.com.ui.activity.reader.OneKindNovelActivity;
 import ty.youngstudy.com.ui.fragment.base.BaseListFragment;
@@ -38,9 +39,12 @@ public class SortKindFragment extends BaseListFragment {
     private SortKindAdapter novelListAdapter;
     public PublishSubject<Novels> subject;
     private ArrayList<Novels> mData = new ArrayList<Novels>();
+    private ArrayList<Novels> mCacheData = new ArrayList<Novels>();
     private String[] kind = new String[12];
     private static ListView myView;
     String[] url = new String[12];
+
+    private static LruCache<String,ArrayList> cache = new LruCache<>(20);
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,16 +98,22 @@ public class SortKindFragment extends BaseListFragment {
         if (result != null && result.size() > 0) {
             mData = result;
         } else {
-            mSwipeRefresh.post(new Runnable() {
+            mCacheData = cache.get("novel");
+            if (mCacheData == null || mCacheData.size() == 0) {
+                mSwipeRefresh.post(new Runnable() {
 
-                @Override
-                public void run() {
-                    // TODO Auto-generated method stub
-                    mSwipeRefresh.setRefreshing(true);
-                }
-            });
-            // 加载页面数据
-            DataQueryManager.instance().loadNovelFromUrl(subject,url,kind);
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        mSwipeRefresh.setRefreshing(true);
+                    }
+                });
+                // 加载页面数据
+                DataQueryManager.instance().loadNovelFromUrl(subject, url, kind);
+            }else {
+                mData.clear();
+                mData.addAll(mCacheData);
+            }
         }
         novelListAdapter = new SortKindAdapter(mActivity, mData);
         setListAdapter(novelListAdapter);
@@ -171,6 +181,7 @@ public class SortKindFragment extends BaseListFragment {
         public void onComplete() {
             Log.i("tanyang","onComplete");
             mSwipeRefresh.setRefreshing(false);
+            cache.put("novel",mData);
             NovelTotleInfo.getInstance().setUpdate(false);
             disposable.dispose();
         }
