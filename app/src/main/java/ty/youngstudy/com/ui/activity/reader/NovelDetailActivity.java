@@ -26,14 +26,17 @@ import ty.youngstudy.com.reader.NovelDetail;
 import ty.youngstudy.com.reader.NovelInfoModel;
 import ty.youngstudy.com.reader.manager.NovelManager;
 import ty.youngstudy.com.reader.message.NovelInfoPresenter;
+import ty.youngstudy.com.ui.activity.reader.IView.INovelInfoView;
 import ty.youngstudy.com.widget.LoadingView;
+
+import static ty.youngstudy.com.ui.activity.reader.NovelReadActivity.CHAPTER_EXTRA;
 
 /**
  * Created by edz on 2017/8/21.
  */
 
 @RequirePresenter(NovelInfoPresenter.class)
-public class NovelDetailActivity extends BaseMvpActivity<NovelInfoPresenter> implements View.OnClickListener {
+public class NovelDetailActivity extends BaseMvpActivity<NovelInfoPresenter> implements View.OnClickListener,INovelInfoView {
 
     private static final String TAG = "NovelDetailActivity";
 
@@ -110,6 +113,7 @@ public class NovelDetailActivity extends BaseMvpActivity<NovelInfoPresenter> imp
     }
 
 
+    @Override
     public void showNovelInfo(@NonNull Novel novel){
         Log.d(TAG,"novel = "+novel.toString());
         mNovelName.setText(novel.getName());
@@ -144,7 +148,6 @@ public class NovelDetailActivity extends BaseMvpActivity<NovelInfoPresenter> imp
                 Novel novel = novelDetail.getNovel();
                 mLoadView.setVisibility(View.GONE);
                 mContentView.setVisibility(View.VISIBLE);
-                showNovelInfo(novel);
                 NovelManager.getInstance().setCurrentNovel(novel);
                 NovelManager.getInstance().setChapterList(novelDetail.getChapters());
                 showNovelInfo(novel);
@@ -157,6 +160,78 @@ public class NovelDetailActivity extends BaseMvpActivity<NovelInfoPresenter> imp
     public void onClick(View view) {
         if (view == mViewChapters) {
             readyGo(NovelChapterActivity.class);
+        } else if (view == mStartRead){
+            startRead();
         }
     }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public int getDownloadState() {
+        return 0;
+    }
+
+    @Override
+    public boolean isInbookShelf(int bookid) {
+        return false;
+    }
+
+    @Override
+    public void onLoadFail() {
+
+    }
+
+    @Override
+    public void startRead() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(CHAPTER_EXTRA,-1);
+        readyGo(NovelReadActivity.class,bundle);
+
+    }
+
+    @Override
+    public void removeBookShelt(int id) {
+
+    }
+
+    @Override
+    public void addBookShelft(int id) {
+
+    }
+
+    @Override
+    public void showDownloadComplete() {
+
+    }
+
+    @Override
+    public void showDownloadBook() {
+
+    }
+
+    @Override
+    public void showDownloadPause() {
+
+    }
+
+    @Override
+    public void showDownloadProgress(String p) {
+
+    }
+
+    @Override
+    public void showChapters() {
+
+    }
+
+
 }

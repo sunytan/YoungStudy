@@ -13,7 +13,7 @@ public class BookShelftDB extends DataSupport {
     private String chapter_count;
     private String SOURCE;
     private String current_chapter_id;
-    private String current_chapterposition;
+    private int current_chapterposition;
 
     public void setBOOK_ID(int BOOK_ID) {
         this.BOOK_ID = BOOK_ID;
@@ -39,11 +39,11 @@ public class BookShelftDB extends DataSupport {
         return current_chapter_id;
     }
 
-    public void setCurrent_chapterposition(String current_chapterposition) {
+    public void setCurrent_chapterposition(int current_chapterposition) {
         this.current_chapterposition = current_chapterposition;
     }
 
-    public String getCurrent_chapterposition() {
+    public int getCurrent_chapterposition() {
         return current_chapterposition;
     }
 

@@ -64,7 +64,15 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ui.activity.reader.NovelDetailActivity"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".ui.activity.reader.NovelReadActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".ui.activity.reader.NovelChapterActivity"/>
 
         <receiver android:name=".receiver.NetChangeReceiver">
             <intent-filter>
@@ -137,8 +145,6 @@
             android:name="com.netease.cosine.target.receiver"
             android:value="com.netease.nimlib.service.NimReceiver"/>
 
-        <activity android:name=".ui.activity.reader.NovelChapterActivity">
-        </activity>
     </application>
 
 </manifest>

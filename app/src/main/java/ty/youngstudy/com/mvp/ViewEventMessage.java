@@ -11,8 +11,16 @@ public class ViewEventMessage {
     private String eventType;
     DownLoadMessage downLoadMessage;
 
-    public Novel novel;
+    private int ChapterId;
+    private Novel novel;
 
+    public void setChapterId(int chapterId) {
+        ChapterId = chapterId;
+    }
+
+    public int getChapterId() {
+        return ChapterId;
+    }
 
     public void setNovel(Novel novel) {
         this.novel = novel;
@@ -37,4 +45,5 @@ public class ViewEventMessage {
     public void setEventType(String eventType){
         this.eventType = eventType;
     }
+
 }

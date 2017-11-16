@@ -29,6 +29,7 @@ import java.util.List;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobConfig;
+import ty.youngstudy.com.reader.manager.NovelManager;
 import ty.youngstudy.com.ttzw.SourceSelector;
 import ty.youngstudy.com.util.NovelFileUtils;
 import ty.youngstudy.com.util.SharedPreferencesUtil;
@@ -86,9 +87,16 @@ public class MyApplication extends Application {
         int largeSize = am.getLargeMemoryClass();
         Log.d("tanyang memory","size = "+size+",,,largeSize = "+largeSize);
 
+        // 初始化数据库
+        LitePal.initialize(mContext);
+        LitePal.getDatabase();
+
         //初始化小说文件管理
         NovelFileUtils.init();
         SharedPreferencesUtil.init(mContext,"novel_sp",Context.MODE_PRIVATE);
+        NovelManager.getInstance().init(mContext);
+
+
         //初始化Bmob后端云
         initBmob();
         //初始化IAT语音识别
@@ -106,8 +114,6 @@ public class MyApplication extends Application {
         netStateListener = new ty.youngstudy.com.NetStateListener(ty.youngstudy.com.NetStateListener.NAME);
         netStateListener.startListener();
 
-        LitePal.initialize(mContext);
-        LitePal.getDatabase();
         Log.i(TAG,"mContext = "+mContext);
     }
 

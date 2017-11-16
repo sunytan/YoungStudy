@@ -20,6 +20,13 @@ public class ShelftBook extends Novel implements Parcelable {
         this.id = id;
     }
 
+    public int getBookId() {
+        return id;
+    }
+    public void setBookId(int bookId) {
+        this.id = bookId;
+    }
+
     public String getReadTime() {
         return readTime;
     }

@@ -6,9 +6,7 @@ import java.util.Date;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import com.luck.picture.lib.dialog.CustomDialog;
-import com.luck.picture.lib.tools.Constant;
-
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,32 +26,38 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
+import ty.youngstudy.com.DataHelper;
 import ty.youngstudy.com.R;
 import ty.youngstudy.com.mvp.BaseMvpActivity;
 import ty.youngstudy.com.mvp.PresenterEventMessage;
 import ty.youngstudy.com.mvp.RequirePresenter;
+import ty.youngstudy.com.mvp.ViewEventMessage;
 import ty.youngstudy.com.reader.Chapter;
 import ty.youngstudy.com.reader.OnReadStateChangeListener;
 import ty.youngstudy.com.reader.OverlappedWidget;
 import ty.youngstudy.com.reader.PageWidget;
 import ty.youngstudy.com.reader.ReaderPresenter;
+import ty.youngstudy.com.reader.constant.NovelConstant;
 import ty.youngstudy.com.reader.manager.BookShelftManager;
 import ty.youngstudy.com.reader.manager.NovelManager;
 import ty.youngstudy.com.reader.manager.SettingManager;
 import ty.youngstudy.com.reader.manager.ThemeManager;
 import ty.youngstudy.com.reader.view.BaseReadView;
+import ty.youngstudy.com.reader.view.CustomDialog;
+import ty.youngstudy.com.util.ScreenUtils;
 import ty.youngstudy.com.util.SharedPreferencesUtil;
 import ty.youngstudy.com.widget.LoadingView;
 
+
 @RequirePresenter(ReaderPresenter.class)
-public class NovelReadActivity extends BaseMvpActivity<ReaderPresenter>  {
+public class NovelReadActivity extends BaseMvpActivity<ReaderPresenter> implements SeekBar.OnSeekBarChangeListener{
 
 	private final static String NAME = "ReaderModel";
+    private int chapterId = -1;
+
 
 	@Override
 	public String getModelName() {
@@ -63,14 +67,22 @@ public class NovelReadActivity extends BaseMvpActivity<ReaderPresenter>  {
 	@Override
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	public void onEvent(PresenterEventMessage presenterEventMessage) {
-
+        PresenterEventMessage.ChapterEvent chapterEvent = presenterEventMessage.getChapterEvent();
+        if (chapterEvent != null) {
+            int result = chapterEvent.getResult();
+            if (result == 0) {
+                hideLoading();
+                onLoadFail(chapterId);
+            } else {
+                hideLoading();
+                showChapterContent(chapterId);
+            }
+        }
 	}
 
 	private BaseReadView mPageWidget;
 	private LoadingView mLoading;
 	private ViewGroup flReadWidget;
-
-	private ReaderPresenter mPresenter;
 
 	private IntentFilter intentFilter = new IntentFilter();
 	private Receiver receiver = new Receiver();
@@ -95,7 +107,7 @@ public class NovelReadActivity extends BaseMvpActivity<ReaderPresenter>  {
 	 
 	 Handler mHandler = new Handler();
 	 
-	 private static final String CHAPTER_EXTRA = "chapter";
+	 public static final String CHAPTER_EXTRA = "chapter";
 	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +134,7 @@ public class NovelReadActivity extends BaseMvpActivity<ReaderPresenter>  {
 			finish();
 			return;
 		}
-
+        hideNavigationBar(this);
 		flReadWidget = (ViewGroup) findViewById(R.id.page);
 		topView = findViewById(R.id.topview);
 		buttomView = findViewById(R.id.buttomview);
@@ -135,12 +147,12 @@ public class NovelReadActivity extends BaseMvpActivity<ReaderPresenter>  {
 		intentFilter.addAction(Intent.ACTION_TIME_TICK);
 
 		if(NovelManager.getInstance().getChapterSize() == 0) {
-			NovelManager.getInstance().setChapterList(DBUtil.queryNovelChapterList(bookId));
+			NovelManager.getInstance().setChapterList(DataHelper.queryNovelChapterList(bookId));
 		}
 		mBar.setMax(NovelManager.getInstance().getChapterSize() - 1);
 		initPagerWidget(bookId +"");
 		
-		DBUtil.updateReadtime(bookId);
+		DataHelper.updateReadtime(bookId);
 		
 		decodeView = getWindow().getDecorView();
 		
@@ -157,17 +169,16 @@ public class NovelReadActivity extends BaseMvpActivity<ReaderPresenter>  {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		ButterKnife.unbind(this);
 	}
 
 	private void initPagerWidget(String bookid) {
-		if (SharedPreferencesUtil.getInstance().getInt(Constant.FLIP_STYLE, 0) == 0) {
+		if (SharedPreferencesUtil.getInstance().getInt(NovelConstant.FLIP_STYLE, 0) == 0) {
 			Log.v(TAG, "new widget");
-			mPageWidget = new PageWidget(this, bookid, NovelManager.getInstance().getChapers(), new ReadListener());
+			mPageWidget = new PageWidget(this, bookid, NovelManager.getInstance().getChapterList(), new ReadListener());
 		} else {
-			mPageWidget = new OverlappedWidget(this, bookid, NovelManager.getInstance().getChapers(), new ReadListener());
+			mPageWidget = new OverlappedWidget(this, bookid, NovelManager.getInstance().getChapterList(), new ReadListener());
 		}
-		if (SharedPreferencesUtil.getInstance().getBoolean(Constant.ISNIGHT, false)) {
+		if (SharedPreferencesUtil.getInstance().getBoolean(NovelConstant.IS_NIGHT, false)) {
 			mPageWidget.setTextColor(ContextCompat.getColor(this, R.color.chapter_content_night),
 					ContextCompat.getColor(this, R.color.chapter_title_night));
 		}
@@ -201,17 +212,21 @@ public class NovelReadActivity extends BaseMvpActivity<ReaderPresenter>  {
 	@OnClick(R.id.catalog)
 	public void showCatlog(View v) {
 		System.out.println("showCatlog");
-		NovelChapterListActivity.startChapterListActivity(this);
+		readyGo(NovelChapterActivity.class);
+		//NovelChapterListActivity.startChapterListActivity(this);
 	}
 	
 	@OnClick(R.id.back)
 	public void back(View v) {
-		finish();
+		onBackPressed();
 	}
 	
 	@OnClick(R.id.detail)
 	public void viewDetail(View v) {
-		NovelDetailActivity.startDetailActivity(this, NovelManager.getInstance().getCurrentNovel());
+		Bundle bundle = new Bundle();
+		bundle.putParcelable("novel",NovelManager.getInstance().getCurrentNovel());
+		readyGo(NovelDetailActivity.class,bundle);
+		//NovelDetailActivity.startDetailActivity(this, NovelManager.getInstance().getCurrentNovel());
 	}
 	
 	@OnClick(R.id.next_chapter)
@@ -233,30 +248,27 @@ public class NovelReadActivity extends BaseMvpActivity<ReaderPresenter>  {
 	
 	@OnClick(R.id.cache)
 	public void download(View v) {
-		DownloadService.addToDownload(new DownloadTask(NovelManager.getInstance().getCurrentNovel(), NovelManager.getInstance().getChapterId(), -1, true));
-		Toast.makeText(this, R.string.begin_download, Toast.LENGTH_SHORT).show();
+		/*DownloadService.addToDownload(new DownloadTask(NovelManager.getInstance().getCurrentNovel(), NovelManager.getInstance().getChapterId(), -1, true));
+		Toast.makeText(this, R.string.begin_download, Toast.LENGTH_SHORT).show();*/
 	}
 	
 	@OnClick(R.id.change_source)
 	public void changeSource(View v) {
-		SourceActivity.startChangeSourceActivity(this);
+		//SourceActivity.startChangeSourceActivity(this);
 	}
-	
-	@Override
+
 	public void showLoading() {
 //		getDialog().show();
 		flReadWidget.setVisibility(View.GONE);
 		mLoading.setVisibility(View.VISIBLE);
 	}
 
-	@Override
 	public void hideLoading() {
 //		getDialog().hide();
 		flReadWidget.setVisibility(View.VISIBLE);
 		mLoading.setVisibility(View.GONE);
 	}
 
-	@Override
 	public void showChapterContent(int c) {
 		Log.v(TAG, "showCurrent::mPageWidget.isPrepared = " + mPageWidget.isPrepared);
 		int curTheme = SettingManager.getInstance().getReadTheme();
@@ -268,23 +280,35 @@ public class NovelReadActivity extends BaseMvpActivity<ReaderPresenter>  {
 			mPageWidget.openLoadedChapter(c);
 		}
 	}
-	
-	@Override
+
 	public void onLoadFail(int chapter) {
 		
 	}
 
-	@Override
 	public void prepareNext(String path) {
 
 	}
 
-	@Override
 	public void preparaPrev(String path) {
 
 	}
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+
+    public void hideNavigationBar(Activity context) {
+        int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                | View.SYSTEM_UI_FLAG_FULLSCREEN; // hide status bar
+
+        if( android.os.Build.VERSION.SDK_INT >= 19 ){
+            uiFlags |= 0x00001000;    //SYSTEM_UI_FLAG_IMMERSIVE_STICKY: hide navigation bars - compatibility: building API level is lower thatn 19, use magic number directly for higher API target level
+        } else {
+            uiFlags |= View.SYSTEM_UI_FLAG_LOW_PROFILE;
+        }
+        context.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+    }
 
 	class Receiver extends BroadcastReceiver {
 
@@ -301,6 +325,14 @@ public class NovelReadActivity extends BaseMvpActivity<ReaderPresenter>  {
 		}
 	}
 
+    private void sendViewMsg2Presenter(int chapter_id,String eventType){
+        chapterId = chapter_id;
+        ViewEventMessage eventMessage = new ViewEventMessage();
+        eventMessage.setChapterId(chapterId);
+        eventMessage.setEventType(eventType);
+        postViewMsgToPresenter(eventMessage);
+    }
+
 	class ReadListener implements OnReadStateChangeListener {
 
 		@Override
@@ -308,9 +340,9 @@ public class NovelReadActivity extends BaseMvpActivity<ReaderPresenter>  {
 			mBar.setProgress(chapter - 1); //here crash once with null pointer
 			System.out.println("onChapterChanged chapter =" + chapter);
 			NovelManager.getInstance().setChapterId(chapter);
-			DownloadService.addToDownload(new DownloadTask(NovelManager.getInstance().getCurrentNovel(), chapter, 5));
+			//DownloadService.addToDownload(new DownloadTask(NovelManager.getInstance().getCurrentNovel(), chapter, 5));
 			if(isInBookShelft) {
-				int c = DBUtil.setCurrentReadChapterPosition(bookId, chapter);
+				DataHelper.setCurrentReadChapterPosition(bookId, chapter);
 			}
 		}
 
@@ -322,7 +354,10 @@ public class NovelReadActivity extends BaseMvpActivity<ReaderPresenter>  {
 		@Override
 		public void onLoadChapterFailure(int chapter) {
 			System.out.println("onLoadChapterFailure chapter="+chapter);
-			mPresenter.prepareChapterContent(chapter);
+			//mPresenter.prepareChapterContent(chapter);
+            showLoading();
+            sendViewMsg2Presenter(chapter,"load_chapter");
+
 		}
 
 		@Override
@@ -403,7 +438,7 @@ public class NovelReadActivity extends BaseMvpActivity<ReaderPresenter>  {
     	gone(topView,buttomView);
 //        hideStatusBar();
 //        decodeView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-    	Util.hideNavigationBar(this);
+    	hideNavigationBar(this);
     }
 
     private synchronized void showReadBar() {

@@ -58,7 +58,7 @@ public class Chapter {
 
     @Override
     public String toString() {
-        return title+">"+url+">"+contentPath+">bookid";
+        return "title = "+title+">url = "+url+">contentPath = "+contentPath+">bookid = "+bookId;
     }
 
 }

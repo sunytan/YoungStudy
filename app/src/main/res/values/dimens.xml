@@ -16,4 +16,6 @@
     <dimen name="novel_name_kind_size">15sp</dimen>
     <dimen name="novel_item_info_size">12sp</dimen>
     <dimen name="kind_name_size">19sp</dimen>
+    <dimen name="novel_chapter_size">15sp</dimen>
+    <dimen name="read_chapter_text_width">180dp</dimen>
 </resources>

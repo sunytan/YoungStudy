@@ -27,7 +27,7 @@ public class NovelManager {
     }
 
     public void init(Context context){
-
+        BookShelftManager.instance().loadBookShelft(context);
     }
 
     public void setCurrentNovel(Novel currentNovel) {

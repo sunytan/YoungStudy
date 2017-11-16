@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <com.mingle.widget.LoadingView
+    <ty.youngstudy.com.widget.LoadingView
         android:id="@+id/loadView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -61,7 +61,7 @@
             android:id="@+id/change_source"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/change_source" />
+            android:text="换源" />
         <Button
             android:id="@+id/detail"
             android:layout_width="wrap_content"
@@ -109,7 +109,7 @@
                 android:id="@+id/pre_chapter"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="@string/prev_chapter"/>
+                android:text="上一章"/>
             
             <SeekBar 
                 android:id="@+id/progress"
@@ -120,7 +120,7 @@
                 android:id="@+id/next_chapter"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="@string/next_chapter"/>
+                android:text="下一章"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="fill_parent"

@@ -63,6 +63,15 @@ public class DataQueryManager implements DataInterface {
         return Single.instance;
     }
 
+    @Override
+    public String getChapterContent(String url) throws ParserException {
+        DataInterface df = SourceSelector.selectDateSource(url);
+        if(df != null) {
+            return df.getChapterContent(url);
+        }
+        return null;
+    }
+
     public void loadNovelFromUrl(final PublishSubject subject,final String[] url,final String[] kind){
         Log.i("tanyang","loadNovelFromUrl");
         new AsyncTask<Void,Void,ArrayList<Novels>>(){

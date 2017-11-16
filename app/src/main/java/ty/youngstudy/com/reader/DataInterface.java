@@ -15,4 +15,6 @@ public interface DataInterface {
     public DataInterface select(String url);
 
     public NovelDetail getNovelDetail(String url) throws ParserException;
+
+    public String getChapterContent(String url) throws ParserException;
 }

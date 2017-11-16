@@ -11,7 +11,8 @@ import ty.youngstudy.com.mvp.BaseMvpActivity;
 import ty.youngstudy.com.mvp.Presenter;
 import ty.youngstudy.com.mvp.PresenterEventMessage;
 import ty.youngstudy.com.mvp.ViewEventMessage;
-import ty.youngstudy.com.ui.activity.reader.OneKindNovelActivity;
+
+import static ty.youngstudy.com.reader.ReaderModel.LOAD_CHAPTER_CONTENT;
 
 /**
  * Created by edz on 2017/8/10.
@@ -21,7 +22,6 @@ public class ReaderPresenter extends Presenter<BaseMvpActivity,ReaderModel> {
 
     private final static String TAG = "ReaderModel";
     private ReaderModel readerModel;
-    private OneKindNovelActivity oneKindNovelActivity;
     private PresenterEventMessage presenterEventMessage;
 
 
@@ -47,6 +47,17 @@ public class ReaderPresenter extends Presenter<BaseMvpActivity,ReaderModel> {
     @Override
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onEvent(ViewEventMessage eventMessage) {
-
+        if (eventMessage != null) {
+            switch (eventMessage.getEventType()) {
+                case "load_chapter":
+                    Message message = new Message();
+                    message.what = LOAD_CHAPTER_CONTENT;
+                    message.arg1 = eventMessage.getChapterId();
+                    readerModel.mModelHandler.sendMessage(message);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

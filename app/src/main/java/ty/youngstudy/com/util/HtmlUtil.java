@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import org.htmlparser.Node;
 import org.htmlparser.NodeFilter;
 import org.htmlparser.nodes.TagNode;
+import org.htmlparser.nodes.TextNode;
 import org.htmlparser.util.NodeList;
 
 import java.io.IOException;
@@ -32,6 +33,26 @@ public class HtmlUtil {
 
         }
         return null;
+    }
+
+    public static String parseContent(Node node) {
+        String content = "";
+        int size = node.getChildren().size();
+        for (int i = 0; i < size; i++) {
+            // System.out.println(node.getChildren().elementAt(i).getClass().getName());
+            Node cn = node.getChildren().elementAt(i);
+            if (cn instanceof TextNode) {
+                content += cn.toPlainTextString().replace("&nbsp;", " ");
+//					System.out.println(cn.toPlainTextString());
+            } else if (cn instanceof TagNode) {
+                TagNode tn = (TagNode) cn;
+                if ("br".equalsIgnoreCase(tn.getTagName())) {
+                    content += "\n";
+                }
+                // System.out.println(tn.getTagName());
+            }
+        }
+        return content;
     }
 
     public static TagNode getFirstNodeByAttr(Node parent,String tag,String ...attr) {

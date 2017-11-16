@@ -1,5 +1,6 @@
 package ty.youngstudy.com.ttzw;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.htmlparser.util.ParserException;
@@ -9,8 +10,7 @@ import java.net.URI;
 import ty.youngstudy.com.bean.Novels;
 import ty.youngstudy.com.reader.DataInterface;
 import ty.youngstudy.com.reader.NovelDetail;
-
-import static ty.youngstudy.com.ttzw.TTZWUtil.TTZW_BASE_URL;
+import ty.youngstudy.com.util.HtmlUtil;
 
 /**
  * Created by edz on 2017/8/11.
@@ -25,6 +25,17 @@ public class TTZWDataImpl implements DataInterface{
         return TTZWUtil.getTTZWSortKindNovels(url);
     }
 
+    @Override
+    public String getChapterContent(String url) throws ParserException {
+        System.out.println("url = " + url);
+        String html = HtmlUtil.readHtml(url);
+        if(TextUtils.isEmpty(html)) {
+            html = url;
+        }
+        return TTZWUtil.getChapterContent(html);
+        //return TTZWManager.getChapterContent(html);
+    }
+
     public NovelDetail getNovelDetail(String url) throws ParserException {
         Log.i(TAG,"getNovelDetail");
 
@@ -34,7 +45,7 @@ public class TTZWDataImpl implements DataInterface{
         if(host.startsWith("m")) {
             detail =  TTZWUtil.getTTZWNovelDetail(url);
             if(detail.getChapters() == null) {
-                detail.setChapters(TTZWUtil.getNovelChapers(TTZW_BASE_URL,detail.getChapterUrl(),TAG));
+                detail.setChapters(TTZWUtil.getNovelChapers(url,detail.getChapterUrl(),TAG));
             }
         } else {
             //detail = TTZWManager.getNovelDetailByMeta(url,getTag());

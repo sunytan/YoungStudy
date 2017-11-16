@@ -45,7 +45,7 @@ public class TTZWUtil {
         List<Chapter> chapters = new ArrayList<Chapter>();
         Parser parser = new Parser(source);
         NodeList nodeList = parser
-                .parse(new TagAttrFilter("DIV", "id", "chapterlist"));
+                .parse(new TagAttrFilter("div", "id", "chapterlist"));
         nodeList = nodeList.extractAllNodesThatMatch(new TagNameFilter("p"),
                 true);
         int size = nodeList.size();
@@ -61,9 +61,23 @@ public class TTZWUtil {
             chapters.add(chapter);
 //			System.out.println(chapter);
         }
+        Log.d(TAG,chapters.get(0).toString());
         return chapters;
     }
 
+    public static String getChapterContent(String source) throws ParserException {
+        Parser parser = new Parser(source);
+        NodeList nodeList = parser.parse(new TagAttrFilter("DIV", "id",
+                "chaptercontent"));
+        String content = "";
+        if (nodeList.size() != 0) {
+            Node node = nodeList.elementAt(0);
+            // chapter.setContent(node.toPlainTextString());
+            content = HtmlUtil.parseContent(node);
+        }
+        // System.out.println(chapter.getContent());
+        return content;
+    }
 
     public static NovelDetail getTTZWNovelDetail(String url) throws ParserException {
         Novel novel = new Novel();
