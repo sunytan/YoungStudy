@@ -5,6 +5,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.cache.DataCacheManager;
 import com.netease.nim.uikit.cache.TeamDataCache;
 import com.netease.nim.uikit.chatroom.ChatRoomSessionCustomization;
@@ -30,6 +31,7 @@ import com.netease.nim.uikit.plugin.LocationProvider;
 import com.netease.nim.uikit.plugin.LoginSyncDataStatusObserver;
 import com.netease.nim.uikit.plugin.OnlineStateChangeListener;
 import com.netease.nim.uikit.plugin.OnlineStateContentProvider;
+import com.netease.nim.uikit.session.AvatarEventListener;
 import com.netease.nim.uikit.session.RecentCustomization;
 import com.netease.nim.uikit.session.SessionCustomization;
 import com.netease.nim.uikit.session.SessionEventListener;
@@ -156,6 +158,7 @@ public final class NimUIKitImpl {
         loginRequest.setCallback(new RequestCallback<LoginInfo>() {
             @Override
             public void onSuccess(LoginInfo loginInfo) {
+                Log.d("tanyangyx","account = "+loginInfo.getAccount());
                 NimUIKitImpl.setAccount(loginInfo.getAccount());
                 DataCacheManager.buildDataCacheAsync();
                 getImageLoaderKit().buildImageCache();
@@ -242,6 +245,20 @@ public final class NimUIKitImpl {
             customization, IMMessage anchor) {
         if (sessionType == SessionTypeEnum.P2P) {
             P2PMessageActivity.start(context, id, customization, anchor);
+            //yang.tan 增加头像点击事件
+            NimUIKit.setSessionListener(new AvatarEventListener());
+            NimUIKit.setMsgRevokeFilter(new MsgRevokeFilter() {
+                @Override
+                public boolean shouldIgnore(IMMessage message) {
+                    return false;
+                }
+            });
+            NimUIKit.setMsgForwardFilter(new MsgForwardFilter() {
+                @Override
+                public boolean shouldIgnore(IMMessage message) {
+                    return false;
+                }
+            });
         } else if (sessionType == SessionTypeEnum.Team) {
             TeamMessageActivity.start(context, id, customization, null, anchor);
         }
@@ -324,6 +341,7 @@ public final class NimUIKitImpl {
     }
 
     public static void setAccount(String account) {
+        Log.d("tanyangyx1","account = "+account);
         NimUIKitImpl.account = account;
     }
 
@@ -418,6 +436,7 @@ public final class NimUIKitImpl {
     }
 
     public static String getAccount() {
+        Log.d("tanyangyx2","account = "+account);
         return account;
     }
 }

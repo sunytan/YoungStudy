@@ -4,6 +4,8 @@ package ty.youngstudy.com.ui.fragment.reader;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.util.LruCache;
 import android.util.Log;
@@ -23,8 +25,8 @@ import io.reactivex.subjects.PublishSubject;
 import ty.youngstudy.com.R;
 import ty.youngstudy.com.adapter.SortKindAdapter;
 import ty.youngstudy.com.bean.Novels;
-import ty.youngstudy.com.reader.manager.DataQueryManager;
 import ty.youngstudy.com.reader.NovelTotleInfo;
+import ty.youngstudy.com.reader.manager.DataQueryManager;
 import ty.youngstudy.com.ui.activity.reader.OneKindNovelActivity;
 import ty.youngstudy.com.ui.fragment.base.BaseListFragment;
 
@@ -43,6 +45,7 @@ public class SortKindFragment extends BaseListFragment {
     private String[] kind = new String[12];
     private static ListView myView;
     String[] url = new String[12];
+    public Handler handler;
 
     private static LruCache<String,ArrayList> cache = new LruCache<>(20);
 
@@ -50,7 +53,11 @@ public class SortKindFragment extends BaseListFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        handler = new Handler();
+        Message message = new Message();
     }
+
+
 
     @Override
     public void onAttach(Activity activity) {
@@ -60,10 +67,6 @@ public class SortKindFragment extends BaseListFragment {
         subject.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new MyObserver<Novels>());
-        // Bundle bundle = new Bundle();
-        // bundle.putParcelableArrayList("data",mData);
-        // setArguments(bundle);
-
     }
 
     @Override

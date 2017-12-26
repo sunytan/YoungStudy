@@ -151,7 +151,7 @@ public class SplashActivity extends BaseActivity {
         }
         mHandler.sendEmptyMessageDelayed(GO_LOGIN,3000);
         if (UserManager.getInstance().init()){
-             UserManager.getInstance().loginYX(UserManager.getYx_account(), UserManager.getYx_token(), new UserManager.UserListener() {
+             UserManager.getInstance().loginYX(UserManager.getInstance().getInstance().getYx_account(), UserManager.getInstance().getYx_token(), new UserManager.UserListener() {
                   @Override
                   public void onSuccess() {
                        loginSuccess = true;

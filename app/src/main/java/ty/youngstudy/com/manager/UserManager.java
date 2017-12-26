@@ -36,14 +36,14 @@ public class UserManager {
     private static final String TAG = "UserManager";
     private static UserManager instance = null;
 
-    private static String user_name;
-    private static String user_pwd;
-    private static String user_nick;
-    private static BmobFile user_head;
-    private static String user_email;
-    private static String user_addr;
-    private static String yx_account;
-    private static String yx_token;
+    private String user_name;
+    private String user_pwd;
+    private String user_nick;
+    private BmobFile user_head;
+    private String user_email;
+    private String user_addr;
+    private String yx_account;
+    private String yx_token;
 
     private static Person myPerson = null;
 
@@ -268,16 +268,12 @@ public class UserManager {
     }
 
     // 更新云信名片信息
-    public void updateYX(String accid, String nick, NimHttpClient.NimHttpCallback callback){
+    public void updateYX(String accid, String nick,String headicon, NimHttpClient.NimHttpCallback callback){
         String nonce = String.valueOf(new Random(99999).nextInt());
         String currentTime = String.valueOf((new Date()).getTime() / 1000L);
         String checkSum = CheckSumBuilder.getCheckSum(YX_APP_SECRET,nonce,currentTime);
 
-        try {
-            nick = URLEncoder.encode(nick,"UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+
         Map<String,String> header = new HashMap<>(1);
         header.put("Content-Type",CONTENT_TYPE);
         header.put("AppKey",YX_APP_KEY);
@@ -286,8 +282,18 @@ public class UserManager {
         header.put("CheckSum",checkSum);
 
         StringBuilder body = new StringBuilder();
-        body.append("accid").append("=").append(accid.toLowerCase()).append("&")
-                .append("name").append("=").append(nick);
+        body.append("accid").append("=").append(accid.toLowerCase());
+        if (nick != null){
+            try {
+                nick = URLEncoder.encode(nick,"UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            body.append("&").append("name").append("=").append(nick);
+        }
+        if (headicon!=null) {
+            body.append("&").append("icon").append("=").append(headicon);
+        }
         String bodyString = body.toString();
         NimHttpClient.getInstance().execute(yx_update_url,header,bodyString,true,callback);
     }
@@ -313,6 +319,7 @@ public class UserManager {
         user_nick = myPerson.getUser_nick();
         yx_account = myPerson.getYx_account();
         yx_token = myPerson.getYx_token();
+        Log.d(TAG,"yx_account ="+yx_account+",,,yx_token= "+yx_token);
         return true;
     }
 
@@ -335,63 +342,63 @@ public class UserManager {
         return instance;
     }
 
-    public static void setUser_name(String name){
+    public void setUser_name(String name){
         user_name = name;
     }
 
-    public static String getUser_name() {
+    public String getUser_name() {
         return user_name;
     }
 
-    public static void setUser_pwd(String user_pwd) {
-        UserManager.user_pwd = user_pwd;
+    public void setUser_pwd(String user_pwd) {
+        this.user_pwd = user_pwd;
     }
 
-    public static void setUser_nick(String user_nick) {
-        UserManager.user_nick = user_nick;
+    public void setUser_nick(String user_nick) {
+        this.user_nick = user_nick;
     }
 
-    public static String getUser_nick() {
+    public String getUser_nick() {
         return user_nick;
     }
 
-    public static void setUser_head(BmobFile user_head) {
-        UserManager.user_head = user_head;
+    public void setUser_head(BmobFile user_head) {
+        this.user_head = user_head;
     }
 
-    public static BmobFile getUser_head() {
+    public BmobFile getUser_head() {
         return user_head;
     }
 
-    public static void setUser_email(String user_email) {
-        UserManager.user_email = user_email;
+    public void setUser_email(String user_email) {
+        this.user_email = user_email;
     }
 
-    public static String getUser_email() {
+    public String getUser_email() {
         return user_email;
     }
 
-    public static void setUser_addr(String user_addr) {
-        UserManager.user_addr = user_addr;
+    public void setUser_addr(String user_addr) {
+        this.user_addr = user_addr;
     }
 
-    public static String getUser_addr() {
+    public String getUser_addr() {
         return user_addr;
     }
 
-    public static void setYx_account(String yx_account) {
-        UserManager.yx_account = yx_account;
+    public void setYx_account(String yx_account) {
+        this.yx_account = yx_account;
     }
 
-    public static String getYx_account() {
+    public String getYx_account() {
         return yx_account;
     }
 
-    public static void setYx_token(String yx_token) {
-        UserManager.yx_token = yx_token;
+    public void setYx_token(String yx_token) {
+        this.yx_token = yx_token;
     }
 
-    public static String getYx_token() {
+    public String getYx_token() {
         return yx_token;
     }
 }

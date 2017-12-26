@@ -27,6 +27,7 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.netease.nim.uikit.NimUIKit;
+import com.netease.nim.uikit.common.http.NimHttpClient;
 import com.netease.nim.uikit.common.ui.imageview.CircleImageView;
 import com.netease.nim.uikit.contact.ContactsFragment;
 import com.netease.nim.uikit.recent.RecentContactsFragment;
@@ -193,7 +194,7 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
         circleImageView = (CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.headerImgView);
         tv_nav_Name = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_nav_name);
-        tv_nav_Name.setText(UserManager.getUser_nick());
+        tv_nav_Name.setText(UserManager.getInstance().getUser_nick());
         person_info_layout = (RelativeLayout) navigationView.getHeaderView(0).findViewById(R.id.nav_person_info_layout);
         person_info_layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,9 +202,9 @@ public class MainActivity extends BaseActivity
                 readyGo(UserInfoActivity.class);
             }
         });
-        BmobFile head = UserManager.getUser_head();
+        BmobFile head = UserManager.getInstance().getUser_head();
         if (head != null) {
-            String url = UserManager.getUser_head().getUrl();
+            String url = UserManager.getInstance().getUser_head().getUrl();
             Log.d(TAG, "url = " + url);
             try {
                 Glide.with(MainActivity.this).load(url).into(circleImageView);
@@ -341,14 +342,24 @@ public class MainActivity extends BaseActivity
                         circleImageView.setImageBitmap(bmp);
                         File file =new File(cutPath);
                         final BmobFile bmobFile = new BmobFile(file);
-                        UserManager.setUser_head(bmobFile);
+                        UserManager.getInstance().setUser_head(bmobFile);
                         UserManager.getInstance().upload(MainActivity.this, new UserManager.UserListener() {
                             @Override
                             public void onSuccess() {
-                                String url = bmobFile.getFileUrl();
-                                showToast("上传成功：Fileurl = "+url+",name = "+bmobFile.getFilename()+",local file = "+bmobFile.getLocalFile()
-                                +",url = "+bmobFile.getUrl());
-
+                                final String url = bmobFile.getFileUrl();
+                                String accid = UserManager.getInstance().getYx_account();
+                                Log.d(TAG,"accid = "+accid);
+                                UserManager.getInstance().updateYX(UserManager.getInstance().getYx_account(), null, bmobFile.getUrl().toString(), new NimHttpClient.NimHttpCallback() {
+                                    @Override
+                                    public void onResponse(String response, int code, Throwable e) {
+                                        if (code == 200) {
+                                            showToast("上传成功：Fileurl = "+url+",name = "+bmobFile.getFilename()+",local file = "+bmobFile.getLocalFile()
+                                                    +",url = "+bmobFile.getUrl());
+                                        } else {
+                                            showToast("上传失败：code = "+code+",,e ="+e.toString());
+                                        }
+                                    }
+                                });
                             }
                             @Override
                             public void onFailed(BmobException e) {

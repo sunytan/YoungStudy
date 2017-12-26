@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
@@ -47,7 +48,6 @@ import com.netease.nimlib.sdk.ResponseCode;
 import com.netease.nimlib.sdk.msg.MessageBuilder;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
-import com.netease.nimlib.sdk.msg.attachment.AudioAttachment;
 import com.netease.nimlib.sdk.msg.attachment.FileAttachment;
 import com.netease.nimlib.sdk.msg.constant.AttachStatusEnum;
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum;
@@ -191,11 +191,12 @@ public class MessageListPanelEx {
     private OnItemClickListener listener = new OnItemClickListener() {
         @Override
         public void onItemClick(IRecyclerView adapter, View view, int position) {
-
+            Log.d("tanyangclick1","pos = "+position);
         }
 
         @Override
         public void onItemLongClick(IRecyclerView adapter, View view, int position) {
+            Log.d("tanyanglongclick1","pos = "+position);
         }
 
         @Override

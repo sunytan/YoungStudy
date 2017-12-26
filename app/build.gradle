@@ -30,7 +30,11 @@ android {
     }
 
     sourceSets.main {
-        jniLibs.srcDirs = ['libs']
+        if (product == 1) {
+            jniLibs.srcDirs = ['lib-robot2']
+        } else {
+            jniLibs.srcDirs = ['libs']
+        }
     }
 
 }
