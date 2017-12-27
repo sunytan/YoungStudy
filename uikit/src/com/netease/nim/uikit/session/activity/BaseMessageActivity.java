@@ -86,11 +86,12 @@ public abstract class BaseMessageActivity extends UI {
         }
 
         LinearLayout view = (LinearLayout) LayoutInflater.from(activity).inflate(R.layout.nim_action_bar_custom_view, null);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ScreenUtil.dip2px(42), ViewGroup.LayoutParams.MATCH_PARENT);
         for (final SessionCustomization.OptionsButton button : buttons) {
             ImageView imageView = new ImageView(activity);
             imageView.setImageResource(button.iconId);
             imageView.setBackgroundResource(R.drawable.nim_nim_action_bar_button_selector);
+            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
             imageView.setPadding(ScreenUtil.dip2px(10), 0, ScreenUtil.dip2px(10), 0);
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override

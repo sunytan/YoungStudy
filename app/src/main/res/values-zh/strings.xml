@@ -34,4 +34,8 @@
     <string name="removeshelft">移出书架</string>
     <string name="addshelft">加入书架</string>
 
+    <string name="message_history_query">云消息记录</string>
+    <string name="message_search_title">搜索本地消息记录</string>
+    <string name="message_clear">清空本地消息记录</string>
+    <string name="message_info">聊天信息</string>
 </resources>

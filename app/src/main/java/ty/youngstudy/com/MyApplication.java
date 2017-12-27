@@ -34,6 +34,7 @@ import ty.youngstudy.com.ttzw.SourceSelector;
 import ty.youngstudy.com.util.NovelFileUtils;
 import ty.youngstudy.com.util.SharedPreferencesUtil;
 import ty.youngstudy.com.util.SystemUtil;
+import ty.youngstudy.com.yuxin.session.SessionHelper;
 
 /**
  * Created by edz on 2017/8/1.
@@ -108,6 +109,7 @@ public class MyApplication extends Application {
             PinYin.init(this);
             PinYin.validate();
             initYunXin();
+            SessionHelper.init();
         }
 
         SourceSelector.init();
