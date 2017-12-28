@@ -104,7 +104,6 @@ public class WatchMessagePictureActivity extends UI {
 
         ToolBarOptions options = new ToolBarOptions();
         options.titleString = "图片";
-        options.navigateId = R.drawable.nim_actionbar_white_back_icon;
         setToolBar(R.id.toolbar, options);
 
         handleIntent();

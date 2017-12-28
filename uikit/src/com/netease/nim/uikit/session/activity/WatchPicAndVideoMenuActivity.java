@@ -52,7 +52,7 @@ public class WatchPicAndVideoMenuActivity extends UI {
 
         ToolBarOptions options = new ToolBarOptions();
         options.titleId = R.string.pic_and_video;
-        options.navigateId = R.drawable.nim_actionbar_white_back_icon;
+        options.navigateId = R.drawable.nim_actionbar_dark_back_icon;
         setToolBar(R.id.toolbar, options);
 
         message = (IMMessage) getIntent().getSerializableExtra(EXTRA_MESSAGE);
