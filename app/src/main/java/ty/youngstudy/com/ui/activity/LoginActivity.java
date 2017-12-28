@@ -32,6 +32,7 @@ import ty.youngstudy.com.manager.UserManager;
 import ty.youngstudy.com.ui.activity.base.BaseActivity;
 import ty.youngstudy.com.ui.view.layout.BalloonRelativeLayout;
 import ty.youngstudy.com.ui.view.layout.CustomVideoView;
+import ty.youngstudy.com.yuxin.DemoCache;
 
 public class LoginActivity extends BaseActivity
         implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
@@ -203,6 +204,7 @@ public class LoginActivity extends BaseActivity
             @Override
             public void onSuccess() {
                 showToast("登录成功");
+                DemoCache.setAccount(name.toLowerCase());
                 onLoginDone();
                 if (editor != null){
                     editor.putString("account",name);

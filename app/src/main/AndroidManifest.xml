@@ -41,11 +41,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:largeHeap="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+        android:configChanges="keyboardHidden|orientation">
         <activity
             android:name=".ui.activity.SplashActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppStartLoadTransluent">
+            android:theme="@style/AppStartLoadTransluent"
+            android:configChanges="keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -54,22 +56,29 @@
         </activity>
         <activity
             android:name=".ui.activity.MainActivity"
+            android:configChanges="keyboardHidden|orientation"
             android:theme="@style/MainActivityStyle"/>
-        <activity android:name=".ui.activity.FirstActivity"/>
-        <activity android:name=".ui.activity.LoginActivity"/>
+        <activity android:name=".ui.activity.FirstActivity"
+                  android:configChanges="keyboardHidden|orientation"/>
+        <activity android:name=".ui.activity.LoginActivity"
+                  android:configChanges="keyboardHidden|orientation"/>
         <activity
             android:name=".ui.activity.reader.NovelMainActivity"
+            android:configChanges="keyboardHidden|orientation"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ui.activity.reader.OneKindNovelActivity"
+            android:configChanges="keyboardHidden|orientation"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ui.activity.reader.NovelDetailActivity"
+            android:configChanges="keyboardHidden|orientation"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".ui.activity.reader.NovelReadActivity"
+            android:configChanges="keyboardHidden|orientation"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar"/>
 
@@ -81,12 +90,29 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".ui.activity.RegisterActivity">
+        <activity android:name=".ui.activity.RegisterActivity"
+                  android:configChanges="keyboardHidden|orientation">
         </activity>
         <activity
             android:name=".ui.activity.UserInfoActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="keyboardHidden|orientation">
         </activity>
+
+        <activity
+            android:name=".yuxin.session.activity.MessageInfoActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            ></activity>
+
+        <activity android:name=".yuxin.contact.activity.UserProfileActivity"
+                  android:configChanges="keyboardHidden|orientation"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar"
+                  android:windowSoftInputMode="stateHidden|adjustResize"
+            ></activity>
 
         <!-- 声明网易云通信后台服务，如需保持后台推送，使用独立进程效果会更好。 -->
         <service

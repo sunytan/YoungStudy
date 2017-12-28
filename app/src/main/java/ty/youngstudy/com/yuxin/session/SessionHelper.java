@@ -44,6 +44,7 @@ import java.util.List;
 
 import ty.youngstudy.com.R;
 import ty.youngstudy.com.yuxin.DemoCache;
+import ty.youngstudy.com.yuxin.session.activity.MessageInfoActivity;
 import ty.youngstudy.com.yuxin.session.extension.CustomAttachParser;
 import ty.youngstudy.com.yuxin.session.extension.RedPacketAttachment;
 import ty.youngstudy.com.yuxin.session.extension.SnapChatAttachment;
@@ -179,7 +180,7 @@ public class SessionHelper {
                 @Override
                 public void onClick(Context context, View view, String sessionId) {
                     // TODO: 2017/12/27 聊天信息 
-//                    MessageInfoActivity.startActivity(context, sessionId); //打开聊天信息
+                    MessageInfoActivity.startActivity(context, sessionId); //打开聊天信息
                 }
             };
 

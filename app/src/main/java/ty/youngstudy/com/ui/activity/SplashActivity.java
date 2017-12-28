@@ -30,6 +30,7 @@ import ty.youngstudy.com.Bmob.ArticleBean;
 import ty.youngstudy.com.R;
 import ty.youngstudy.com.manager.UserManager;
 import ty.youngstudy.com.ui.activity.base.BaseActivity;
+import ty.youngstudy.com.yuxin.DemoCache;
 
 public class SplashActivity extends BaseActivity {
 
@@ -154,7 +155,8 @@ public class SplashActivity extends BaseActivity {
              UserManager.getInstance().loginYX(UserManager.getInstance().getInstance().getYx_account(), UserManager.getInstance().getYx_token(), new UserManager.UserListener() {
                   @Override
                   public void onSuccess() {
-                       loginSuccess = true;
+                      DemoCache.setAccount(UserManager.getInstance().getYx_account());
+                      loginSuccess = true;
                   }
                   @Override
                   public void onFailed(BmobException e) {
