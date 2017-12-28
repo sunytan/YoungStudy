@@ -1,5 +1,17 @@
 package ty.youngstudy.com.ui.activity;
 
+import java.io.File;
+import java.util.List;
+
+import org.json.JSONArray;
+
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,27 +19,22 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-
-import java.io.File;
-import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.QueryListener;
-import ty.youngstudy.com.Bmob.ArticleBean;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import ty.youngstudy.com.R;
+import ty.youngstudy.com.Bmob.ArticleBean;
 import ty.youngstudy.com.manager.UserManager;
 import ty.youngstudy.com.ui.activity.base.BaseActivity;
 import ty.youngstudy.com.yuxin.DemoCache;
@@ -44,6 +51,20 @@ public class SplashActivity extends BaseActivity {
     private boolean loginSuccess = false;
 
     private static final String BMOB_CACHE_PATH = Environment.getDownloadCacheDirectory()+"/bmob/";
+    private RxPermissions rxPermissions;
+
+    /**
+     * 基本权限管理
+     */
+    private final String[] BASIC_PERMISSIONS = new String[]{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
 
     @Override
     public View getLoadingView() {
@@ -69,6 +90,7 @@ public class SplashActivity extends BaseActivity {
         }
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
+        rxPermissions = new RxPermissions(SplashActivity.this);
         final SharedPreferences sp1 = getSharedPreferences("UserInfo_sp", Context.MODE_PRIVATE);
         String headpath = sp1.getString("headfile","");
         File file = new File(headpath);
@@ -146,26 +168,48 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (getFirstStart()) {
-            mHandler.sendEmptyMessageDelayed(GO_FIRST,3000);
-            return;
-        }
-        mHandler.sendEmptyMessageDelayed(GO_LOGIN,3000);
-        if (UserManager.getInstance().init()){
-             UserManager.getInstance().loginYX(UserManager.getInstance().getInstance().getYx_account(), UserManager.getInstance().getYx_token(), new UserManager.UserListener() {
-                  @Override
-                  public void onSuccess() {
-                      DemoCache.setAccount(UserManager.getInstance().getYx_account());
-                      loginSuccess = true;
-                  }
-                  @Override
-                  public void onFailed(BmobException e) {
-                       loginSuccess = false;
-                  }
-             });
-        } else {
-            loginSuccess = false;
-        }
+        rxPermissions.requestEach(BASIC_PERMISSIONS).subscribe(new Observer<Permission>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(Permission permission) {
+                if (!permission.granted){
+                    Log.d("requestPermission",permission.name+" not granted");
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("requestPermission","error = "+e.toString());
+            }
+
+            @Override
+            public void onComplete() {
+                if (getFirstStart()) {
+                    mHandler.sendEmptyMessageDelayed(GO_FIRST,3000);
+                    return;
+                }
+                mHandler.sendEmptyMessageDelayed(GO_LOGIN,3000);
+                if (UserManager.getInstance().init()){
+                    UserManager.getInstance().loginYX(UserManager.getInstance().getInstance().getYx_account(), UserManager.getInstance().getYx_token(), new UserManager.UserListener() {
+                        @Override
+                        public void onSuccess() {
+                            DemoCache.setAccount(UserManager.getInstance().getYx_account());
+                            loginSuccess = true;
+                        }
+                        @Override
+                        public void onFailed(BmobException e) {
+                            loginSuccess = false;
+                        }
+                    });
+                } else {
+                    loginSuccess = false;
+                }
+            }
+        });
     }
 
     @Override
