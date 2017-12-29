@@ -58,6 +58,7 @@ public abstract class UI extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        LogUtil.ui("activity: " + getClass().getSimpleName() + " onResume()");
         super.onResume();
     }
 

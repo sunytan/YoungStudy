@@ -12,6 +12,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -46,6 +47,7 @@ import ty.youngstudy.com.manager.UserManager;
 import ty.youngstudy.com.ui.activity.base.BaseActivity;
 import ty.youngstudy.com.ui.activity.reader.NovelMainActivity;
 import ty.youngstudy.com.ui.fragment.TabFragment;
+import ty.youngstudy.com.yuxin.contact.activity.FindPeopleActivity;
 
 
 public class MainActivity extends BaseActivity
@@ -66,6 +68,7 @@ public class MainActivity extends BaseActivity
     private CircleImageView circleImageView;
     private TextView tv_nav_Name;
     private TextView tv_nav_Email;
+    private SearchView searchView;
     private RelativeLayout person_info_layout;
     private ArrayList<Fragment> mFragmentList;
     private ArrayList<String> mTitleList;
@@ -244,9 +247,16 @@ public class MainActivity extends BaseActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_find_people) {
-            NimUIKit.startP2PSession(MainActivity.this,"18251821329");
-            return true;
+        switch (id){
+            case R.id.search_btn:
+                // TODO: 2017/12/29 进入联系搜索界面
+                break;
+            case R.id.action_find_people:
+                FindPeopleActivity.start(MainActivity.this);
+                break;
+            default:
+                break;
+        
         }
 
         return super.onOptionsItemSelected(item);

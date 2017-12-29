@@ -4,7 +4,7 @@
                                    android:id="@+id/novel_bar"
                                    android:layout_width="match_parent"
                                    android:layout_height="?attr/actionBarSize"
-                                   app:navigationIcon="@mipmap/back"
+                                   app:navigationIcon="@drawable/nim_actionbar_dark_back_icon"
                                    android:background="?attr/colorPrimary">
 
 </android.support.v7.widget.Toolbar>

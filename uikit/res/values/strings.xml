@@ -131,7 +131,7 @@
     <string name="team_invite">邀请他人权限</string>
     <string name="team_info_update">群资料修改权限</string>
     <string name="team_invitee_authentication">被邀请人身份验证</string>
-    <string name="create_team">创建群</string>
+    <string name="create_team">创建</string>
     <string name="over_team_member_capacity">邀请失败，成员人数上限为%1$d人</string>
     <string name="over_team_capacity">创建失败，创建群数量达到限制</string>
     <string name="create_team_failed">创建失败</string>

@@ -6,9 +6,10 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
+
+import com.netease.nim.uikit.common.activity.UI;
 
 import butterknife.ButterKnife;
 import ty.youngstudy.com.MyApplication;
@@ -18,14 +19,18 @@ import ty.youngstudy.com.ui.view.base.BaseView;
  * Created by edz on 2017/7/20.
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements BaseView {
+public abstract class BaseActivity extends UI implements BaseView {
     public BaseActivity() {
         super();
     }
 
-    public abstract View getLoadingView();
+    public View getLoadingView(){
+        return null;
+    }
 
-    public abstract boolean getFirstStart();
+    public boolean getFirstStart(){
+        return false;
+    }
 
     public abstract void initViewAndEvents();
 
@@ -66,7 +71,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     protected void showToast(String msg){
         if (msg != null) {
-            Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
+            Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
         }
     }
 

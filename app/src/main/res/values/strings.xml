@@ -26,8 +26,8 @@
     <string name="author">Author:</string>
 
     <!--添加-->
-    <string name="find_people">Find people</string>
-
+    <string name="find_people">添加朋友</string>
+    <string name="create_normal_team">创建讨论组</string>
 
     <!--小说类别名-->
     <string name="xuanhuan">玄幻奇幻</string>

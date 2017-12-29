@@ -1,9 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id="@+id/action_find_people"
-        android:orderInCategory="100"
-        android:title="@string/find_people"
-        app:showAsAction="never" />
+        android:id="@+id/search_btn"
+        android:icon="@drawable/nim_search"
+        android:title=""
+        app:showAsAction="always|collapseActionView"/>
+
+    <item
+        android:id="@+id/welcome_menu"
+        android:icon="@drawable/add"
+        android:title=""
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_find_people"
+                android:orderInCategory="60"
+                android:title="@string/find_people"
+                android:icon="@drawable/add_friend"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/create_team"
+                android:orderInCategory="60"
+                android:title="@string/create_normal_team"
+                app:actionLayout="@layout/menu_item_add"
+                app:showAsAction="never" />
+        </menu>
+
+    </item>
+
 </menu>
