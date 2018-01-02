@@ -48,6 +48,7 @@ import ty.youngstudy.com.ui.activity.base.BaseActivity;
 import ty.youngstudy.com.ui.activity.reader.NovelMainActivity;
 import ty.youngstudy.com.ui.fragment.TabFragment;
 import ty.youngstudy.com.yuxin.contact.activity.FindPeopleActivity;
+import ty.youngstudy.com.zxing.CaptureActivity;
 
 
 public class MainActivity extends BaseActivity
@@ -253,6 +254,10 @@ public class MainActivity extends BaseActivity
                 break;
             case R.id.action_find_people:
                 FindPeopleActivity.start(MainActivity.this);
+                break;
+            case R.id.scan:
+                Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
+                startActivityForResult(intent,1);
                 break;
             default:
                 break;

@@ -25,8 +25,16 @@
                 android:id="@+id/create_team"
                 android:orderInCategory="60"
                 android:title="@string/create_normal_team"
-                app:actionLayout="@layout/menu_item_add"
+                android:icon="@drawable/create_team"
                 app:showAsAction="never" />
+
+            <item
+                android:id="@+id/scan"
+                android:orderInCategory="60"
+                android:title="@string/scan"
+                android:icon="@drawable/barcode_scan"
+                app:showAsAction="never"
+                />
         </menu>
 
     </item>
