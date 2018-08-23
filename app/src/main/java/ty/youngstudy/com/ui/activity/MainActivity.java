@@ -49,6 +49,7 @@ import ty.youngstudy.com.ui.activity.reader.NovelMainActivity;
 import ty.youngstudy.com.ui.fragment.TabFragment;
 import ty.youngstudy.com.yuxin.contact.activity.FindPeopleActivity;
 import ty.youngstudy.com.zxing.CaptureActivity;
+import ty.youngstudy.com.zxing.Intents;
 
 
 public class MainActivity extends BaseActivity
@@ -57,6 +58,7 @@ public class MainActivity extends BaseActivity
     private static final String TAG = "MainActivity";
 
     private static long DOUBLE_CLICK_TIME = 0L;
+    private final static int SCAN_RESULT = 100;
     private TabLayout mTabLayout;
     private ViewPager frg_viewPager;
     private List<UserInfo> userInfos;
@@ -257,7 +259,11 @@ public class MainActivity extends BaseActivity
                 break;
             case R.id.scan:
                 Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
-                startActivityForResult(intent,1);
+                intent.setAction(Intents.Scan.ACTION);
+                intent.putExtra(Intents.Scan.CAMERA_ID,0);
+                intent.putExtra(Intents.Scan.HEIGHT,500);
+                intent.putExtra(Intents.Scan.WIDTH,500);
+                startActivityForResult(intent,SCAN_RESULT);
                 break;
             default:
                 break;
@@ -388,6 +394,13 @@ public class MainActivity extends BaseActivity
                     // 3.media.getCompressPath();为压缩后 path，需判断 media.isCompressed();是否为 true
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                     Log.i("tanyang", "onActivityResult:" + selectList.size());
+                    break;
+                case SCAN_RESULT:
+                    Log.d(TAG,"结束");
+                    String result = data.getStringExtra(Intents.Scan.RESULT);
+                    String format = data.getStringExtra(Intents.Scan.RESULT_FORMAT);
+                    Log.d(TAG,"result = "+result + ",,,format = "+format);
+
                     break;
             }
         }

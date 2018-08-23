@@ -183,6 +183,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/linkageapp/LinkageApp.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../Robot2s/app/src/main/java/com/flyingwings/cn/robot2s/app/musicapp/MusicApp.java">
           <value>
             <set />
@@ -604,6 +609,191 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../Robot2s/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot2s/config.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/assets_r3/configs.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/assets_r3/resXml3/angry_v.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/assets_r3/resXml3/angry_v_1920.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot/interaction/networkconfig/WifiConfigFragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot/service/robotconfigservice/RobotConfigHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/app/activeremindapp/ActiveRemindApp.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/app/activeremindapp/bean/RemindStatus.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/app/activeremindapp/constant/ActiveRemindSig.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/app/activeremindapp/handler/ActiveRemindHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/app/chatapp/reconstruct/messagequeue/MessageQueue.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/app/chatapp/reconstruct/modules/chatapp/ChatApp.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/app/chatapp/reconstruct/modules/voicerecognzie/ifly/IflyVoiceRecognzie.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/app/chatapp/reconstruct/modules/wakeup/robot3/WakeUp.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/app/gtddapp/GtdApp.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/app/idleapp/IdleAppMsgHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/app/netconfigapp/NetConfigAppTopics.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/app/summonapp/SummonApp.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/dros/core/RobotRtcCallBack.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/robot/RobotBase.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/robot/RobotManager.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/robot/RobotService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/robot/RobotServiceManager.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/service/comBridge/serial/SerialCommunicator.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/service/robotconfigservice/ConfigParameter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/service/robotconfigservice/Configs.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/service/robotconfigservice/RobotConfigHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/service/robotconfigservice/RobotConfigService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/service/robotmodeservice/RobotModeService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/ui/MainActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/ui/UIService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/ui/weilathreeui/mainface/MainFaceViewFragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/java/com/flyingwings/cn/robot2s/ui/weilathreeui/mainfuction/circlefunctionview/MainFuncMenuLayout.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Robot3/app/src/main/res/values/strings.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../RobotBase/robotbase/build.gradle">
           <value>
             <set />
           </value>
@@ -1104,6 +1294,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../motion_wl3_faceui/app/src/main/res/layout/activity_robot_test.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../weila3_android/app/src/main/res/layout/layout_imgview_point.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../weila3_android/app/src/main/res/values-zh/strings.xml">
           <value>
             <set />
           </value>
