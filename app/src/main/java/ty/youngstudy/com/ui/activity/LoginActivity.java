@@ -3,8 +3,7 @@ package ty.youngstudy.com.ui.activity;
 
 import java.util.ArrayList;
 
-import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
-import com.netease.nimlib.sdk.AbortableFuture;
+//import com.netease.nimlib.sdk.AbortableFuture;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,13 +31,14 @@ import ty.youngstudy.com.manager.UserManager;
 import ty.youngstudy.com.ui.activity.base.BaseActivity;
 import ty.youngstudy.com.ui.view.layout.BalloonRelativeLayout;
 import ty.youngstudy.com.ui.view.layout.CustomVideoView;
-import ty.youngstudy.com.yuxin.DemoCache;
+
+import static cn.bmob.v3.Bmob.getApplicationContext;
 
 public class LoginActivity extends BaseActivity
         implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
 
     private ArrayList<LoginInfo> loginAccount = new ArrayList<LoginInfo>();
-    private AbortableFuture<LoginInfo> loginRequest;
+//    private AbortableFuture<LoginInfo> loginRequest;
     private SharedPreferences sp = null;
     SharedPreferences.Editor editor = null;
     private EditText edt_login_name;
@@ -189,22 +189,12 @@ public class LoginActivity extends BaseActivity
 
 
     private void loginAccount(){
-        DialogMaker.showProgressDialog(this, null, "登录中", true, new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                if (loginRequest != null) {
-                    loginRequest.abort();
-                    onLoginDone();
-                }
-            }
-        }).setCanceledOnTouchOutside(false);
         final String name = edt_login_name.getText().toString();
         String pwd = edt_login_pwd.getText().toString();
         UserManager.getInstance().login(name, pwd, new UserManager.UserListener() {
             @Override
             public void onSuccess() {
                 showToast("登录成功");
-                DemoCache.setAccount(name.toLowerCase());
                 onLoginDone();
                 if (editor != null){
                     editor.putString("account",name);
@@ -222,8 +212,7 @@ public class LoginActivity extends BaseActivity
     }
 
     private void onLoginDone() {
-        loginRequest = null;
-        DialogMaker.dismissProgressDialog();
+//        loginRequest = null;
     }
 
     @Override

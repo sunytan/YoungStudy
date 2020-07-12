@@ -1,12 +1,12 @@
 package ty.youngstudy.com.database;
 
-import org.litepal.crud.DataSupport;
+import org.litepal.crud.LitePalSupport;
 
 /**
  * Created by edz on 2017/10/27.
  */
 
-public class UserInfo extends DataSupport {
+public class UserInfo extends LitePalSupport {
     private String userName;
     private String userPwd;
     private byte[] userHead;

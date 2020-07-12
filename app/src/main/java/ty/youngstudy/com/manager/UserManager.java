@@ -3,12 +3,6 @@ package ty.youngstudy.com.manager;
 import android.content.Context;
 import android.util.Log;
 
-import com.netease.nim.uikit.NimUIKit;
-import com.netease.nim.uikit.common.http.NimHttpClient;
-import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
-import com.netease.nimlib.sdk.RequestCallback;
-import com.netease.nimlib.sdk.auth.LoginInfo;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Date;
@@ -60,7 +54,6 @@ public class UserManager {
 
 
     private UserManager(){
-        NimHttpClient.getInstance().init(MyApplication.getInstance().getContext());
     }
 
 
@@ -83,33 +76,11 @@ public class UserManager {
     }
 
     public void loginYX(String accid,String token,final UserListener listener){
-        NimUIKit.login(new LoginInfo(accid, token), new RequestCallback<LoginInfo>() {
-            @Override
-            public void onSuccess(LoginInfo loginInfo) {
-
-                if (listener != null) {
-                    listener.onSuccess();
-                }
-            }
-
-            @Override
-            public void onFailed(int i) {
-                Log.e(TAG,"登录云信失败 , code = "+i);
-                logOut();
-            }
-
-            @Override
-            public void onException(Throwable throwable) {
-                Log.e(TAG,"登录云信异常 , throwable = "+throwable);
-                logOut();
-            }
-        });
     }
 
     // 退出登录当前账号封装
     public void logOut(){
         BmobUser.logOut();
-        NimUIKit.logout();
         release();
         MyApplication.getInstance().exit();
     }
@@ -139,43 +110,14 @@ public class UserManager {
     }
 
     public void upload(final Context context, final UserListener listener){
-        DialogMaker.showProgressDialog(context,"上传图片中：",true);
         user_head.uploadblock(new UploadFileListener() {
             @Override
             public void done(BmobException e) {
-                DialogMaker.dismissProgressDialog();
-                if (e == null) {
-                    Log.d(TAG,"上传成功：Fileurl = "+user_head.getUrl()+",name = "+user_head.getFilename()+",local file = "+user_head.getLocalFile());
-                    myPerson.setUser_headicon(user_head);
-                    myPerson.update(myPerson.getObjectId(), new UpdateListener() {
-                        @Override
-                        public void done(BmobException e) {
-                            if (e == null) {
-                                Log.d(TAG,"上穿成功2");
-
-                            }
-                            else {
-                                Log.d(TAG,"上传失败 = "+e.toString());
-                            }
-                        }
-                    });
-                    if (listener != null) {
-                        listener.onSuccess();
-                    }
-                } else {
-                    if (listener != null) {
-                        listener.onFailed(e);
-                    }
-                }
             }
 
             @Override
             public void onProgress(Integer value) {
                 super.onProgress(value);
-                if (DialogMaker.isShowing()) {
-                    DialogMaker.updateLoadingMessage("上传图片中："+value);
-
-                }
             }
 
             @Override
@@ -242,62 +184,6 @@ public class UserManager {
     }*/
 
     //创建网易云信账号和 token
-    public void createYX(String name,String nickname, NimHttpClient.NimHttpCallback callback){
-        String nonce = String.valueOf(new Random(99999).nextInt());
-        String currentTime = String.valueOf((new Date()).getTime() / 1000L);
-        String checkSum = CheckSumBuilder.getCheckSum(YX_APP_SECRET,nonce,currentTime);
-
-        try {
-            nickname = URLEncoder.encode(nickname,"UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        Map<String,String> header = new HashMap<>(1);
-        header.put("Content-Type",CONTENT_TYPE);
-        header.put("AppKey",YX_APP_KEY);
-        header.put("Nonce",nonce);
-        header.put("CurTime",currentTime);
-        header.put("CheckSum",checkSum);
-
-        StringBuilder body = new StringBuilder();
-        body.append("accid").append("=").append(name.toLowerCase()).append("&")
-                .append("name").append("=").append(nickname);
-        String bodyString = body.toString();
-        Log.d(TAG,"createYx = "+bodyString);
-        NimHttpClient.getInstance().execute(yx_create_url,header,bodyString,true,callback);
-    }
-
-    // 更新云信名片信息
-    public void updateYX(String accid, String nick,String headicon, NimHttpClient.NimHttpCallback callback){
-        String nonce = String.valueOf(new Random(99999).nextInt());
-        String currentTime = String.valueOf((new Date()).getTime() / 1000L);
-        String checkSum = CheckSumBuilder.getCheckSum(YX_APP_SECRET,nonce,currentTime);
-
-
-        Map<String,String> header = new HashMap<>(1);
-        header.put("Content-Type",CONTENT_TYPE);
-        header.put("AppKey",YX_APP_KEY);
-        header.put("Nonce",nonce);
-        header.put("CurTime",currentTime);
-        header.put("CheckSum",checkSum);
-
-        StringBuilder body = new StringBuilder();
-        body.append("accid").append("=").append(accid.toLowerCase());
-        if (nick != null){
-            try {
-                nick = URLEncoder.encode(nick,"UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            body.append("&").append("name").append("=").append(nick);
-        }
-        if (headicon!=null) {
-            body.append("&").append("icon").append("=").append(headicon);
-        }
-        String bodyString = body.toString();
-        NimHttpClient.getInstance().execute(yx_update_url,header,bodyString,true,callback);
-    }
-
 
 
     public interface UserListener{

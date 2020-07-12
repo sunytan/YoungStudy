@@ -10,17 +10,6 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechUtility;
-import com.netease.nim.uikit.NimUIKit;
-import com.netease.nim.uikit.common.util.sys.ScreenUtil;
-import com.netease.nim.uikit.contact.core.query.PinYin;
-import com.netease.nimlib.sdk.NIMClient;
-import com.netease.nimlib.sdk.SDKOptions;
-import com.netease.nimlib.sdk.StatusBarNotificationConfig;
-import com.netease.nimlib.sdk.auth.LoginInfo;
-import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
-import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
 
 import org.litepal.LitePal;
 
@@ -34,7 +23,6 @@ import ty.youngstudy.com.ttzw.SourceSelector;
 import ty.youngstudy.com.util.NovelFileUtils;
 import ty.youngstudy.com.util.SharedPreferencesUtil;
 import ty.youngstudy.com.util.SystemUtil;
-import ty.youngstudy.com.yuxin.session.SessionHelper;
 
 /**
  * Created by edz on 2017/8/1.
@@ -104,12 +92,8 @@ public class MyApplication extends Application {
         //initIat();
 
         //初始化云信即时通讯
-        NIMClient.init(this,null,options());
+//        NIMClient.init(this,null,options());
         if (inMainProcess()) {
-            PinYin.init(this);
-            PinYin.validate();
-            initYunXin();
-            SessionHelper.init();
         }
 
         SourceSelector.init();
@@ -140,10 +124,7 @@ public class MyApplication extends Application {
     }
 
     private void initIat(){
-        SpeechUtility.createUtility(mContext, SpeechConstant.APPID+"="+IAT_APP_ID+","
-                +SpeechConstant.ENGINE_MODE+"="+SpeechConstant.MODE_MSC+","
-                +SpeechConstant.ENGINE_TYPE+"="+SpeechConstant.TYPE_LOCAL+","
-                +SpeechConstant.LIB_NAME+"="+"libmsc.so");
+
     }
 
     public boolean inMainProcess() {
@@ -152,80 +133,77 @@ public class MyApplication extends Application {
         return packageName.equals(processName);
     }
 
-    private LoginInfo getLoginInfo() {
-        String account = "null";
-        String token = "null";
+//    private LoginInfo getLoginInfo() {
+//        String account = "null";
+//        String token = "null";
+//
+//        if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(token)) {
+//            return new LoginInfo(account, token);
+//        } else {
+//            return null;
+//        }
+//    }
 
-        if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(token)) {
-            return new LoginInfo(account, token);
-        } else {
-            return null;
-        }
-    }
 
-    private void initYunXin(){
-        NimUIKit.init(this);
-    }
-
-    private SDKOptions options(){
-        SDKOptions options = new SDKOptions();
-        options.appKey = YX_APP_KEY;
-
-        StatusBarNotificationConfig config = new StatusBarNotificationConfig();
-/*        config.notificationEntrance = WelcomeActivity.class; // 点击通知栏跳转到该Activity
-        config.notificationSmallIconId = R.drawable.ic_stat_notify_msg;*/
-        // 呼吸灯配置
-        config.ledARGB = Color.GREEN;
-        config.ledOnMs = 1000;
-        config.ledOffMs = 1500;
-        // 通知铃声的uri字符串
-        config.notificationSound = "android.resource://com.netease.nim.demo/raw/msg";
-        options.statusBarNotificationConfig = config;
-
-        // 配置保存图片，文件，log 等数据的目录
-        // 如果 options 中没有设置这个值，SDK 会使用下面代码示例中的位置作为 SDK 的数据目录。
-        // 该目录目前包含 log, file, image, audio, video, thumb 这6个目录。
-        // 如果第三方 APP 需要缓存清理功能， 清理这个目录下面个子目录的内容即可。
-        String sdkPath = Environment.getExternalStorageDirectory() + "/" + getPackageName() + "/nim";
-        options.sdkStorageRootPath = sdkPath;
-
-        // 配置是否需要预下载附件缩略图，默认为 true
-        options.preloadAttach = true;
-
-        // 配置附件缩略图的尺寸大小。表示向服务器请求缩略图文件的大小
-        // 该值一般应根据屏幕尺寸来确定， 默认值为 Screen.width / 2
-        options.thumbnailSize = ScreenUtil.screenWidth / 2;
-
-        // 用户资料提供者, 目前主要用于提供用户资料，用于新消息通知栏中显示消息来源的头像和昵称
-        options.userInfoProvider = new UserInfoProvider() {
-            @Override
-            public UserInfo getUserInfo(String account) {
-                return null;
-            }
-
-            @Override
-            public int getDefaultIconResId() {
-                return R.drawable.nim_avatar_default;
-            }
-
-            @Override
-            public Bitmap getTeamIcon(String tid) {
-                return null;
-            }
-
-            @Override
-            public Bitmap getAvatarForMessageNotifier(String account) {
-                return null;
-            }
-
-            @Override
-            public String getDisplayNameForMessageNotifier(String account, String sessionId,
-                                                           SessionTypeEnum sessionType) {
-                return null;
-            }
-        };
-        return options;
-    }
+//    private SDKOptions options(){
+//        SDKOptions options = new SDKOptions();
+//        options.appKey = YX_APP_KEY;
+//
+//        StatusBarNotificationConfig config = new StatusBarNotificationConfig();
+///*        config.notificationEntrance = WelcomeActivity.class; // 点击通知栏跳转到该Activity
+//        config.notificationSmallIconId = R.drawable.ic_stat_notify_msg;*/
+//        // 呼吸灯配置
+//        config.ledARGB = Color.GREEN;
+//        config.ledOnMs = 1000;
+//        config.ledOffMs = 1500;
+//        // 通知铃声的uri字符串
+//        config.notificationSound = "android.resource://com.netease.nim.demo/raw/msg";
+//        options.statusBarNotificationConfig = config;
+//
+//        // 配置保存图片，文件，log 等数据的目录
+//        // 如果 options 中没有设置这个值，SDK 会使用下面代码示例中的位置作为 SDK 的数据目录。
+//        // 该目录目前包含 log, file, image, audio, video, thumb 这6个目录。
+//        // 如果第三方 APP 需要缓存清理功能， 清理这个目录下面个子目录的内容即可。
+//        String sdkPath = Environment.getExternalStorageDirectory() + "/" + getPackageName() + "/nim";
+//        options.sdkStorageRootPath = sdkPath;
+//
+//        // 配置是否需要预下载附件缩略图，默认为 true
+//        options.preloadAttach = true;
+//
+//        // 配置附件缩略图的尺寸大小。表示向服务器请求缩略图文件的大小
+//        // 该值一般应根据屏幕尺寸来确定， 默认值为 Screen.width / 2
+//        options.thumbnailSize = ScreenUtil.screenWidth / 2;
+//
+//        // 用户资料提供者, 目前主要用于提供用户资料，用于新消息通知栏中显示消息来源的头像和昵称
+//        options.userInfoProvider = new UserInfoProvider() {
+//            @Override
+//            public UserInfo getUserInfo(String account) {
+//                return null;
+//            }
+//
+//            @Override
+//            public int getDefaultIconResId() {
+//                return R.drawable.nim_avatar_default;
+//            }
+//
+//            @Override
+//            public Bitmap getTeamIcon(String tid) {
+//                return null;
+//            }
+//
+//            @Override
+//            public Bitmap getAvatarForMessageNotifier(String account) {
+//                return null;
+//            }
+//
+//            @Override
+//            public String getDisplayNameForMessageNotifier(String account, String sessionId,
+//                                                           SessionTypeEnum sessionType) {
+//                return null;
+//            }
+//        };
+//        return options;
+//    }
 
 
     public Context getContext() {

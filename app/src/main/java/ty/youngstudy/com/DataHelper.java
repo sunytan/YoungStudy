@@ -2,7 +2,7 @@ package ty.youngstudy.com;
 
 import android.graphics.Bitmap;
 
-import org.litepal.crud.DataSupport;
+import org.litepal.Operator;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
@@ -27,7 +27,7 @@ public class DataHelper {
         bitmap.compress(Bitmap.CompressFormat.PNG,100,baos);
         byte[] bytes = baos.toByteArray();
         UserInfo userInfo = null;
-        List<UserInfo> userInfoList = DataSupport.where("userName = ?",userName).find(UserInfo.class);
+        List<UserInfo> userInfoList = Operator.where("userName = ?",userName).find(UserInfo.class);
         if (userInfoList == null || userInfoList.size() == 0) {
             userInfo = new UserInfo();
             userInfo.setUserName(userName);
@@ -42,7 +42,7 @@ public class DataHelper {
 
     public static List<Chapter> queryNovelChapterList(int bookid) {
         List<Chapter> chapters = new ArrayList<>();
-        List<ChapterDB> chapterDBs = DataSupport.where("book_id = ?",String.valueOf(bookid)).find(ChapterDB.class);
+        List<ChapterDB> chapterDBs = Operator.where("book_id = ?",String.valueOf(bookid)).find(ChapterDB.class);
         for (ChapterDB chapterDB : chapterDBs) {
             Chapter chapter = new Chapter();
             chapter.setTitle(chapterDB.getChapter_title());
@@ -57,7 +57,7 @@ public class DataHelper {
 
     public static void updateReadtime(int bookid) {
         String date = getCurrentReadTimeString();
-        BookShelftDB bookShelftDB = DataSupport.where("book_id = ?",String.valueOf(bookid)).findFirst(BookShelftDB.class);
+        BookShelftDB bookShelftDB = Operator.where("book_id = ?",String.valueOf(bookid)).findFirst(BookShelftDB.class);
         if (bookShelftDB != null) {
             bookShelftDB.setReadtime(date);
             bookShelftDB.save();
@@ -136,7 +136,7 @@ public class DataHelper {
 
 
     public static boolean setCurrentReadChapterPosition(int bookid, int p) {
-        BookShelftDB bookShelftDB = DataSupport.where("book_id = ?",String.valueOf(bookid)).findFirst(BookShelftDB.class);
+        BookShelftDB bookShelftDB = Operator.where("book_id = ?",String.valueOf(bookid)).findFirst(BookShelftDB.class);
         boolean saveSuccess = false;
         if (bookShelftDB != null) {
             bookShelftDB.setCurrent_chapterposition(p);

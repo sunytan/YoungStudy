@@ -1,12 +1,12 @@
 package ty.youngstudy.com.database;
 
-import org.litepal.crud.DataSupport;
+import org.litepal.crud.LitePalSupport;
 
 /**
  * Created by edz on 2017/11/15.
  */
 
-public class ChapterDB extends DataSupport{
+public class ChapterDB extends LitePalSupport {
 
     private int book_id;
     private String chapter_title;

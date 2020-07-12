@@ -27,11 +27,6 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.netease.nim.uikit.NimUIKit;
-import com.netease.nim.uikit.common.http.NimHttpClient;
-import com.netease.nim.uikit.common.ui.imageview.CircleImageView;
-import com.netease.nim.uikit.contact.ContactsFragment;
-import com.netease.nim.uikit.recent.RecentContactsFragment;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,7 +42,6 @@ import ty.youngstudy.com.manager.UserManager;
 import ty.youngstudy.com.ui.activity.base.BaseActivity;
 import ty.youngstudy.com.ui.activity.reader.NovelMainActivity;
 import ty.youngstudy.com.ui.fragment.TabFragment;
-import ty.youngstudy.com.yuxin.contact.activity.FindPeopleActivity;
 import ty.youngstudy.com.zxing.CaptureActivity;
 import ty.youngstudy.com.zxing.Intents;
 
@@ -68,7 +62,7 @@ public class MainActivity extends BaseActivity
     int[] tabDrawList = new int[]{R.drawable.selector_tab_weixin, R.drawable.selector_tab_find,
             R.drawable.selector_tab_friend, R.drawable.selector_tab_me};
 
-    private CircleImageView circleImageView;
+    private ImageView circleImageView;
     private TextView tv_nav_Name;
     private TextView tv_nav_Email;
     private SearchView searchView;
@@ -101,9 +95,9 @@ public class MainActivity extends BaseActivity
         /*for (int i = 0; i < mTitleList.size(); i++) {
             mFragmentList.add(TabFragment.newInstance(i));
         }*/
-        mFragmentList.add(new RecentContactsFragment());
+//        mFragmentList.add(new RecentContactsFragment());
         mFragmentList.add(TabFragment.newInstance(1));
-        mFragmentList.add(new ContactsFragment());
+//        mFragmentList.add(new ContactsFragment());
         mFragmentList.add(TabFragment.newInstance(3));
 
         adapter = new FragmentAdapter(getSupportFragmentManager(),mFragmentList,mTitleList);
@@ -198,7 +192,7 @@ public class MainActivity extends BaseActivity
     public void initViewAndEvents() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        circleImageView = (CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.headerImgView);
+        circleImageView = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.headerImgView);
         tv_nav_Name = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_nav_name);
         tv_nav_Name.setText(UserManager.getInstance().getUser_nick());
         person_info_layout = (RelativeLayout) navigationView.getHeaderView(0).findViewById(R.id.nav_person_info_layout);
@@ -255,7 +249,7 @@ public class MainActivity extends BaseActivity
                 // TODO: 2017/12/29 进入联系搜索界面
                 break;
             case R.id.action_find_people:
-                FindPeopleActivity.start(MainActivity.this);
+//                FindPeopleActivity.start(MainActivity.this);
                 break;
             case R.id.scan:
                 Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
@@ -344,7 +338,7 @@ public class MainActivity extends BaseActivity
     protected void onDestroy() {
         super.onDestroy();
         // 退出云信
-        NimUIKit.logout();
+//        NimUIKit.logout();
     }
 
     @Override
@@ -370,17 +364,6 @@ public class MainActivity extends BaseActivity
                                 final String url = bmobFile.getFileUrl();
                                 String accid = UserManager.getInstance().getYx_account();
                                 Log.d(TAG,"accid = "+accid);
-                                UserManager.getInstance().updateYX(UserManager.getInstance().getYx_account(), null, bmobFile.getUrl().toString(), new NimHttpClient.NimHttpCallback() {
-                                    @Override
-                                    public void onResponse(String response, int code, Throwable e) {
-                                        if (code == 200) {
-                                            showToast("上传成功：Fileurl = "+url+",name = "+bmobFile.getFilename()+",local file = "+bmobFile.getLocalFile()
-                                                    +",url = "+bmobFile.getUrl());
-                                        } else {
-                                            showToast("上传失败：code = "+code+",,e ="+e.toString());
-                                        }
-                                    }
-                                });
                             }
                             @Override
                             public void onFailed(BmobException e) {

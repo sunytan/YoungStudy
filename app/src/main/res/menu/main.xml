@@ -4,13 +4,13 @@
 
     <item
         android:id="@+id/search_btn"
-        android:icon="@drawable/nim_search"
+        android:icon="@drawable/action_bar_search_view_icon"
         android:title=""
         app:showAsAction="always|collapseActionView"/>
 
     <item
         android:id="@+id/welcome_menu"
-        android:icon="@drawable/add"
+        android:icon="@drawable/nim_ic_message_actionbar_p2p_add"
         android:title=""
         app:showAsAction="always">
         <menu>
@@ -18,21 +18,21 @@
                 android:id="@+id/action_find_people"
                 android:orderInCategory="60"
                 android:title="@string/find_people"
-                android:icon="@drawable/add_friend"
+                android:icon="@drawable/icon_audio"
                 app:showAsAction="never" />
 
             <item
                 android:id="@+id/create_team"
                 android:orderInCategory="60"
                 android:title="@string/create_normal_team"
-                android:icon="@drawable/create_team"
+                android:icon="@drawable/ic_checked"
                 app:showAsAction="never" />
 
             <item
                 android:id="@+id/scan"
                 android:orderInCategory="60"
                 android:title="@string/scan"
-                android:icon="@drawable/barcode_scan"
+                android:icon="@drawable/sel_qq"
                 app:showAsAction="never"
                 />
         </menu>

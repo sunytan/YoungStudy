@@ -1,12 +1,12 @@
 package ty.youngstudy.com.database;
 
-import org.litepal.crud.DataSupport;
+import org.litepal.crud.LitePalSupport;
 
 /**
  * Created by edz on 2017/11/15.
  */
 
-public class BooksDB extends DataSupport {
+public class BooksDB extends LitePalSupport {
 
     private String author;
     private String name;
