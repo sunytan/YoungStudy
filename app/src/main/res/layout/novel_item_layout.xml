@@ -138,7 +138,7 @@
                 android:visibility="gone"
                 android:orientation="horizontal">
 
-                <ty.youngstudy.com.ui.widget.DownLoadText
+                <com.young.study.ui.widget.DownLoadText
                     android:id="@+id/tv_download"
                     android:layout_width="0dp"
                     android:layout_height="30dp"

@@ -15,18 +15,18 @@
     </array>
 
     <string-array name="sort_urls">
-        <item >http://m.ttzw.com/class/1/1.html</item>
-        <item >http://m.ttzw.com/class/2/1.html</item>
-        <item >http://m.ttzw.com/class/3/1.html</item>
-        <item >http://m.ttzw.com/class/4/1.html</item>
-        <item >http://m.ttzw.com/class/5/1.html</item>
-        <item >http://m.ttzw.com/class/6/1.html</item>
-        <item >http://m.ttzw.com/class/7/1.html</item>
-        <item >http://m.ttzw.com/class/66/1.html</item>
-        <item >http://m.ttzw.com/class/59/1.html</item>
-        <item >http://m.ttzw.com/class/89/1.html</item>
-        <item >http://m.ttzw.com/class/90/1.html</item>
-        <item >http://m.ttzw.com/class/91/1.html</item>
+        <item >https://m.ttzw.com/class/1/1.html</item>
+        <item >https://m.ttzw.com/class/2/1.html</item>
+        <item >https://m.ttzw.com/class/3/1.html</item>
+        <item >https://m.ttzw.com/class/4/1.html</item>
+        <item >https://m.ttzw.com/class/5/1.html</item>
+        <item >https://m.ttzw.com/class/6/1.html</item>
+        <item >https://m.ttzw.com/class/7/1.html</item>
+        <item >https://m.ttzw.com/class/66/1.html</item>
+        <item >https://m.ttzw.com/class/59/1.html</item>
+        <item >https://m.ttzw.com/class/89/1.html</item>
+        <item >https://m.ttzw.com/class/90/1.html</item>
+        <item >https://m.ttzw.com/class/91/1.html</item>
     </string-array>
 
     <string-array name="sort_novel_kind">

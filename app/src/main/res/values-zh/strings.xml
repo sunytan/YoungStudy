@@ -113,4 +113,6 @@
     <string name="head_update_failed">头像设置失败，请重试</string>
     <string name="nickname_empty">昵称不能为空</string>
     <string name="scan">扫一扫</string>
+    <string name="app_name">青春有你</string>
+    <string name="action_settings">设置</string>
 </resources>

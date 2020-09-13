@@ -5,7 +5,7 @@
 
     <include layout="@layout/novel_toolbar"/>
 
-    <ty.youngstudy.com.widget.LoadingView
+    <com.young.study.widget.LoadingView
         android:id="@+id/loadView"
         android:paddingTop="?attr/actionBarSize"
         android:layout_width="match_parent"

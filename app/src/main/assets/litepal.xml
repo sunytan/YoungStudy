@@ -32,10 +32,10 @@
         </list>
     -->
     <list>
-        <mapping class = "ty.youngstudy.com.database.UserInfo"></mapping>
-        <mapping class = "ty.youngstudy.com.database.ChapterDB"></mapping>
-        <mapping class = "ty.youngstudy.com.database.BookShelftDB"></mapping>
-        <mapping class = "ty.youngstudy.com.database.BooksDB"></mapping>
+        <mapping class = "com.young.study.database.UserInfo"></mapping>
+        <mapping class = "com.young.study.database.ChapterDB"></mapping>
+        <mapping class = "com.young.study.database.BookShelftDB"></mapping>
+        <mapping class = "com.young.study.database.BooksDB"></mapping>
     </list>
 
     <!--

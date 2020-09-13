@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="ty.youngstudy.com.ui.activity.RegisterActivity">
+    tools:context="com.young.study.ui.activity.RegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

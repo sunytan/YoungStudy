@@ -5,7 +5,7 @@
     android:id="@+id/app_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ty.youngstudy.com.ui.activity.SplashActivity"
+    tools:context="com.young.study.ui.activity.SplashActivity"
     android:background="@android:color/white">
 
     <ImageView
